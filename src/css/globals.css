@@ -15,10 +15,7 @@
 
 * {
   box-sizing: border-box;
-  /* white-space: pre-wrap;
-  overflow-wrap: break-word;
-  word-break: break-word;
-  hyphens: auto; */
+ 
   @apply transition-all duration-200 ease-linear;
 }
 @font-face {
@@ -37,4 +34,11 @@
     url("/fonts/Boska-Regular.woff2") format("woff2");
   /* font-weight: 500; */
   font-display: swap;
+}
+
+.kina-wrap{
+   white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
 }

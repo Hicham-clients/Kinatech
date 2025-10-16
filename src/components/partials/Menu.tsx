@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 const data = {
   parent: "phones & tablete",
-  products: ["wwwww", "eeeeee", "rrrrrrrr", "22222"],
+  products: ["Téléphone Samsung Galaxy", "Iphone 17 Pro", "rrrrrrrr", "22222"],
   childrens: [
     {
       categorie: "phones",
@@ -138,14 +138,15 @@ const Menu = () => {
               <SearchInput />
             </div>
             <div className=" flexCenter relative">
-              <button
+              <Link 
+              href={'/cart'}
                 className="text-4xl
                         text-white-hover
 
             "
               >
                 <Icon name="ShoppingBag" />
-              </button>
+              </Link>
               <span
                 className="bg-second absolute -top-2 -left-2  rounded-full h-5 w-5 p-3 text-xs  flexCenter
             bg-second-hover
@@ -181,7 +182,7 @@ const Menu = () => {
               </li>
             ))}
 
-            <li className="h-10 bg-grey w-0.5 " />
+            <li className="h-10 bg-grey w-[0.05rem] " />
             <li className="text-sm underline-hover">
               <Link href={""}>Tous nos produits</Link>
             </li>
@@ -194,14 +195,14 @@ const Menu = () => {
 
                 setItemhover(null);
               }}
-              className="absolute z-50 text-blk bg-white border-t  shadow-xl top-full left-0 w-full overflow-auto h-[350px] flex justify-center gap-x-24 p-padding"
+              className="absolute z-50 text-blk bg-white border-t  shadow-xl shadow-[#eee] top-full left-0 w-full overflow-auto h-[350px] flex justify-center gap-x-24 p-padding"
             >
               {
                 <div className="flex flex-col gap-y-5">
                   <h1 className="text-grey tracking-wide capitalize ">
                     {data.parent}
                   </h1>
-                  <div>
+                  <div className="flex flex-col gap-y-2">
                     {data.products.map((pro, i) => {
                       return (
                         <Link
@@ -223,7 +224,7 @@ const Menu = () => {
                     <h1 className="text-grey tracking-wide capitalize ">
                       {item.categorie}
                     </h1>
-                    <div>
+                  <div className="flex flex-col gap-y-2">
                       {item.products.map((pro, i) => {
                         return (
                           <Link
@@ -251,7 +252,7 @@ const Menu = () => {
             initial={{ x: "-90%" }}
             exit={{ x: "-90%", opacity: 0 }}
             animate={{ x: "0%" }}
-            className="bg-blk  fixed top-0 left-0 w-2/3 h-screen overflow-y-auto 
+            className="bg-blk z-[999999999]  fixed top-0 left-0 w-2/3 h-screen overflow-y-auto 
      lg:hidden
      "
           >

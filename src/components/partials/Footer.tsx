@@ -1,0 +1,147 @@
+"use client";
+
+import Link from "next/link";
+import {
+  FacebookLogo,
+  IconWeight,
+  InstagramLogo,
+  LinkedinLogo,
+} from "phosphor-react";
+const iconsize: { size: string; weight: IconWeight } = {
+  size: "1.75rem",
+  weight: "regular",
+};
+const social: { name: string; url: string; icon: any; color: string }[] = [
+  {
+    name: "Facebook",
+    url: "",
+    icon: <FacebookLogo {...iconsize} />,
+    color: "blue",
+  },
+  {
+    name: "Instagram",
+    url: "",
+    icon: <InstagramLogo {...iconsize} />,
+    color: "purple",
+  },
+  {
+    name: "LinkedIn",
+    url: "",
+    icon: <LinkedinLogo {...iconsize} />,
+    color: "blue",
+  },
+];
+
+const contact = [
+  "kinatech.maroc@gmail.com",
+  "kinatech@kinatech.ma",
+  "(+212) 5 22 35 69 69 ",
+  "(+212) 5 22 67 20 01 ",
+];
+
+const Title = ({ value }: { value: string }) => {
+  return (
+    <h1 className="text-left 2xl:text-lg font-B capitalize   tracking-wider  font-semibold ">
+      {value}
+    </h1>
+  );
+};
+
+const Footer = () => {
+  return (
+    <footer className="cursor-context-menu border-t  bg-white    text-black  md:p-5 md:py-16 font-A">
+      <div className="flex p-5 lg:px-20    flex-col gap-y-20 kinatech-container ">
+        <div className="flex  flex-col gap-y-10 md:flex-row justify-between  ">
+          <div className="flex  flex-col gap-y-4  w-fit">
+            <Title value="Kinatech" />
+            <div className="flex  items-center gap-x-2 text-sm  max-w-xs   md:items-start">
+              L’équipe KINATECH est composée d’ingénieurs et de techniciens
+              hautement qualifiés dans les nouvelles technologies. On vous offre
+              un large choix de matériel de haute qualité à des prix
+              abordables....
+            </div>
+          </div>
+
+          <div className="flex  flex-col gap-y-4  w-fit">
+            <Title value="quick likns" />
+            <div className="flex flex-col   gap-y-2  items-start md:items-start">
+              {["Qui sommes nous", "Nos produits", "Nos promotions","Marques","contactez nous"].map(
+                (item, index) => (
+                  <Link
+                    key={index}
+                    href={item}
+                    className="underline-hover text-sm capitalize 2xl:text-base transitionclass text-main-hover  "
+                  >
+                    {item}
+                  </Link>
+                )
+              )}
+            </div>
+          </div>
+          <div className="flex  flex-col gap-y-4  w-fit">
+            <Title value="Catégories" />
+            <div className="flex flex-col   gap-y-2  items-start md:items-start">
+              {["Qui sommes nous", "nos produits", "nos promotions"].map(
+                (item, index) => (
+                  <Link
+                    key={index}
+                    href={item}
+                    className="underline-hover text-sm capitalize 2xl:text-base transitionclass text-main-hover  "
+                  >
+                    {item}
+                  </Link>
+                )
+              )}
+            </div>
+          </div>
+
+          <div className="flex  flex-col gap-y-4  w-fit">
+            <Title value="contact" />
+            <ul className="flex flex-col   w-fit  md:items-start gap-y-2  ">
+              {contact.map((item, index) => {
+                return (
+                  <Link
+                    href={item.includes("@") ? `mailto:${item}` : `tel:${item}`}
+                    className="text-sm underline-hover 2xl:text-base transitionclass text-main-hover  "
+                    key={index}
+                  >
+                    {item}
+                  </Link>
+                );
+              })}
+            </ul>
+              <ul className="flex  text-xl gap-x-6 ">
+            {social.map((item) => {
+              return (
+                <li
+                  className={`hover:text-[${item.color}] transitionclass  hover:text-main hover:scale-[1.1]`}
+                  key={item.name}
+                  title={item.name}
+                >
+                  <a target="_blank" href={item.url}>
+                    {item.icon}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+          </div>
+        </div>
+
+        <div className="flex sm:flex-row flex-col-reverse gap-y-2    justify-between items-center">
+          <div className=" text-sm">
+            Tous droits reservés. Kinatech {new Date().getFullYear()} &copy;
+          </div>
+           <a
+          href="https://www.elloutfi.com"
+          className=" group transitionclass hover:underline hover:opacity-100  opacity-80 text-sm flex justify-center items-start "
+        >
+          Dévelopé par: elloutfi.com
+        </a>
+        </div>
+     
+      </div>
+    </footer>
+  );
+};
+export default Footer;

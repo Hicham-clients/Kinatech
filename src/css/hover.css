@@ -9,5 +9,11 @@
   @apply sm:hover:text-main active:text-main
 }
 .underline-hover{
-  @apply sm:hover:underline active:underline
+  @apply sm:hover:underline active:underline; 
+}
+.scale-minus-hover{
+  @apply sm:hover:scale-95 active:scale-95; 
+}
+.bg-black-hover {
+  @apply sm:hover:bg-[#000] active:bg-black;
 }

@@ -1,3 +1,4 @@
+import Brands from "./_components/brands"
 import Hero from "./_components/Hero"
 
 const Home = () => {
@@ -5,7 +6,6 @@ const Home = () => {
     <>
 
 <Hero/> 
-
 </>)
 }
 export default Home
