@@ -1,20 +1,25 @@
 :root {
   --main: #0c549f;
-  --second: #c800ff;
-  --mainHover: #103c6b;
-  --secondHover: #6a0e83;
+  --second: #ffb300;
   --wt: #fff;
-  --blk: #212121;
-  --grey: rgb(50, 50, 50);
+  --blk: #151515;
+  --grey: rgb(149, 149, 149);
+  --mainHover: #103c6b;
+  --secondHover: #c68d0a;
+  --whiteHover: #ffffffaf;
+
+  --paddingPhone: 1.25rem;
+  --paddingPC: 5rem;
+  --padding: 1rem; 
 }
 
 * {
   box-sizing: border-box;
-  /* letter-spacing: 0.1px; */
-  white-space: pre-wrap;
+  /* white-space: pre-wrap;
   overflow-wrap: break-word;
   word-break: break-word;
-  hyphens: auto;
+  hyphens: auto; */
+  @apply transition-all duration-200 ease-linear;
 }
 @font-face {
   font-family: "Satoshi";

@@ -1,0 +1,13 @@
+.bg-second-hover {
+  @apply sm:hover:bg-secondHover active:bg-secondHover;
+}
+.text-white-hover{
+  @apply sm:hover:text-[#ffffffaf] active:text-[#ffffffaf]
+
+}
+.text-main-hover{
+  @apply sm:hover:text-main active:text-main
+}
+.underline-hover{
+  @apply sm:hover:underline active:underline
+}

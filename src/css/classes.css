@@ -1,3 +1,9 @@
 .transitionclass{
     @apply transition-all duration-200 ease-linear;
 }
+.kinatech-container{
+    @apply container mx-auto
+}
+.flexCenter{
+@apply flex items-center justify-center
+}
