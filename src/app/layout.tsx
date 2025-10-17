@@ -19,7 +19,7 @@ export default function RootLayout({
         <header>
           <Menu />
         </header>
-        <main>{children}</main>
+        <main className="min-h-[80vh]">{children}</main>
 
         <footer>
           <Brands/>

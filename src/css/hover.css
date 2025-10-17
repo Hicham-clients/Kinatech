@@ -16,4 +16,8 @@
 }
 .bg-black-hover {
   @apply sm:hover:bg-[#000] active:bg-black;
+
+}
+.bg-main-hover {
+  @apply sm:hover:bg-mainHover active:bg-mainHover;
 }

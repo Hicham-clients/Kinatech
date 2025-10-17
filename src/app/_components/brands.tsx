@@ -8,7 +8,7 @@ const Brands = () => {
   return (
     <div className="p-6 lg:px-12 border-t">
       <Swiper
-        className="overflow-visible"
+        className="overflow-visible kinatech-container"
         modules={[Navigation, Pagination]}
         // navigation
         loop
