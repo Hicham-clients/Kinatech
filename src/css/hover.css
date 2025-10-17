@@ -4,6 +4,9 @@
 .text-white-hover{
   @apply sm:hover:text-[#ffffffaf] active:text-[#ffffffaf]
 
+}.text-fff-hover{
+  @apply sm:hover:text-white active:text-white
+
 }
 .text-main-hover{
   @apply sm:hover:text-main active:text-main

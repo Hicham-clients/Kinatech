@@ -184,7 +184,7 @@ const Menu = () => {
 
             <li className="h-10 bg-grey w-[0.05rem] " />
             <li className="text-sm underline-hover">
-              <Link href={""}>Tous nos produits</Link>
+              <Link href={"/products"}>Tous nos produits</Link>
             </li>
           </ul>
           {isHover && (
@@ -280,7 +280,7 @@ const Menu = () => {
                 </Link>
                 <hr />
                 <Link
-                  href={""}
+                  href={"/products"}
                   className=" py-padding text-white-hover  uppercase tracking-wide flex  items-center gap-x-5"
                 >
                   <span className="text-4xl">

@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
 import { div } from "framer-motion/client";
+import PageTitle from "@/components/PageTitle";
 // import { container, item, once } from "@/animations/variants";
 
 const ContactForm = () => {
@@ -56,24 +57,14 @@ const ContactForm = () => {
 
   return (
     <div className="p-paddingPhone kinatech-container  flex flex-col gap-y-20 py-paddingPC lg:px-paddingPC">
-      <div>
-        <h1 className="text-xl sm:text-2xl md:text-3xl 2xl:text-4xl font-A text-center md:text-left font-semibold  tracking-wide">
-          Contactez-nous
-        </h1>
-        <p className="text-grey font-A max-w-xl">
-          Nous serions ravis d’avoir de vos nouvelles. Remplissez le formulaire
-          ci‑dessous et nous vous répondrons dès que possible
-        </p>
-      </div>
+     <PageTitle title='Contactez-nous' text=' Nous serions ravis d’avoir de vos nouvelles. Remplissez le formulaire
+          ci‑dessous et nous vous répondrons dès que possible'/>
+      
       <motion.div
-        // variants={container}
-        // initial="hidden"
-        // whileInView="visible"
-        // viewport={once}
+      
         className="  flexCenter  "
       >
         <motion.div
-          // variants={{ ...item, hidden: { ...item.hidden, rotate: 0 } }}
           key={1}
           className="w-full border-t border-[#eeeded] md:w-1/2  flex flex-col gap-y-5 rounded-xl shadow-2xl shadow-[#d9d5d5c9] p-5"
         >
