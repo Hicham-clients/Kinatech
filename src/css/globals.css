@@ -40,5 +40,5 @@
    white-space: pre-wrap;
   overflow-wrap: break-word;
   word-break: break-word;
-  hyphens: auto;
+  hyphens: manual;
 }

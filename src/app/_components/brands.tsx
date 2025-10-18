@@ -22,7 +22,7 @@ const Brands = () => {
             // style={{            filter: "grayscale(0%)"}}
               className="w-full h-full object-contain filter hover:grayscale-0 grayscale"
               src={
-                "/imagetest.png"
+                "/i.png"
               } 
               alt="brand"
             />
