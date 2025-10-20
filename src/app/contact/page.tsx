@@ -163,7 +163,7 @@ const ContactForm = () => {
               )}
             </div>
             <button className="bg-main bg-main-hover kinatech-btn">
-              Envoyer
+             {isSubmitting?'chargement...':'Envoyer'} 
             </button>
           </form>
         </motion.div>
