@@ -7,15 +7,50 @@ import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
 import Image from "next/image";
-export const imgs = [
-  "https://www.mediazone.ma/uploads/images/banners/apple-iphone-17-pro-0ZNG7-768.webp",
-  "https://www.mediazone.ma/uploads/images/banners/apple-iphone-17-pro-0ZNG7.webp",
-];
+import { useEffect, useState } from "react";
+import { axiosInstance } from "@/lib/axios";
+import { imageSrc } from "@/lib/getSrc";
+type HeroSectionType = {
+  id: number;
+  product_id: number;
+  cover: string;
+  target_type: string;
+  created_at: string;
+  updated_at: string;
+  product: {
+    id: number;
+    category_id: number;
+    brand_id: number;
+    slug: string;
+    all_quantity: string;
+    url: string;
+    category: {
+      id: number;
+      name: string;
+    };
+    brand: {
+      id: number;
+      name: string;
+    };
+  };
+};
 const titles = ["Phone 17", "Tablet X", "Watch Pro"];
 
-const Hero = () => {
+const Hero = () => { 
+
+  const [heroSections,setHeroSections]=useState<HeroSectionType[]|null>(null) 
+   useEffect(() => {
+        axiosInstance.get("/api/herosections")
+          .then((res) => {
+            setHeroSections(res.data);
+          })
+          .catch((err) => {
+            
+            console.error(err);
+          });
+      }, []);
   return (
-    <Swiper 
+    heroSections&& <Swiper 
 
       modules={[Navigation, Pagination, Autoplay]}
       autoplay={{ delay: 3000 }}
@@ -26,11 +61,13 @@ const Hero = () => {
       pagination={{
         clickable: true,
         renderBullet: function (index, className) {
-          return `<span class="${className}">${titles[index]}</span>`;
+          return `<span class="${className}">${heroSections?.[index]?.product?.slug}</span>`;
         },
       }}
     >
-        <SwiperSlide>
+      {heroSections?.map(item=>{
+
+     return <SwiperSlide>
           <Link className="relative w-full flex h-[60vh]" href="/products">
                         {/* IMAGE FOR Mobile */}
 
@@ -38,21 +75,22 @@ const Hero = () => {
            fill
               className="lg:hidden w-full h-full top-0 left-0  object-cover"
               src={
-                "/test2.jpg"
+                imageSrc(item.cover)
               }
-              alt="iphone"
+              alt={item?.product?.slug}
             />
             {/* IMAGE FOR PC */}
              <Image 
            fill
               className="hidden lg:inline-block  w-full h-full top-0 left-0  object-cover"
-              src={
-                "/test2.jpg"
+                src={
+                imageSrc(item.cover)
               }
-              alt="iphone"
+              alt={item?.product?.slug}
             />
           </Link>
-        </SwiperSlide>{" "}
+        </SwiperSlide>
+         })}
       
 
       <style jsx global>{`
