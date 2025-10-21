@@ -3,25 +3,9 @@ import Link from "next/link";
 import Icon from "../IconComponent";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { axiosInstance } from "@/lib/axios";
+import { Category, Product, useMenuCategories } from "@/hooks/useMenuCategories";
 
-export interface Product {
-  id: number;
-  slug: string;
-  category_id: number;
-  all_quantity: number | string;
-  Url: string;
-}
 
-export interface Category {
-  id: number;
-  name: string;
-  id_parent: number | null;
-  created_at: string | null;
-  updated_at: string | null;
-  products?: Product[];
-  childrens?: Category[];
-}
 
 const SearchInput = () => {
   return (
@@ -47,33 +31,20 @@ const Menu = () => {
   const [Itemhover, setItemhover] = useState<number | null>(null);
   const [isHover, setIshover] = useState(false);
 
-  // fetch categories
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  // fetch data 
+  const {data,isLoading,error}=useMenuCategories()
   const [currentCategoryData, setCurrentCategoryData] = useState<Category | null>(null);
 
-  useEffect(() => {
-    axiosInstance.get("/api/categories")
-      .then((res) => {
-        setCategories(res.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError("Error fetching categories");
-        setLoading(false);
-        console.error(err);
-      });
-  }, []);
+
 
   useEffect(() => {
     if (Itemhover !== null) {
-      const data = categories.find((item) => item.id === Itemhover) || null;
-      setCurrentCategoryData(data);
+      const mydata = data?.find((item) => item.id === Itemhover) || null;
+      setCurrentCategoryData(mydata);
     } else {
       setCurrentCategoryData(null);
     }
-  }, [isHover, Itemhover, categories]);
+  }, [isHover, Itemhover, data]);
 
   // sidebar toggle
   const [showSide, setShowSide] = useState<boolean>(false);
@@ -127,8 +98,8 @@ const Menu = () => {
 
       <div ref={Navref} className="w-full z-40 top-0">
         <div className="text-blk bg-white relative border-b py-3 hidden lg:flex">
-        {categories.length>0?  <ul className="flex justify-between px-paddingPC w-full items-center kinatech-container">
-            {categories.map((item) => (
+        {(data??[]).length>0?  <ul className="flex justify-between px-paddingPC w-full items-center kinatech-container">
+            {data?.map((item) => (
               <li key={item.id} className="text-sm underline-hover">
                 <Link 
                   className="py-6"
@@ -171,12 +142,12 @@ const Menu = () => {
               )}
 
               {/* Children Categories */}
-              {currentCategoryData.childrens?.map((child) => (
+              {currentCategoryData.childrens?.map((child:Category) => (
                 <div className="flex flex-col gap-y-5" key={child.id}>
                   <h1 className="text-grey tracking-wide capitalize">{child.name}</h1>
                   {(child.products ?? []).length > 0 && (
                     <div className="flex flex-col gap-y-2">
-                      {child.products?.map((pro) => (
+                      {child.products?.map((pro:Product) => (
                         <Link key={pro.id} className="text-main-hover block text-sm" href={""}>
                           {pro.slug}
                         </Link>
@@ -207,7 +178,7 @@ const Menu = () => {
             <div>
               <div className="bg-main px-padding">
                 <Link
-                  href={""}
+                  href={"/brands"}
                   className="py-padding text-white-hover uppercase tracking-wide flex items-center gap-x-5"
                 >
                   <span className="text-4xl"><Icon name="TrademarkRegistered" /></span>
@@ -225,9 +196,9 @@ const Menu = () => {
               <div className="p-5">
                 <h1 className="cursor-context-menu tracking-wider">Choisir par catégorie</h1>
                 <ul className="py-padding flex flex-col gap-y-2 tracking-wide">
-                  {["ordinateurs", "monteurs"].map((item, index) => (
+                  {data?.map((item, index) => (
                     <li key={index} className="cursor-pointer text-white-hover capitalize flex justify-between items-center">
-                      <span>{item}</span>
+                      <span>{item.name}</span>
                       <span className="text-xl"><Icon name="CaretRight" /></span>
                     </li>
                   ))}

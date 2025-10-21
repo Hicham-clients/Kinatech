@@ -7,50 +7,19 @@ import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { axiosInstance } from "@/lib/axios";
 import { imageSrc } from "@/lib/getSrc";
-type HeroSectionType = {
-  id: number;
-  product_id: number;
-  cover: string;
-  target_type: string;
-  created_at: string;
-  updated_at: string;
-  product: {
-    id: number;
-    category_id: number;
-    brand_id: number;
-    slug: string;
-    all_quantity: string;
-    url: string;
-    category: {
-      id: number;
-      name: string;
-    };
-    brand: {
-      id: number;
-      name: string;
-    };
-  };
-};
-const titles = ["Phone 17", "Tablet X", "Watch Pro"];
+import { useHero } from "@/hooks/useHero";
+import HeroLoading from "@/skeletons/Hero";
+
 
 const Hero = () => { 
+const {data,isLoading,error}=useHero() 
+if(isLoading){
 
-  const [heroSections,setHeroSections]=useState<HeroSectionType[]|null>(null) 
-   useEffect(() => {
-        axiosInstance.get("/api/herosections")
-          .then((res) => {
-            setHeroSections(res.data);
-          })
-          .catch((err) => {
-            
-            console.error(err);
-          });
-      }, []);
+  return <HeroLoading/>
+}
   return (
-    heroSections&& <Swiper 
+    data&& <Swiper 
 
       modules={[Navigation, Pagination, Autoplay]}
       autoplay={{ delay: 3000 }}
@@ -61,11 +30,11 @@ const Hero = () => {
       pagination={{
         clickable: true,
         renderBullet: function (index, className) {
-          return `<span class="${className}">${heroSections?.[index]?.product?.slug}</span>`;
+          return `<span class="${className}">${data?.[index]?.product?.slug}</span>`;
         },
       }}
     >
-      {heroSections?.map(item=>{
+      {data?.map(item=>{
 
      return <SwiperSlide>
           <Link className="relative w-full flex h-[60vh]" href="/products">

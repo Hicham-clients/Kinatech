@@ -7,6 +7,7 @@ import "../css/swiper.css";
 import Menu from "@/components/partials/Menu";
 import Footer from "@/components/partials/Footer";
 import Brands from "./_components/brands";
+import ReactQueryProvider from "@/providers/ReactQueryProvider";
 
 export default function RootLayout({
   children,
@@ -16,15 +17,17 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body>
-        <header>
-          <Menu />
-        </header>
-        <main className="min-h-[80vh]">{children}</main>
+        <ReactQueryProvider>
+          <header>
+            <Menu />
+          </header>
+          <main className="min-h-[80vh]">{children}</main>
 
-        <footer>
-          <Brands/>
-          <Footer />
-        </footer>
+          <footer>
+            <Brands />
+            <Footer />
+          </footer>
+        </ReactQueryProvider>
       </body>
     </html>
   );
