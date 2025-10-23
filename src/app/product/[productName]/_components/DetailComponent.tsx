@@ -47,7 +47,13 @@ const CardColor = ({
   id,
   discount,
   onClick,
-}: any) => {
+}: {  name:string,
+  image:string,
+  price:string,
+  current:number|null,
+  id:number,
+  discount:string|null,
+  onClick:()=>void}) => {
   return (
     <div
       onClick={onClick}
@@ -69,7 +75,7 @@ const CardColor = ({
       <h3 className="font-semibold">{name}</h3>
       <p className="first-letter:uppercase ">à partir de </p>
       <span>
-        {discount != null ? calculNewPrice(+discount, price) : price}
+        {discount != null ? calculNewPrice(+discount, +price) : price}
         Dh
       </span>
     </div>
@@ -98,7 +104,6 @@ const IconTitle = ({
   );
 };
 const DetailComponent = ({
-  id,
 
   slug,
   
@@ -106,21 +111,16 @@ const DetailComponent = ({
   photo,
   description,
   base_price,
-  category,
+  // category,
   brand_name,
   brand_logo,
   discount,
   colors,
 }: Product) => {
   const [currentVariant, setCurrentVariant] = useState<null | Variant>(null);
-  const [currentColor, setCurrentColor] = useState<null | Color>(null);
+  const [currentColor, setCurrentColor] = useState<null | Color>(colors[0]);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-  //set default color
-  useEffect(() => {
-    if (colors?.length > 0) {
-      setCurrentColor(colors[0]);
-    }
-  }, []);
+
   //set default variant
   useEffect(() => {
     if (currentColor) {
@@ -231,9 +231,9 @@ const DetailComponent = ({
                   <CardColor 
                   key={color.id}
                     onClick={() => setCurrentColor(color)}
-                    current={currentColor?.id}
+                    current={currentColor?.id??null}
                     id={color.id}
-                    discount={discount}
+                    discount={discount??null}
                     name={color.name}
                     price={base_price}
                     image={color.images[0]}

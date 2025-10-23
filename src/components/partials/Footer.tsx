@@ -1,5 +1,4 @@
 "use client";
-
 import Link from "next/link";
 import {
   FacebookLogo,
@@ -7,11 +6,12 @@ import {
   InstagramLogo,
   LinkedinLogo,
 } from "phosphor-react";
+import React from "react";
 const iconsize: { size: string; weight: IconWeight } = {
   size: "1.75rem",
   weight: "regular",
 };
-const social: { name: string; url: string; icon: any; color: string }[] = [
+const social: { name: string; url: string; icon:React.ReactNode; color: string }[] = [
   {
     name: "Facebook",
     url: "",

@@ -1,6 +1,5 @@
 import CardProductCart from "./_components/CardProductCart";
 import CartSummary from "./_components/CartSummary";
-import Vide from "./_components/Vide";
 
 const Cart = () => {
   return (

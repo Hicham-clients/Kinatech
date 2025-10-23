@@ -34,8 +34,8 @@ const Brands = () => {
         loop
         slidesPerView={4}
       >
-        {brands?.map(item=>{
-     return   <SwiperSlide className="px-10 ">
+        {brands?.map((item,index)=>{
+     return   <SwiperSlide key={index} className="px-10 ">
           <Link className="w-14 h-full flexCenter " href={`/brands/${item.name}`}>
             <Image  
             title={item.name}

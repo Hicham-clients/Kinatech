@@ -9,7 +9,7 @@ import {
   useMenuCategories,
 } from "@/hooks/useMenuCategories";
 import Image from "next/image";
-import {  usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useProductsSearch } from "@/hooks/useProductSearch";
 import { imageSrc } from "@/lib/getSrc";
 import SearchMenuLoading from "@/skeletons/searchMenu";
@@ -26,18 +26,18 @@ const SearchInput = () => {
     }
   }, [isEmpty]);
   const router = useRouter();
-  const pathName=usePathname()
+  const pathName = usePathname();
   const [value, setValue] = useState("");
-  const { data, error, isLoading, refetch } = useProductsSearch(value);
+  const { data, error, isLoading } = useProductsSearch(value);
 
   useEffect(() => {
     if (value) {
       router.push("?q=" + value);
     }
-  }, [value]); 
-  useEffect(()=>{
-setIsEmpty(true)
-  },[pathName])
+  }, [value, router]);
+  useEffect(() => {
+    setIsEmpty(true);
+  }, [pathName]);
   return (
     <div className="py-3 relative">
       <div className="w-full relative rounded-lg overflow-hidden z-[99]">
@@ -143,7 +143,7 @@ const Menu = () => {
       return data?.find((item) => item?.id == Itemhover);
     }
     return null;
-  }, [isHover, Itemhover, data]);
+  }, [Itemhover, data]);
 
   // sidebar toggle
   const [showSide, setShowSide] = useState<boolean>(false);
@@ -239,7 +239,7 @@ const Menu = () => {
                       setIshover(true);
                     }}
                     onMouseLeave={() => setIshover(false)}
-                    href={""}
+                    href={`/products_categories/${item.name}`}
                   >
                     {item.name}
                   </Link>
@@ -295,7 +295,7 @@ const Menu = () => {
                         <Link
                           key={pro.id}
                           className="text-main-hover block text-sm"
-                          href={""}
+                          href={`/products_categories/${pro.url}`}
                         >
                           {pro.slug}
                         </Link>

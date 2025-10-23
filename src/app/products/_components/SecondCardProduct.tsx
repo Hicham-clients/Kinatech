@@ -1,7 +1,7 @@
 'use client'
 import Icon from "@/components/IconComponent";
 import { calculNewPrice } from "@/functions/Discount";
-import { ProductPromo, Promos } from "@/hooks/usePromos";
+import {  Promos } from "@/hooks/usePromos";
 import { imageSrc } from "@/lib/getSrc";
 import Image from "next/image";
 import Link from "next/link";

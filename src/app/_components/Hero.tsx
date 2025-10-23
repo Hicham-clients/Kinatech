@@ -8,13 +8,13 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
 import Image from "next/image";
 import { imageSrc } from "@/lib/getSrc";
-import { fetchHeros, useHero } from "@/hooks/useHero";
+import { fetchHeros } from "@/hooks/useHero";
 import HeroLoading from "@/skeletons/HeroLoading";
 import { useQuery } from "@tanstack/react-query";
 
 
 const Hero = () => { 
-const { data, isLoading, error } = useQuery({
+const { data, isLoading } = useQuery({
     queryKey: ['products'],
     queryFn: fetchHeros,
   });if(isLoading){
@@ -39,7 +39,7 @@ const { data, isLoading, error } = useQuery({
     >
       {data?.map(item=>{
 
-     return <SwiperSlide>
+     return <SwiperSlide key={item.id}>
           <Link className="relative w-full flex h-[60vh]" href="/products">
                         {/* IMAGE FOR Mobile */}
 

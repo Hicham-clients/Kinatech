@@ -1,14 +1,12 @@
 "use client";
-import Icon from "@/components/IconComponent";
 import { Category, useMenuCategories } from "@/hooks/useMenuCategories";
 import clsx from "clsx";
 import Link from "next/link";
-import { ArrowLeft, CaretLeft, CaretRight, MagnifyingGlass } from "phosphor-react";
+import { ArrowLeft, CaretRight, MagnifyingGlass } from "phosphor-react";
 import { useEffect, useState } from "react";
-Link;
 const Filter = () => {
   // fetch data
-  const { data, isLoading, error } = useMenuCategories();
+  const { data, isLoading } = useMenuCategories();
 
   const [currentCategoriesForDrilling, setCurrentCategoriesForDrilling] =
     useState<Category[]>(data ?? []);
@@ -53,25 +51,45 @@ const Filter = () => {
           </span>
         </div>
         <div className="h-full">
-          {isLoading?<div className="bg-gray-200 animate-pulse w-full h-[200px] rounded-xl"></div>:(data??[]).length>0&&<div className="bg-gray-100 p-padding rounded-xl cursor-pointer flex flex-col gap-y-5 h-full">
-            <h1 className="font-A font-semibold">Catégories</h1>
-            {/* CATEGORIES */} 
-                                            {history.length>0&&<button className=" text-sm bg-main w-fit p-1 rounded-full bg-main-hover scale-minus-hover" onClick={handleBack} ><ArrowLeft className="text-white"/></button>}
+          {isLoading ? (
+            <div className="bg-gray-200 animate-pulse w-full h-[200px] rounded-xl"></div>
+          ) : (
+            (data ?? []).length > 0 && (
+              <div className="bg-gray-100 p-padding rounded-xl cursor-pointer flex flex-col gap-y-5 h-full">
+                <h1 className="font-A font-semibold">Catégories</h1>
+                {/* CATEGORIES */}
+                {history.length > 0 && (
+                  <button
+                    className=" text-sm bg-main w-fit p-1 rounded-full bg-main-hover scale-minus-hover"
+                    onClick={handleBack}
+                  >
+                    <ArrowLeft className="text-white" />
+                  </button>
+                )}
 
-            <ul className="px-padding flex flex-col gap-y-2">
-              {currentCategoriesForDrilling.map((item) => {
-                return (
-                  <li key={item.id} className="flex text-black-hover items-center justify-between text-sm text-grey">
-                    <Link href={`/products/${item.url}`}>{item.name}</Link>
-                  {(item?.childrens??[]).length>0&&  <span className="w-full flex justify-end" onClick={() => handleClick(item)}>
-                      <CaretRight weight="bold" />
-                    </span>}
-                  </li>
-                );
-              })}
-            </ul>
-          </div>}
-          
+                <ul className="px-padding flex flex-col gap-y-2">
+                  {currentCategoriesForDrilling.map((item) => {
+                    return (
+                      <li
+                        key={item.id}
+                        className="flex text-black-hover items-center justify-between text-sm text-grey"
+                      >
+                        <Link href={`/products/${item.url}`}>{item.name}</Link>
+                        {(item?.childrens ?? []).length > 0 && (
+                          <span
+                            className="w-full flex justify-end"
+                            onClick={() => handleClick(item)}
+                          >
+                            <CaretRight weight="bold" />
+                          </span>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )
+          )}
         </div>
       </div>
     </div>

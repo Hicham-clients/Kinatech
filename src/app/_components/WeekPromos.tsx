@@ -54,17 +54,17 @@ const WeekPromos = () => {
           >
             {isLoading
               ? [...Array(4)].map((_, index) => (
-                  <SwiperSlide className="  ">
-                    <SecondCardLoading key={index} />
+                  <SwiperSlide key={index} className="  ">
+                    <SecondCardLoading  />
                   </SwiperSlide>
                 ))
               : (data ?? [])?.length > 0
               ? data?.map((item) => (
-                  <SwiperSlide>
-                    <SecondCardProduct {...item} key={item.id} />
+                  <SwiperSlide key={item.id} >
+                    <SecondCardProduct  {...item} />
                   </SwiperSlide>
                 ))
-              : error?<div className="text-center font-A tracking-wider text-xl text-[red] flex flex-col justify-center items-center gap-5">Erreur de chargment <button className="kinatech-btn bg-blk bg-black-hover scale-minus-hover" onClick={()=>refetch()}>try again</button></div>:<div className="text-center font-A tracking-wider text-xl">Pas des promos ce semaines</div>}
+              : error?<div className="text-center font-A tracking-wider text-xl text-[red] flex flex-col justify-center items-center gap-5">Erreur de chargment <button className="kinatech-btn bg-blk bg-black-hover scale-minus-hover" onClick={()=>refetch()}>réssayer</button></div>:<div className="text-center font-A tracking-wider text-xl">Pas des promos ce semaines</div>}
           </Swiper>
         </div>
       </div>

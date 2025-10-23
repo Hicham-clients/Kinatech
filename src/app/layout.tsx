@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import "../css/globals.css";
 import "../css/classes.css";
 import "../css/tailwind.css";
