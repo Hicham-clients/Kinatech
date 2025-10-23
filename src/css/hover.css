@@ -27,3 +27,6 @@
 .bg-main-hover {
   @apply sm:hover:bg-mainHover active:bg-mainHover;
 }
+.bg-gray-hover{
+  @apply sm:hover:bg-[#f4f4f4] active:bg-[#f4f4f4];
+}

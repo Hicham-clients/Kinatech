@@ -1,4 +1,4 @@
-.swiper-pagination {
+/* .swiper-pagination {
   width: 100%;
   display: none;
 }
@@ -47,7 +47,7 @@
   opacity: 1;
   color: white;
   background: var(--blk);
-}
+}*/
 .swiper-button-prev {
   left: 10 !important;
   color: grey !important;
@@ -60,4 +60,4 @@
   padding: 10px;
     right: 10 !important;
 
-}
+} 

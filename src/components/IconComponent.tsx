@@ -5,7 +5,8 @@ type IconProps = {
   weight?:string
 };
 const Icon = ({ name ,weight="thin"}: IconProps) => {
-  const IconComponent = PhosphorIcons[name] as React.ElementType;
+  const IconComponent = PhosphorIcons[name] as React.ElementType; 
+
   return <IconComponent   weight={weight} />;
 };
 export default Icon;

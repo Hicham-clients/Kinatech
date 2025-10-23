@@ -1,6 +1,8 @@
 "use client";
 import Link from "next/link";
-
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import Image from "next/image";
@@ -27,15 +29,14 @@ const Brands = () => {
   return (
     <div className="p-6 lg:px-12 border-t">
       <Swiper
-        className="overflow-visible kinatech-container"
+        className="overflow-visible kinatech-container  h-14"
         modules={[Navigation, Pagination]}
-        // navigation
         loop
         slidesPerView={4}
       >
         {brands?.map(item=>{
-     return   <SwiperSlide className="px-10 in">
-          <Link className="w-14 h-14 flexCenter " href={`/brands/${item.name}`}>
+     return   <SwiperSlide className="px-10 ">
+          <Link className="w-14 h-full flexCenter " href={`/brands/${item.name}`}>
             <Image  
             title={item.name}
             width={1000} 

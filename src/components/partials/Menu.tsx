@@ -1,49 +1,148 @@
 "use client";
 import Link from "next/link";
 import Icon from "../IconComponent";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Category, Product, useMenuCategories } from "@/hooks/useMenuCategories";
-
-
+import {
+  Category,
+  Product,
+  useMenuCategories,
+} from "@/hooks/useMenuCategories";
+import Image from "next/image";
+import {  usePathname, useRouter } from "next/navigation";
+import { useProductsSearch } from "@/hooks/useProductSearch";
+import { imageSrc } from "@/lib/getSrc";
+import SearchMenuLoading from "@/skeletons/searchMenu";
+import clsx from "clsx";
 
 const SearchInput = () => {
+  const [isEmpty, setIsEmpty] = useState(true);
+  //prevent scroll
+  useEffect(() => {
+    if (isEmpty) {
+      document.body.style.overflow = "visible";
+    } else {
+      document.body.style.overflow = "hidden";
+    }
+  }, [isEmpty]);
+  const router = useRouter();
+  const pathName=usePathname()
+  const [value, setValue] = useState("");
+  const { data, error, isLoading, refetch } = useProductsSearch(value);
+
+  useEffect(() => {
+    if (value) {
+      router.push("?q=" + value);
+    }
+  }, [value]); 
+  useEffect(()=>{
+setIsEmpty(true)
+  },[pathName])
   return (
-    <div className="py-3">
-      <div className="w-full relative rounded-lg overflow-hidden">
+    <div className="py-3 relative">
+      <div className="w-full relative rounded-lg overflow-hidden z-[99]">
         <input
-          className="w-full h-12 p-2 outline-none text-black placeholder:text-grey placeholder:tracking-wide placeholder:text-sm"
+          onChange={(e) => {
+            setValue(e.target.value);
+            e.target.value.trim() !== "" ? setIsEmpty(false) : setIsEmpty(true);
+          }}
+          className="w-full pr-12 h-12 p-2 outline-none text-black placeholder:text-grey placeholder:tracking-wide placeholder:text-sm"
           type="search"
           placeholder="Rechercher une marque ,un produit..."
         />
-        <button
-          className="absolute right-1 rounded-lg bg-second h-[80%] w-10 flex top-1/2 -translate-y-1/2 justify-center items-center text-xl bg-second-hover"
-        >
+        <button className="absolute right-1 rounded-lg bg-second h-[80%] w-10 flex top-1/2 -translate-y-1/2 justify-center items-center text-xl bg-second-hover">
           <Icon name="MagnifyingGlass" weight="regular" />
         </button>
       </div>
+      {!isEmpty && (
+        <>
+          <div
+            onClick={() => {
+              setValue("");
+              setIsEmpty(true);
+            }}
+            className="bg-black/50 fixed top-0 left-0 w-full h-screen z-50"
+          />
+          <div className="bg-white  p-padding  absolute rounded-b-xl top-full z-50 h-fit max-h-[20rem]  lg:max-h-[30rem] overflow-y-auto left-0 w-full">
+            <div
+              className={clsx(
+                !isLoading && (data ?? [])?.length == 0 ? "block" : "grid",
+                " md:grid-cols-2 gap-5"
+              )}
+            >
+              {isLoading ? (
+                [...Array(4)].map((_, index) => (
+                  <SearchMenuLoading key={index} />
+                ))
+              ) : (data ?? [])?.length > 0 ? (
+                data?.map((item) => (
+                  <Link
+                    key={item.id}
+                    href={`/products/${item.url}`}
+                    className="flex border-b p-1  text-blk text-main-hover items-center gap-x-5 font-A"
+                  >
+                    <div className=" w-[30%] h-full">
+                      <Image
+                        src={imageSrc(item.photo)}
+                        height={1000}
+                        width={1000}
+                        className="w-full h-full object-contain p-1 "
+                        alt={item.slug}
+                      />
+                    </div>
+                    <div className="w-full flex flex-col text-sm">
+                      <h1 className="font-semibold ">{item.slug}</h1>
+                      <span className="text-grey text-sm capitalize">
+                        {item.category.name}
+                      </span>
+                      <div className="flex justify-between items-center text-xs">
+                        <span className="font-semibold text-blk ">
+                          {item.promo !== null
+                            ? +item.base_price -
+                              +item.base_price * (+item.promo.discount / 100)
+                            : item.base_price}{" "}
+                          DH
+                        </span>
+                        {item.promo !== null && (
+                          <span className="text-[red]">
+                            {" "}
+                            <del>{item.base_price}</del> dh
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </Link>
+                ))
+              ) : error ? (
+                <div className="text-blk flex justify-center items-center font-A tracking-wider text-sm text-[red] ">
+                  Erreur de chargement
+                </div>
+              ) : (
+                <div className="text-blk font-A tracking-wider text-sm flex justify-center items-center  w-full ">
+                  Aucun Resultat
+                </div>
+              )}
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };
 
-const Menu = () => { 
+const Menu = () => {
   // hover category
   const [Itemhover, setItemhover] = useState<number | null>(null);
   const [isHover, setIshover] = useState(false);
 
-  // fetch data 
-  const {data,isLoading,error}=useMenuCategories()
-  const [currentCategoryData, setCurrentCategoryData] = useState<Category | null>(null);
+  // fetch data
+  const { data } = useMenuCategories();
 
-
-
-  useEffect(() => {
+  const currentCategoryData = useMemo(() => {
     if (Itemhover !== null) {
-      const mydata = data?.find((item) => item.id === Itemhover) || null;
-      setCurrentCategoryData(mydata);
-    } else {
-      setCurrentCategoryData(null);
+      return data?.find((item) => item?.id == Itemhover);
     }
+    return null;
   }, [isHover, Itemhover, data]);
 
   // sidebar toggle
@@ -55,12 +154,40 @@ const Menu = () => {
   useEffect(() => {
     const handlScroll = () => {
       if (Navref.current) {
-        Navref.current.style.position = window.scrollY > 168 ? "fixed" : "static";
+        Navref.current.style.position =
+          window.scrollY > 168 ? "fixed" : "static";
       }
     };
     window.addEventListener("scroll", handlScroll);
     return () => window.removeEventListener("scroll", handlScroll);
   }, []);
+
+  const [currentCategoriesForDrilling, setCurrentCategoriesForDrilling] =
+    useState<Category[]>(data ?? []);
+  useEffect(() => {
+    if (data && data.length > 0) {
+      setCurrentCategoriesForDrilling(data);
+    }
+  }, [data]);
+  const [history, setHistory] = useState<Category[][]>([]);
+  // Function to go inside the selected category
+  const handleClick = (category: Category) => {
+    if (category.childrens && category.childrens.length > 0) {
+      // Save current level in history
+      setHistory((prev) => [...prev, currentCategoriesForDrilling]);
+      // Go to children level
+      setCurrentCategoriesForDrilling(category.childrens);
+    }
+  };
+
+  //  Back button
+  const handleBack = () => {
+    if (history.length > 0) {
+      const prev = history[history.length - 1];
+      setCurrentCategoriesForDrilling(prev);
+      setHistory((prev) => prev.slice(0, -1));
+    }
+  };
 
   return (
     <nav className="font-B text-white">
@@ -74,7 +201,10 @@ const Menu = () => {
               <Icon name="List" />
             </button>
             <div>
-              <Link href={"/"} className="text-4xl tracking-wide font-C lg:text-5xl">
+              <Link
+                href={"/"}
+                className="text-4xl tracking-wide font-C lg:text-5xl"
+              >
                 Kinatech
               </Link>
             </div>
@@ -82,7 +212,7 @@ const Menu = () => {
               <SearchInput />
             </div>
             <div className="flexCenter relative">
-              <Link href={'/cart'} className="text-4xl text-white-hover">
+              <Link href={"/cart"} className="text-4xl text-white-hover">
                 <Icon name="ShoppingBag" />
               </Link>
               <span className="bg-second absolute -top-2 -left-2 rounded-full h-5 w-5 p-3 text-xs flexCenter bg-second-hover">
@@ -96,43 +226,55 @@ const Menu = () => {
         </div>
       </div>
 
-      <div ref={Navref} className="w-full z-40 top-0">
-        <div className="text-blk bg-white relative border-b py-3 hidden lg:flex">
-        {(data??[]).length>0?  <ul className="flex justify-between px-paddingPC w-full items-center kinatech-container">
-            {data?.map((item) => (
-              <li key={item.id} className="text-sm underline-hover">
-                <Link 
-                  className="py-6"
-                  onMouseEnter={() => { setItemhover(item.id); setIshover(true); }}
-                  onMouseLeave={() => setIshover(false)}
-                  href={""}
-                >
-                  {item.name}
-                </Link>
+      <div ref={Navref} className=" w-full z-40 top-0">
+        <div className=" text-blk bg-white relative border-b py-3 hidden lg:flex">
+          {(data ?? []).length > 0 ? (
+            <ul className="flex justify-between px-paddingPC w-full items-center kinatech-container">
+              {data?.map((item) => (
+                <li key={item.id} className="text-sm underline-hover">
+                  <Link
+                    className="py-6"
+                    onMouseEnter={() => {
+                      setItemhover(item.id);
+                      setIshover(true);
+                    }}
+                    onMouseLeave={() => setIshover(false)}
+                    href={""}
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+              <li className="h-10 bg-grey w-[0.05rem]" />
+              <li className="text-sm underline-hover">
+                <Link href={"/products"}>Tous nos produits</Link>
               </li>
-            ))}
-            <li className="h-10 bg-grey w-[0.05rem]" />
-            <li className="text-sm underline-hover">
-              <Link href={"/products"}>Tous nos produits</Link>
-            </li>
-          </ul>:<div className="py-5"/>}
+            </ul>
+          ) : (
+            <div className="py-5" />
+          )}
 
           {isHover && currentCategoryData && (
             <div
               onMouseEnter={() => setIshover(true)}
-              onMouseLeave={() => { setIshover(false); setItemhover(null); }}
-              className="absolute z-50 text-blk bg-white border-t shadow-xl shadow-[#eee] top-full left-0 w-full overflow-auto h-[350px] flex justify-center gap-x-24 p-padding"
+              onMouseLeave={() => {
+                setIshover(false);
+                setItemhover(null);
+              }}
+              className="absolute z-50 text-blk bg-white border-t shadow-lg shadow-[#eeeeee] top-full left-0 w-full overflow-auto h-[350px] flex justify-center gap-x-24 p-padding"
             >
               {/* Parent Products */}
               {(currentCategoryData.products ?? []).length > 0 && (
                 <div className="flex flex-col gap-y-5">
-                  <h1 className="text-grey tracking-wide capitalize">{currentCategoryData.name}</h1>
+                  <h1 className="text-grey tracking-wide capitalize">
+                    {currentCategoryData.name}
+                  </h1>
                   <div className="flex flex-col gap-y-2">
                     {currentCategoryData.products?.map((pro) => (
                       <Link
                         key={pro.id}
                         className="font-B tracking-wide text-main-hover block font-bold text-2xl"
-                        href={""}
+                        href={`/products/${pro.url}`}
                       >
                         {pro.slug}
                       </Link>
@@ -142,13 +284,19 @@ const Menu = () => {
               )}
 
               {/* Children Categories */}
-              {currentCategoryData.childrens?.map((child:Category) => (
+              {currentCategoryData.childrens?.map((child: Category) => (
                 <div className="flex flex-col gap-y-5" key={child.id}>
-                  <h1 className="text-grey tracking-wide capitalize">{child.name}</h1>
+                  <h1 className="text-grey tracking-wide capitalize">
+                    {child.name}
+                  </h1>
                   {(child.products ?? []).length > 0 && (
                     <div className="flex flex-col gap-y-2">
-                      {child.products?.map((pro:Product) => (
-                        <Link key={pro.id} className="text-main-hover block text-sm" href={""}>
+                      {child.products?.map((pro: Product) => (
+                        <Link
+                          key={pro.id}
+                          className="text-main-hover block text-sm"
+                          href={""}
+                        >
                           {pro.slug}
                         </Link>
                       ))}
@@ -168,10 +316,13 @@ const Menu = () => {
             initial={{ x: "-90%" }}
             exit={{ x: "-90%", opacity: 0 }}
             animate={{ x: "0%" }}
-            className="bg-blk z-[999999999] fixed top-0 left-0 w-2/3 h-screen overflow-y-auto lg:hidden"
+            className="bg-blk select-none z-[999999999] fixed top-0 left-0 w-2/3 h-screen overflow-y-auto lg:hidden"
           >
             <div className="py-7 px-padding sticky left-0 bg-main top-0">
-              <button onClick={() => ToggleSide(false)} className="text-4xl text-white-hover">
+              <button
+                onClick={() => ToggleSide(false)}
+                className="text-4xl text-white-hover"
+              >
                 <Icon name="X" />
               </button>
             </div>
@@ -181,7 +332,9 @@ const Menu = () => {
                   href={"/brands"}
                   className="py-padding text-white-hover uppercase tracking-wide flex items-center gap-x-5"
                 >
-                  <span className="text-4xl"><Icon name="TrademarkRegistered" /></span>
+                  <span className="text-4xl">
+                    <Icon name="TrademarkRegistered" />
+                  </span>
                   <span className="underline-hover"> Nos Marques</span>
                 </Link>
                 <hr />
@@ -189,19 +342,43 @@ const Menu = () => {
                   href={"/products"}
                   className="py-padding text-white-hover uppercase tracking-wide flex items-center gap-x-5"
                 >
-                  <span className="text-4xl"><Icon name="Storefront" /></span>
+                  <span className="text-4xl">
+                    <Icon name="Storefront" />
+                  </span>
                   <span className="underline-hover">Tous Nos Produits</span>
                 </Link>
               </div>
               <div className="p-5">
-                <h1 className="cursor-context-menu tracking-wider">Choisir par catégorie</h1>
+                {history.length > 0 && (
+                  <button className="my-5 text-xl" onClick={handleBack}>
+                    <Icon name="ArrowLeft" />
+                  </button>
+                )}
+
+                <h1 className="cursor-context-menu tracking-wider font-bold text-main">
+                  Choisir par catégorie
+                </h1>
                 <ul className="py-padding flex flex-col gap-y-2 tracking-wide">
-                  {data?.map((item, index) => (
-                    <li key={index} className="cursor-pointer text-white-hover capitalize flex justify-between items-center">
-                      <span>{item.name}</span>
-                      <span className="text-xl"><Icon name="CaretRight" /></span>
-                    </li>
-                  ))}
+                  {currentCategoriesForDrilling.length > 0
+                    ? currentCategoriesForDrilling.map((item, index) => (
+                        <li
+                          key={index}
+                          className="cursor-pointer text-white-hover capitalize flex justify-between items-center"
+                        >
+                          <Link href={`/categories_products/${item.name}`}>
+                            {item.name}
+                          </Link>
+                          {(item?.childrens ?? []).length > 0 && (
+                            <span
+                              className="text-xl  w-full flex justify-end"
+                              onClick={() => handleClick(item)}
+                            >
+                              <Icon name="CaretRight" />
+                            </span>
+                          )}
+                        </li>
+                      ))
+                    : "h"}
                 </ul>
               </div>
             </div>

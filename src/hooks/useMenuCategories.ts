@@ -6,7 +6,7 @@ export interface Product {
   slug: string;
   category_id: number;
   all_quantity: number | string;
-  Url: string;
+  url: string;
 }
 
 export interface Category {
@@ -17,11 +17,10 @@ export interface Category {
   updated_at: string | null;
   products?: Product[];
   childrens?: Category[];
+  url: string;
 }
-async function fetchMenuCategories():Promise<Category[]|undefined> {
-  const {data } = await axiosInstance.get(
-    "/api/categories"
-  );
+async function fetchMenuCategories(): Promise<Category[] | undefined> {
+  const { data } = await axiosInstance.get("/api/categories");
   return data;
 }
 

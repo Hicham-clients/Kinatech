@@ -8,13 +8,16 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
 import Image from "next/image";
 import { imageSrc } from "@/lib/getSrc";
-import { useHero } from "@/hooks/useHero";
-import HeroLoading from "@/skeletons/Hero";
+import { fetchHeros, useHero } from "@/hooks/useHero";
+import HeroLoading from "@/skeletons/HeroLoading";
+import { useQuery } from "@tanstack/react-query";
 
 
 const Hero = () => { 
-const {data,isLoading,error}=useHero() 
-if(isLoading){
+const { data, isLoading, error } = useQuery({
+    queryKey: ['products'],
+    queryFn: fetchHeros,
+  });if(isLoading){
 
   return <HeroLoading/>
 }
@@ -44,7 +47,7 @@ if(isLoading){
            fill
               className="lg:hidden w-full h-full top-0 left-0  object-cover"
               src={
-                imageSrc(item.cover)
+                imageSrc(item.cover_mobile)
               }
               alt={item?.product?.slug}
             />
@@ -53,7 +56,7 @@ if(isLoading){
            fill
               className="hidden lg:inline-block  w-full h-full top-0 left-0  object-cover"
                 src={
-                imageSrc(item.cover)
+                imageSrc(item?.cover_pc)
               }
               alt={item?.product?.slug}
             />
