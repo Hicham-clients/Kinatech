@@ -32,6 +32,7 @@ const SearchInput = () => {
 
   useEffect(() => {
     if (value) {
+      
       router.push("?q=" + value);
     }
   }, [value, router]);
@@ -43,7 +44,7 @@ const SearchInput = () => {
       <div className="w-full relative rounded-lg overflow-hidden z-[99]">
         <input
           onChange={(e) => {
-            setValue(e.target.value);
+            setValue(e?.target?.value);
             e.target.value.trim() !== "" ? setIsEmpty(false) : setIsEmpty(true);
           }}
           className="w-full pr-12 h-12 p-2 outline-none text-black placeholder:text-grey placeholder:tracking-wide placeholder:text-sm"
@@ -83,6 +84,7 @@ const SearchInput = () => {
                   >
                     <div className=" w-[30%] h-full">
                       <Image
+                        loading="lazy"
                         src={imageSrc(item.photo)}
                         height={1000}
                         width={1000}
@@ -190,7 +192,7 @@ const Menu = () => {
   };
 
   return (
-    <nav className="font-B text-white">
+    <nav className="font-B select-none text-white">
       <div className="bg-main w-full p-padding lg:p-0 lg:px-paddingPC">
         <div className="kinatech-container flex flex-col gap-y-5">
           <div className="flex justify-between items-center py-3">
@@ -239,7 +241,7 @@ const Menu = () => {
                       setIshover(true);
                     }}
                     onMouseLeave={() => setIshover(false)}
-                    href={`/products_categories/${item.name}`}
+                    href={`/products_categories?category=${item.name}`}
                   >
                     {item.name}
                   </Link>
@@ -247,7 +249,7 @@ const Menu = () => {
               ))}
               <li className="h-10 bg-grey w-[0.05rem]" />
               <li className="text-sm underline-hover">
-                <Link href={"/products"}>Tous nos produits</Link>
+                <Link href={"/products_categories"}>Tous nos produits</Link>
               </li>
             </ul>
           ) : (
@@ -295,7 +297,7 @@ const Menu = () => {
                         <Link
                           key={pro.id}
                           className="text-main-hover block text-sm"
-                          href={`/products_categories/${pro.url}`}
+                          href={`/products/${pro.url}`}
                         >
                           {pro.slug}
                         </Link>
@@ -339,7 +341,7 @@ const Menu = () => {
                 </Link>
                 <hr />
                 <Link
-                  href={"/products"}
+                  href={"/products_categories"}
                   className="py-padding text-white-hover uppercase tracking-wide flex items-center gap-x-5"
                 >
                   <span className="text-4xl">

@@ -1,6 +1,6 @@
 "use client";
 import { useDetails } from "@/hooks/useDetail";
-import DetailComponent from "../../product/[productName]/_components/DetailComponent";
+import DetailComponent from "./_components/DetailComponent";
 import { useParams } from "next/navigation";
 import DetailSkeleton from "@/skeletons/DetailLoading";
 

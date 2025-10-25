@@ -1,7 +1,7 @@
 import { axiosInstance } from "@/lib/axios";
 import { useQuery } from "@tanstack/react-query";
 
-type HeroSectionType = {
+export type HeroSectionType = {
   id: number;
   product_id: number;
   cover_mobile: string;
@@ -19,6 +19,7 @@ type HeroSectionType = {
     category: {
       id: number;
       name: string;
+      url: string;
     };
     brand: {
       id: number;
@@ -26,16 +27,16 @@ type HeroSectionType = {
     };
   };
 };
-export async function fetchHeros():Promise<HeroSectionType[]> {
+export async function fetchHeros(sectiontype:string):Promise<HeroSectionType[]> {
   const { data }: { data: HeroSectionType[] } = await axiosInstance.get(
-    "/api/herosections"
+    `/api/herosections/${sectiontype}`
   );
   return data;
 }
 
-export function useHero() {
+export function useHero(sectiontype:string) {
   return useQuery({
-    queryKey: ["herosections"],
-    queryFn: fetchHeros,
+    queryKey: ["herosections",sectiontype],
+    queryFn:()=> fetchHeros(sectiontype),
   });
 }

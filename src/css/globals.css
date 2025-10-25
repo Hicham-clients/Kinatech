@@ -34,6 +34,15 @@
     url("/fonts/Boska-Regular.woff2") format("woff2");
   /* font-weight: 500; */
   font-display: swap;
+
+}
+@font-face {
+  font-family: "Satoshi Bold";
+  src: url("/fonts/Satoshi-Bold.woff2") format("woff2"),
+    /* url("/fonts/Boska-Regular.woff2") format("woff2"); */
+  ;
+  /* font-weight: 900 !important; */
+  font-display: swap;
 }
 
 .kina-wrap{

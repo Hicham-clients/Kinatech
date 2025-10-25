@@ -16,8 +16,12 @@ const CardVariantItem = ({
   ram,
   onClick,
   currentId,
-  discount
-}: Variant & { onClick: () => void; currentId: number,discount:string|null }) => {
+  discount,
+}: Variant & {
+  onClick: () => void;
+  currentId: number;
+  discount: string | null;
+}) => {
   return (
     <div
       onClick={onClick}
@@ -28,14 +32,11 @@ const CardVariantItem = ({
       )}
     >
       <h1 className="font-semibold text-sm">
-        {capacity} | {ram}
+        {capacity} | {ram}a
       </h1>
-      <span className="text-sm">{discount != null
-                      ? calculNewPrice(
-                          +discount,
-                          +(price)
-                        )
-                      : price} Dh</span>
+      <span className="text-sm">
+        {discount != null ? calculNewPrice(+discount, +price) : price} Dh
+      </span>
     </div>
   );
 };
@@ -47,13 +48,15 @@ const CardColor = ({
   id,
   discount,
   onClick,
-}: {  name:string,
-  image:string,
-  price:string,
-  current:number|null,
-  id:number,
-  discount:string|null,
-  onClick:()=>void}) => {
+}: {
+  name: string;
+  image: string;
+  price: string;
+  current: number | null;
+  id: number;
+  discount: string | null;
+  onClick: () => void;
+}) => {
   return (
     <div
       onClick={onClick}
@@ -64,9 +67,9 @@ const CardColor = ({
     >
       <div className="w-full  flexCenter">
         <Image
+          loading="lazy"
           width={1000}
           height={1000}
-          loading="lazy"
           src={imageSrc(image)}
           alt={name}
           className="w-16 h-16 object-contain pointer-events-none rounded-md"
@@ -104,9 +107,8 @@ const IconTitle = ({
   );
 };
 const DetailComponent = ({
-
   slug,
-  
+
   allQ,
   photo,
   description,
@@ -118,7 +120,9 @@ const DetailComponent = ({
   colors,
 }: Product) => {
   const [currentVariant, setCurrentVariant] = useState<null | Variant>(null);
-  const [currentColor, setCurrentColor] = useState<null | Color>(colors[0]);
+  const [currentColor, setCurrentColor] = useState<null | Color>(
+    colors[0] ?? null
+  );
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   //set default variant
@@ -128,7 +132,13 @@ const DetailComponent = ({
     }
   }, [currentColor]);
   return (
-    <div className={clsx(+allQ==0&&"opacity-[0.5]","p-padding lg:px-paddingPC ")}>
+    <div
+      className={clsx(
+        +allQ == 0 && "opacity-[0.5]",
+        currentVariant?.quantity == 0|| !currentVariant && "opacity-[0.5]",
+        "p-padding lg:px-paddingPC pb-32 "
+      )}
+    >
       <div className="kinatech-container">
         <div className="flex gap-10 flex-col lg:flex-row ">
           <div className=" w-full">
@@ -136,11 +146,11 @@ const DetailComponent = ({
               <div className=" w-full h-full ">
                 <div className="w-full  bg-white border border-x-0 lg:border-r  rounded-br-none rounded-bl-none rounded-xl md:h-full overflow-hidden relative ">
                   <Image
+                    loading="lazy"
                     width={1000}
                     height={1000}
-                    loading="lazy"
                     src={imageSrc(currentColor?.images[currentIndex] || photo)}
-                    alt={currentVariant?.name || slug}
+                    alt={currentVariant?.name ?? slug ?? ""}
                     className="w-full p-padding h-full object-contain  pointer-events-none rounded-md"
                   />
                   {/* Arrow */}
@@ -164,18 +174,16 @@ const DetailComponent = ({
                   </>
                 </div>
 
-                {discount !== null && (
+                {discount !== null&&+allQ>0 && (
                   <span className="bg-[red] select-none font-A  text-white p-2  absolute top-2 right-2 rounded-xl">
                     Promo -{discount}%
-                 
                   </span>
                 )}
               </div>
               {(currentColor?.images ?? []).length > 0 && (
                 <div className="flex  lg:flex-col gap-3 flexCenter p-1 ">
                   {currentColor?.images.map((img, index) => (
-                    <div 
-                  
+                    <div
                       onClick={() => setCurrentIndex(index)}
                       key={index}
                       className={clsx(
@@ -184,9 +192,9 @@ const DetailComponent = ({
                       )}
                     >
                       <Image
+                        loading="lazy"
                         width={1000}
                         height={1000}
-                        loading="lazy"
                         src={imageSrc(img)}
                         alt={slug}
                         className="w-full  h-full object-contain pointer-events-none rounded-md"
@@ -199,16 +207,19 @@ const DetailComponent = ({
           </div>
 
           <div className="w-full font-A flex-col gap-y-5 flex">
-{+allQ==0&&<h1 className="text-xl font-bold text-[red] font-B uppercase tracking-wider">pas disponible</h1>
-}            <div                 title={brand_name}
- className="flex flex-col gap-y-1">
+            {+allQ == 0 && (
+              <h1 className="text-xl font-bold text-[red] font-B uppercase tracking-wider">
+                pas disponible
+              </h1>
+            )}{" "}
+            <div title={brand_name} className="flex flex-col gap-y-1">
               <Image
+                loading="lazy"
                 width={1000}
                 height={1000}
-                loading="lazy"
                 src={imageSrc(brand_logo)}
-                alt={brand_name}
-                className="w-12 h-10 object-contain pointer-events-none rounded-md"
+                alt={brand_name ?? "brand"}
+                className="w-16 object-contain pointer-events-none rounded-md"
               />
               <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold">
                 {currentVariant?.name || slug}
@@ -222,25 +233,25 @@ const DetailComponent = ({
             </div>
             <hr />
             {/* couleurs */}
-            <div className="flex flex-col gap-y-5">
+           {colors?.length>0&& <div className="flex flex-col gap-y-5">
               <h1 className="font-B font-medium text-grey">
                 Choisissez votre Couleur
               </h1>
               <div className="grid grid-cols-2 md:grid-cols-3  gap-5">
-                {colors.map((color) => (
-                  <CardColor 
-                  key={color.id}
+                {colors?.map((color) => (
+                  <CardColor
+                    key={color.id}
                     onClick={() => setCurrentColor(color)}
-                    current={currentColor?.id??null}
+                    current={currentColor?.id ?? null}
                     id={color.id}
-                    discount={discount??null}
+                    discount={discount ?? null}
                     name={color.name}
                     price={base_price}
                     image={color.images[0]}
                   />
                 ))}
               </div>
-            </div>
+            </div>}
             <hr />
             {currentVariant?.capacity && (
               <>
@@ -250,8 +261,8 @@ const DetailComponent = ({
                   </h1>
                   <div className="grid grid-cols-2 md:grid-cols-3  gap-5">
                     {currentColor?.variants?.map((variant, index) => (
-                      <CardVariantItem 
-                      discount={discount||null}
+                      <CardVariantItem
+                        discount={discount || null}
                         onClick={() => setCurrentVariant(variant)}
                         {...variant}
                         key={index}
@@ -286,15 +297,12 @@ const DetailComponent = ({
               <hr />
               <IconTitle title="Livraison à domicile" icon="Truck">
                 {currentVariant?.quantity ? (
-                  <p className="text-main font-B">
-
-                  </p>
+                  <p className="text-main font-B"></p>
                 ) : (
                   <span className="font-B text-[red]">Non disponible</span>
                 )}
               </IconTitle>
             </div>
-
             {/* SUMMARy */}
             <div
               className={clsx(
@@ -309,17 +317,19 @@ const DetailComponent = ({
                   </h1>
                 </div>
                 <div className="flex justify-between items-center">
-               <div className="flex flex-col">
-                   <span className="text-sm text-grey">
-                    {currentColor?.name || ""}
-                  </span> 
+                  <div className="flex flex-col">
                     <span className="text-sm text-grey">
-                    {`${currentVariant?.capacity??''} | ${currentVariant?.ram??''}` || ""}
-                  </span>
-               </div>
+                      {currentColor?.name || ""}
+                    </span>
+              {      <span className="text-sm text-grey">
+                      {`${currentVariant?.capacity ?? ""}  ${
+                        currentVariant?.ram && '| '+currentVariant?.ram||''
+                      }` || ""}
+                    </span>}
+                  </div>
 
                   <span>
-                    {discount != null
+                    {discount != null &&+allQ>0
                       ? calculNewPrice(
                           +discount,
                           +(currentVariant?.price ?? base_price)
@@ -335,7 +345,7 @@ const DetailComponent = ({
                 <span className="uppercase font-bold text-xl">Total</span>
                 <div>
                   <p className="font-B text-2xl">
-                    {discount != null
+                    {discount != null&&+allQ>0
                       ? calculNewPrice(
                           +discount,
                           +(currentVariant?.price ?? base_price)
@@ -349,7 +359,7 @@ const DetailComponent = ({
                 </div>
               </div>
               <button
-                disabled={currentVariant?.quantity == 0}
+                disabled={!currentVariant?.quantity||+allQ==0}
                 className={clsx(
                   "bg-main-hover text-white w-full kinatech-btn bg-main "
                 )}

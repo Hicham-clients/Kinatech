@@ -22,6 +22,7 @@ module.exports = {
         A: ["Satoshi", "sans-serif"],
         B: ["SF Pro Display", "sans-serif"],
         C: ["Boska", "sans-serif"],
+        D: ["Satoshi Bold", "sans-serif"],
       },
     },
   },

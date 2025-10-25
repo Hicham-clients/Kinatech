@@ -1,4 +1,5 @@
 "use client";
+import { useMenuCategories } from "@/hooks/useMenuCategories";
 import Link from "next/link";
 import {
   FacebookLogo,
@@ -11,7 +12,12 @@ const iconsize: { size: string; weight: IconWeight } = {
   size: "1.75rem",
   weight: "regular",
 };
-const social: { name: string; url: string; icon:React.ReactNode; color: string }[] = [
+const social: {
+  name: string;
+  url: string;
+  icon: React.ReactNode;
+  color: string;
+}[] = [
   {
     name: "Facebook",
     url: "",
@@ -39,6 +45,13 @@ const contact = [
   "(+212) 5 22 67 20 01 ",
 ];
 
+const links = [
+  { name: "Qui sommes nous", url: "/qui-sommes-nous" },
+  { name: "Nos produits", url: "/products_categories" },
+  { name: "Marques", url: "/marques" },
+  { name: "Contactez nous", url: "/contact" },
+];
+
 const Title = ({ value }: { value: string }) => {
   return (
     <h1 className="text-left 2xl:text-lg font-B capitalize   tracking-wider  font-semibold ">
@@ -48,13 +61,15 @@ const Title = ({ value }: { value: string }) => {
 };
 
 const Footer = () => {
+  const { data } = useMenuCategories();
+
   return (
-    <footer className="cursor-context-menu border-t  bg-white    text-black  md:p-5 md:py-16 font-A">
+    <footer className="cursor-context-menu   border-t    text-blk  md:p-5 md:py-16 font-A ">
       <div className="flex p-5 lg:px-20    flex-col gap-y-20 kinatech-container ">
         <div className="flex  flex-col gap-y-10 md:flex-row justify-between  ">
           <div className="flex  flex-col gap-y-4  w-fit">
-            <Title value="Kinatech" />
-            <div className="flex  items-center gap-x-2 text-sm  max-w-xs   md:items-start">
+            <Title value="KINATECH" />
+            <div className="flex  items-center gap-x-2   max-w-xs   md:items-start">
               L’équipe KINATECH est composée d’ingénieurs et de techniciens
               hautement qualifiés dans les nouvelles technologies. On vous offre
               un large choix de matériel de haute qualité à des prix
@@ -65,33 +80,29 @@ const Footer = () => {
           <div className="flex  flex-col gap-y-4  w-fit">
             <Title value="quick likns" />
             <div className="flex flex-col   gap-y-2  items-start md:items-start">
-              {["Qui sommes nous", "Nos produits", "Nos promotions","Marques","contactez nous"].map(
-                (item, index) => (
-                  <Link
-                    key={index}
-                    href={item}
-                    className="underline-hover text-sm capitalize 2xl:text-base transitionclass text-main-hover  "
-                  >
-                    {item}
-                  </Link>
-                )
-              )}
+              {links.map((item, index) => (
+                <Link
+                  key={index}
+                  href={item.url}
+                  className="underline-hover capitalize 2xl:text-base transitionclass text-main-hover  "
+                >
+                  {item.name}
+                </Link>
+              ))}
             </div>
           </div>
           <div className="flex  flex-col gap-y-4  w-fit">
             <Title value="Catégories" />
             <div className="flex flex-col   gap-y-2  items-start md:items-start">
-              {["Qui sommes nous", "nos produits", "nos promotions"].map(
-                (item, index) => (
-                  <Link
-                    key={index}
-                    href={item}
-                    className="underline-hover text-sm capitalize 2xl:text-base transitionclass text-main-hover  "
-                  >
-                    {item}
-                  </Link>
-                )
-              )}
+              {data?.map((item, index) => (
+                <Link
+                  key={index}
+                  href={`/products-categories?${item.url}`}
+                  className="underline-hover  capitalize 2xl:text-base transitionclass text-main-hover  "
+                >
+                  {item.name}
+                </Link>
+              ))}
             </div>
           </div>
 
@@ -102,7 +113,7 @@ const Footer = () => {
                 return (
                   <Link
                     href={item.includes("@") ? `mailto:${item}` : `tel:${item}`}
-                    className="text-sm underline-hover 2xl:text-base transitionclass text-main-hover  "
+                    className=" underline-hover 2xl:text-base transitionclass text-main-hover  "
                     key={index}
                   >
                     {item}
@@ -110,21 +121,21 @@ const Footer = () => {
                 );
               })}
             </ul>
-              <ul className="flex  text-xl gap-x-6 ">
-            {social.map((item) => {
-              return (
-                <li
-                  className={`hover:text-[${item.color}] transitionclass  hover:text-main hover:scale-[1.1]`}
-                  key={item.name}
-                  title={item.name}
-                >
-                  <a target="_blank" href={item.url}>
-                    {item.icon}
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
+            <ul className="flex  text-xl gap-x-6 ">
+              {social.map((item) => {
+                return (
+                  <li
+                    className={`hover:text-[${item.color}] transitionclass  hover:text-main hover:scale-[1.1]`}
+                    key={item.name}
+                    title={item.name}
+                  >
+                    <a target="_blank" href={item.url}>
+                      {item.icon}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         </div>
 
@@ -132,14 +143,14 @@ const Footer = () => {
           <div className=" text-sm">
             Tous droits reservés. Kinatech {new Date().getFullYear()} &copy;
           </div>
-           <a
-          href="https://www.elloutfi.com"
-          className=" group transitionclass hover:underline hover:opacity-100  opacity-80 text-sm flex justify-center items-start "
-        >
-          Dévelopé par: elloutfi.com
-        </a>
+      
+          <a
+            href="https://www.elloutfi.com"
+            className=" group transitionclass hover:underline hover:opacity-100  opacity-80 text-sm flex justify-center items-start "
+          >
+            Développé par: elloutfi.com
+          </a>
         </div>
-     
       </div>
     </footer>
   );
