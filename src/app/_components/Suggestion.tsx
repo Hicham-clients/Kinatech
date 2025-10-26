@@ -44,7 +44,7 @@ const Suggestion = () => {
   return (
     <div className="py-20 pt-32 px-paddingPhone lg:px-paddingPC ">
  <div className="flex flex-col gap-y-20 kinatech-container">
-       <div className="text-center font-D tracking-wider text-4xl  ">
+       <div className="text-center font-D tracking-wider text-3xl md:text-4xl  ">
         <h1> Informatique, Audio & High-Tech.</h1>
         <h1 className="opacity-[0.5]">
           PC portables & Gamer hautes performances au Maroc.

@@ -1,80 +1,83 @@
 "use client";
 import Icon from "@/components/IconComponent";
+import { imageSrc } from "@/lib/getSrc";
+import { Cart, Decrease, Increase, RemoveFromCart } from "@/store/productSlice";
+import { RootState } from "@/store/store";
+import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Confirmer from "./confirmer";
 
 export default function CartProduct({
-  product = {
-    image: "/pc.webp",
-    name: "iphone",
-    color: "red",
-    price: 1990,
-    capacity: "90%",
-  },
-  onRemove = () => console.log("hi"),
-}) {
-  const [quantity, setQuantity] = useState(1);
+  
+   photo
+  ,color,id,max,name,price,quantity,capacity,ram,url
+  
+}:Cart) {
 
-  const increment = () => setQuantity(quantity + 1);
-  const decrement = () => quantity > 1 && setQuantity(quantity - 1);
-
+const dispatch=useDispatch()  
+//show dialog for delete 
+const [showDialog,setShowDialog]=useState(false)
   return (
     <div className="flex font-A items-start py-6 border-b border-grey w-full  ">
-      <div className="flex-shrink-0 flexCenter">
+      <Link href={`/products/${url}`} className="flex-shrink-0 flexCenter">
         <Image
           loading="lazy"
           width={1000}
           height={1000}
-          src={product.image}
-          alt={product.name}
+          src={imageSrc(photo)}
+          alt={name}
           className="w-28 h-28 object-contain pointer-events-none rounded-md"
         />
-      </div>
+      </Link>
       <div className="ml-6 flex-1">
         <div className="flex justify-between items-start">
-          <Link href={"/products/"}>
-            <h2 className=" text-lg font-semibold text-blk">{product.name}</h2>
-            <p className="text-sm  text-grey mt-1">Couleur : {product.color}</p>
-            <p className="text-sm  text-grey">Capacité : {product.capacity}</p>
-          </Link>
-          <p className="font-B  text-lg font-semibold text-blk">
-            {product.price} DH
+          <Link href={`/products/${url}`}>
+            <h2 className=" text-lg font-D text-blk">{name}</h2>
+            <p className="text-sm  text-grey mt-1">Couleur : {color}</p>
+{ capacity||ram&&           <p className="text-sm  text-grey">Capacité : {capacity}| {ram}</p>
+}          </Link>
+          <p className="  text-lg font-D text-blk">
+            {price} DH
           </p>
         </div>
         <div className="flex justify-between items-center mt-4">
           <div className="flex items-center">
             <button
-              onClick={decrement}
-              className="bg-main-hover 
-              text-fff-hover
+              onClick={()=>dispatch(Decrease(id))}
+              className={clsx(quantity==1?"cursor-not-allowed opacity-[0.5] ":"bg-main-hover text-fff-hover",
 
-              w-8 h-8 flex items-center justify-center border rounded-l-md  0  border-grey"
+              "w-8 h-8 flex items-center justify-center border rounded-l-md  0  border-grey")}
             >
               <Icon name="Minus" />
             </button>
             <span className="select-none px-5 font-B w-12 py-1 border-t border-b border-grey flexCenter">
               {quantity}
             </span>
-            <button
-              onClick={increment}
-              className="w-8 h-8 bg-main-hover 
-              text-fff-hover flexCenter border border-grey rounded-r-md "
+            <button 
+            
+              onClick={()=>dispatch(Increase(id))}
+              className={clsx(quantity==max?"cursor-not-allowed opacity-[0.5] ":"bg-main-hover text-fff-hover","w-8 h-8  flexCenter border border-grey rounded-r-md ")}
             >
               <Icon name="Plus" />
             </button>
           </div>
-          <button
-            onClick={onRemove}
-            className="text-sm font-medium text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-500 flex items-center"
+          <button  
+            onClick={()=>setShowDialog(true)}
+            className="text-sm select-none font-medium text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-500 flex items-center"
           >
-            <span className="text-xl">
+            <span         
+ className="text-xl">
               <Icon name="Trash" />{" "}
             </span>
             <span className="hidden sm:inline">Supprimer</span>
           </button>
         </div>
       </div>
+      {/* Show  */}
+      {showDialog&&<Confirmer confirmer={()=>dispatch(RemoveFromCart(id))} name={name}  onclick={()=>setShowDialog(false)}/>}
     </div>
   );
 }

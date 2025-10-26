@@ -7,8 +7,8 @@ export interface Variant {
   name: string;
   price: string;
   quantity: number;
-  ram: number;
-  capacity: number;
+  ram: string;
+  capacity: string;
 }
 
 // Color

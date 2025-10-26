@@ -39,7 +39,7 @@ const ReasonCard = ({
       <div className="  flex bg-second  bg-gradient-to-tr  shadow-xl  text-2xl text-white  items-center justify-center h-14 p-4 w-14 rounded-2xl  ">
 <Icon name={icon}/>
       </div>
-      <h4 className="font-semibold  h-full font-A tracking-wider  sm:text-[16px] 2xl:text-xl ">
+      <h4 className="font-D  h-full tracking-wider  sm:text-[16px] 2xl:text-xl ">
         {title}
       </h4>
       <p className="h-full font-A tracking-wide font-[400] text-sm leading-relaxed">{text}</p>

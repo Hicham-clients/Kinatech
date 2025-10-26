@@ -14,6 +14,8 @@ import { useProductsSearch } from "@/hooks/useProductSearch";
 import { imageSrc } from "@/lib/getSrc";
 import SearchMenuLoading from "@/skeletons/searchMenu";
 import clsx from "clsx";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 const SearchInput = () => {
   const [isEmpty, setIsEmpty] = useState(true);
@@ -32,7 +34,6 @@ const SearchInput = () => {
 
   useEffect(() => {
     if (value) {
-      
       router.push("?q=" + value);
     }
   }, [value, router]);
@@ -93,12 +94,12 @@ const SearchInput = () => {
                       />
                     </div>
                     <div className="w-full flex flex-col text-sm">
-                      <h1 className="font-semibold ">{item.slug}</h1>
+                      <h1 className="font-D ">{item.slug}</h1>
                       <span className="text-grey text-sm capitalize">
                         {item.category.name}
                       </span>
                       <div className="flex justify-between items-center text-xs">
-                        <span className="font-semibold text-blk ">
+                        <span className="font-D text-blk ">
                           {item.promo !== null
                             ? +item.base_price -
                               +item.base_price * (+item.promo.discount / 100)
@@ -190,6 +191,8 @@ const Menu = () => {
       setHistory((prev) => prev.slice(0, -1));
     }
   };
+  //get count of cart items
+  const cart = useSelector((state: RootState) => state.cart.cart);
 
   return (
     <nav className="font-B select-none text-white">
@@ -218,7 +221,7 @@ const Menu = () => {
                 <Icon name="ShoppingBag" />
               </Link>
               <span className="bg-second absolute -top-2 -left-2 rounded-full h-5 w-5 p-3 text-xs flexCenter bg-second-hover">
-                9
+                {cart?.length < 100 ? cart?.length : "+99"}
               </span>
             </div>
           </div>
@@ -313,12 +316,13 @@ const Menu = () => {
 
       {/* side bar */}
       <AnimatePresence>
-        {showSide && (
+        {showSide && ( <div onClick={()=>setShowSide(false)} className="bg-black/60 z-[99999999999999] w-full fixed top-0 left-0 h-screen ">
+       
           <motion.div
             initial={{ x: "-90%" }}
             exit={{ x: "-90%", opacity: 0 }}
             animate={{ x: "0%" }}
-            className="bg-blk select-none z-[999999999] fixed top-0 left-0 w-2/3 h-screen overflow-y-auto lg:hidden"
+            className="bg-blk select-none z-[99999999999999] fixed top-0 left-0 w-2/3 h-screen overflow-y-auto lg:hidden"
           >
             <div className="py-7 px-padding sticky left-0 bg-main top-0">
               <button
@@ -331,11 +335,11 @@ const Menu = () => {
             <div>
               <div className="bg-main px-padding">
                 <Link
-                  href={"/brands"}
+                  href={"products_categories?brand=samsung"}
                   className="py-padding text-white-hover uppercase tracking-wide flex items-center gap-x-5"
                 >
                   <span className="text-4xl">
-                    <Icon name="TrademarkRegistered" />
+                    <Icon name="AppleLogo" />
                   </span>
                   <span className="underline-hover"> Nos Marques</span>
                 </Link>
@@ -367,7 +371,7 @@ const Menu = () => {
                           key={index}
                           className="cursor-pointer text-white-hover capitalize flex justify-between items-center"
                         >
-                          <Link href={`/categories_products/${item.name}`}>
+                          <Link href={`/products_categories?category=${item.url}`}>
                             {item.name}
                           </Link>
                           {(item?.childrens ?? []).length > 0 && (
@@ -380,12 +384,13 @@ const Menu = () => {
                           )}
                         </li>
                       ))
-                    : "h"}
+                    : ""}
                 </ul>
               </div>
             </div>
           </motion.div>
-        )}
+         
+        </div>)}
       </AnimatePresence>
     </nav>
   );

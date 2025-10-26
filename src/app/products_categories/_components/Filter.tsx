@@ -122,7 +122,7 @@ params.set("search",e.target.value)
                     params.set('brand',e.target.value) 
                     router.push(`/products_categories?${params.toString()}`)
                   }}  className="border w-full outline-none focus:ring-1 ring-main  p-2 rounded text-blk font-A mx-5" name="" id="">
-                  <option disabled defaultValue={''}>--Choisissez une marque--</option>
+                  <option value={""}  disabled >--Choisissez une marque--</option>
                     {brands?.map(item=><option key={item.id}      value={item.name}>{item.name}</option>)}
                     
                   </select>

@@ -8,6 +8,8 @@ import Footer from "@/components/partials/Footer";
 import Brands from "./_components/brands";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import { Metadata } from "next";
+import { Providers } from "@/store/Providers";
+
 //SEO OPTIMIZATION
 export const metadata: Metadata = {
   title: "KINATECH",
@@ -84,6 +86,8 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body>
+                <Providers>
+
         <ReactQueryProvider>
           <header>
             <Menu />
@@ -95,6 +99,7 @@ export default function RootLayout({
             <Footer />
           </footer>
         </ReactQueryProvider>
+        </Providers>
       </body>
     </html>
   );

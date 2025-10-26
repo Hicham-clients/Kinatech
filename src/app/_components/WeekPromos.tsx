@@ -14,23 +14,24 @@ const WeekPromos = () => {
       <div className="px-paddingPhone  lg:px-paddingPC pt-20  ">
         <div className="kinatech-container flex flex-col gap-y-5  ">
           <div className="w-fit  ">
-            <h1 className=" font-A text-2xl lg:text-3xl tracking-wide font-bold text-blk">
+            <h1 className=" font-D text-2xl lg:text-3xl tracking-wide  text-blk">
               Promos de la semaine
             </h1>
-         <motion.svg
-  initial={{ width: 0 }}
-  whileInView={{ width: "100%" }}
-  viewBox="0 0 200 20"
-  aria-hidden="true"
->
-  <path
-    d="M5 10 L195 10"
-    fill="none"
-    stroke="var(--second)"
-    strokeWidth="2"
-    strokeLinecap="round"
-  />
-</motion.svg>
+            <motion.svg
+              // viewport={{ once: true, amount: 0.3 }}
+              initial={{ width: 0 }}
+              whileInView={{ width: "100%" }}
+              viewBox="0 0 200 20"
+              aria-hidden="true"
+            >
+              <path
+                d="M5 10 C40 20, 80 0, 195 10"
+                fill="none"
+                stroke="var(--second)"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </motion.svg>
 
           </div>
           <div className="pt-padding ">

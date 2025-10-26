@@ -12,10 +12,11 @@ import { fetchHeros, useHero } from "@/hooks/useHero";
 import HeroLoading from "@/skeletons/HeroLoading";
 
 const Hero = () => {
-  const { data, isLoading } = useHero("hero section")
-  if (isLoading) {
+  const { data, isLoading,error } = useHero("hero section")
+  if (isLoading||error) {
     return <HeroLoading />;
   }
+ 
   return (
     data && (
       <Swiper

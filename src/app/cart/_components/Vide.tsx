@@ -10,8 +10,8 @@ const Vide = () => {
       </div>
       
         <h1 className=" tracking-wider">Votre panier est vide!</h1>
-      <Link className="bg-[#1f1f1f] text-white rounded-md p-3 flexCenter tracking-wider  bg-black-hover" href={'/produits'}> 
-      continuer mes achats
+      <Link className="bg-[#1f1f1f] text-white rounded-md p-3 flexCenter tracking-wider  bg-black-hover" href={'/products_categories'}> 
+      Continuer mes achats
       </Link>
     </div>
   );

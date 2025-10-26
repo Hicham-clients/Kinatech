@@ -8,6 +8,11 @@ import { CaretLeft, CaretRight } from "phosphor-react";
 import { useEffect, useState } from "react";
 import * as PhosphorIcons from "phosphor-react";
 import { calculNewPrice } from "@/functions/Discount";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { hiddenDialog, setInCart } from "@/store/productSlice";
+import Link from "next/link";
+import Dialog from "@/app/cart/_components/dialog";
 const CardVariantItem = ({
   id,
   quantity,
@@ -118,6 +123,7 @@ const DetailComponent = ({
   brand_logo,
   discount,
   colors,
+  url
 }: Product) => {
   const [currentVariant, setCurrentVariant] = useState<null | Variant>(null);
   const [currentColor, setCurrentColor] = useState<null | Color>(
@@ -131,14 +137,24 @@ const DetailComponent = ({
       setCurrentVariant(currentColor?.variants[0]);
     }
   }, [currentColor]);
+  //REDUX TOOLKIT
+  const dispatch = useDispatch();
+  const { cart ,dialog} = useSelector((state: RootState) => state.cart);
+
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart))
+  }, [cart])
+
   return (
     <div
       className={clsx(
         +allQ == 0 && "opacity-[0.5]",
-        currentVariant?.quantity == 0|| !currentVariant && "opacity-[0.5]",
+        currentVariant?.quantity == 0 || (!currentVariant && "opacity-[0.5]"),
         "p-padding lg:px-paddingPC pb-32 "
       )}
     >
+      { dialog.show&&dialog.product &&<Dialog name={dialog?.product?.name} photo={dialog?.product?.photo} price={dialog?.product?.price.toString()} quantity={dialog?.product?.quantity}    onclick={()=>dispatch(hiddenDialog())}/>}
       <div className="kinatech-container">
         <div className="flex gap-10 flex-col lg:flex-row ">
           <div className=" w-full">
@@ -174,7 +190,7 @@ const DetailComponent = ({
                   </>
                 </div>
 
-                {discount !== null&&+allQ>0 && (
+                {discount !== null && +allQ > 0 && (
                   <span className="bg-[red] select-none font-A  text-white p-2  absolute top-2 right-2 rounded-xl">
                     Promo -{discount}%
                   </span>
@@ -221,7 +237,7 @@ const DetailComponent = ({
                 alt={brand_name ?? "brand"}
                 className="w-16 object-contain pointer-events-none rounded-md"
               />
-              <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold">
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-D">
                 {currentVariant?.name || slug}
               </h1>
             </div>
@@ -233,25 +249,27 @@ const DetailComponent = ({
             </div>
             <hr />
             {/* couleurs */}
-           {colors?.length>0&& <div className="flex flex-col gap-y-5">
-              <h1 className="font-B font-medium text-grey">
-                Choisissez votre Couleur
-              </h1>
-              <div className="grid grid-cols-2 md:grid-cols-3  gap-5">
-                {colors?.map((color) => (
-                  <CardColor
-                    key={color.id}
-                    onClick={() => setCurrentColor(color)}
-                    current={currentColor?.id ?? null}
-                    id={color.id}
-                    discount={discount ?? null}
-                    name={color.name}
-                    price={base_price}
-                    image={color.images[0]}
-                  />
-                ))}
+            {colors?.length > 0 && (
+              <div className="flex flex-col gap-y-5">
+                <h1 className="font-B font-medium text-grey">
+                  Choisissez votre Couleur
+                </h1>
+                <div className="grid grid-cols-2 md:grid-cols-3  gap-5">
+                  {colors?.map((color) => (
+                    <CardColor
+                      key={color.id}
+                      onClick={() => setCurrentColor(color)}
+                      current={currentColor?.id ?? null}
+                      id={color.id}
+                      discount={discount ?? null}
+                      name={color.name}
+                      price={base_price}
+                      image={color.images[0]}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>}
+            )}
             <hr />
             {currentVariant?.capacity && (
               <>
@@ -312,7 +330,7 @@ const DetailComponent = ({
             >
               <div className="flex  flex-col">
                 <div className="flex flex-col gap-y-2">
-                  <h1 className="font-semibold text-lg">
+                  <h1 className="font-D text-lg">
                     {currentVariant?.name || slug}
                   </h1>
                 </div>
@@ -321,15 +339,18 @@ const DetailComponent = ({
                     <span className="text-sm text-grey">
                       {currentColor?.name || ""}
                     </span>
-              {      <span className="text-sm text-grey">
-                      {`${currentVariant?.capacity ?? ""}  ${
-                        currentVariant?.ram && '| '+currentVariant?.ram||''
-                      }` || ""}
-                    </span>}
+                    {
+                      <span className="text-sm text-grey">
+                        {`${currentVariant?.capacity ?? ""}  ${
+                          (currentVariant?.ram && "| " + currentVariant?.ram) ||
+                          ""
+                        }` || ""}
+                      </span>
+                    }
                   </div>
 
                   <span>
-                    {discount != null &&+allQ>0
+                    {discount != null && +allQ > 0
                       ? calculNewPrice(
                           +discount,
                           +(currentVariant?.price ?? base_price)
@@ -345,7 +366,7 @@ const DetailComponent = ({
                 <span className="uppercase font-bold text-xl">Total</span>
                 <div>
                   <p className="font-B text-2xl">
-                    {discount != null&&+allQ>0
+                    {discount != null && +allQ > 0
                       ? calculNewPrice(
                           +discount,
                           +(currentVariant?.price ?? base_price)
@@ -358,8 +379,28 @@ const DetailComponent = ({
                   </p> */}
                 </div>
               </div>
-              <button
-                disabled={!currentVariant?.quantity||+allQ==0}
+          {/* {cart.findIndex(item=>item.id==currentVariant?.id)==-1? */}
+                <button
+                onClick={() => {
+                  if (currentColor && currentVariant) {
+                    dispatch(
+                      setInCart({
+                        id: currentVariant?.id,
+                        color: currentColor?.name,
+                        photo: currentColor?.images[0],
+                        max: currentVariant?.quantity,
+                        name: currentVariant?.name,
+                        capacity: currentVariant?.capacity,
+                        price:discount!=null ?(calculNewPrice(+discount,+currentVariant?.price)):calculNewPrice(0,(+currentVariant?.price) ),
+                        ram: currentVariant?.ram,
+                        quantity: 1,
+                        url:url,
+                      })
+                    );
+                  } 
+                }} 
+                title={cart?.find(item=>item.id==currentVariant?.id)?.max===currentVariant?.quantity?"tu as atteint la quantité maximale disponible pour ce produit":''}
+                disabled={!currentVariant?.quantity || +allQ == 0 || cart?.find(item=>item.id==currentVariant.id)?.max==currentVariant.quantity}
                 className={clsx(
                   "bg-main-hover text-white w-full kinatech-btn bg-main "
                 )}
@@ -368,8 +409,23 @@ const DetailComponent = ({
                   {" "}
                   <Icon name="ShoppingBag" />
                 </span>
-                Ajouter au panier
+            Ajouter au panier
               </button>
+            {/* //   :<Link href={'/cart'}
+              
+            //     className={clsx(
+            //       "bg-second-hover text-white w-full kinatech-btn bg-second "
+            //     )}
+            //   >
+              
+              
+            
+            //     <span className="text-2xl">
+            //       <Icon name="ArrowBendDownRight" />
+            //     </span>
+            // Consulter le panier
+            //   </Link> */}
+              {/* } */}
             </div>
           </div>
         </div>

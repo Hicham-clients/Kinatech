@@ -48,7 +48,7 @@ const contact = [
 const links = [
   { name: "Qui sommes nous", url: "/qui-sommes-nous" },
   { name: "Nos produits", url: "/products_categories" },
-  { name: "Marques", url: "/marques" },
+  { name: "Marques", url: "/products_categories?brand=apple" },
   { name: "Contactez nous", url: "/contact" },
 ];
 
