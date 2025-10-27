@@ -1,6 +1,7 @@
 "use client";
 
 import { RootState } from "@/store/store";
+import Link from "next/link";
 import { useSelector } from "react-redux";
 
 export default function CartSummary() {
@@ -35,9 +36,9 @@ return curr+=+acc
           </p> */}
         </div>
       </div>
-      <button className="mt-8 w-full bg-second text-white py-3 rounded-lg font-semibold bg-second-hover  ">
+      <Link href={'/cart/checkout'} className="flex justify-center items-center mt-8 w-full bg-second text-white py-3 rounded-lg font-semibold bg-second-hover  ">
         Valider la commande
-      </button>
+      </Link>
     </div>
   );
 }

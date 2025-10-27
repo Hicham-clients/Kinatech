@@ -399,8 +399,8 @@ const DetailComponent = ({
                     );
                   } 
                 }} 
-                title={cart?.find(item=>item.id==currentVariant?.id)?.max===currentVariant?.quantity?"tu as atteint la quantité maximale disponible pour ce produit":''}
-                disabled={!currentVariant?.quantity || +allQ == 0 || cart?.find(item=>item.id==currentVariant.id)?.max==currentVariant.quantity}
+                title={cart?.find(item=>item.id==currentVariant?.id)?.quantity===currentVariant?.quantity?"tu as atteint la quantité maximale disponible pour ce produit":''}
+                disabled={currentVariant?.quantity==0 || +allQ == 0 || cart?.find(item=>item.id==currentVariant?.id)?.quantity==currentVariant?.quantity}
                 className={clsx(
                   "bg-main-hover text-white w-full kinatech-btn bg-main "
                 )}

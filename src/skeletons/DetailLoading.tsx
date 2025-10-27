@@ -7,7 +7,7 @@ export default function DetailSkeleton() {
           <div className="lg:sticky top-20 w-full">
             <div className="w-full flex flex-col lg:flex-row-reverse items-center relative lg:h-[400px] border rounded-xl overflow-hidden">
               {/* Main Image */}
-              <div className="w-full h-full bg-gray-200  relative overflow-hidden">
+              <div className="w-full lg:h-full h-[500px] bg-gray-200  relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200  animate-shimmer"></div>
               </div>
 

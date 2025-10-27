@@ -54,7 +54,7 @@ const links = [
 
 const Title = ({ value }: { value: string }) => {
   return (
-    <h1 className="text-left 2xl:text-lg font-B capitalize   tracking-wider  font-semibold ">
+    <h1 className="text-left 2xl:text-lg  capitalize   tracking-wider  font-D ">
       {value}
     </h1>
   );
@@ -78,7 +78,7 @@ const Footer = () => {
           </div>
 
           <div className="flex  flex-col gap-y-4  w-fit">
-            <Title value="quick likns" />
+            <Title value="Liens" />
             <div className="flex flex-col   gap-y-2  items-start md:items-start">
               {links.map((item, index) => (
                 <Link

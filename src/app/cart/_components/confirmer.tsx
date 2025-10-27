@@ -12,7 +12,7 @@ const Confirmer = ({name,onclick,confirmer}:{confirmer:()=>void,name:string,oncl
 
 <div className="flex gap-5 items-center">
    
-  <p className="font-B text-xl">Vous êtes sur le point de retirer <strong>"{name}"</strong>
+  <p className="font-B text-xl text-grey">Vous êtes sur le point de retirer <strong className="text-blk">"{name}"</strong>
    {' '}de votre panier. Êtes-vous sûr de vouloir continuer avec cette sélection?
   </p>
 </div> 
