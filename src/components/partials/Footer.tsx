@@ -97,7 +97,7 @@ const Footer = () => {
               {data?.map((item, index) => (
                 <Link
                   key={index}
-                  href={`/products-categories?${item.url}`}
+                  href={`/products_categories?category=${item.url}`}
                   className="underline-hover  capitalize 2xl:text-base transitionclass text-main-hover  "
                 >
                   {item.name}

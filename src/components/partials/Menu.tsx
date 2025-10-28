@@ -275,7 +275,7 @@ const Menu = () => {
                       setIshover(true);
                     }}
                     onMouseLeave={() => setIshover(false)}
-                    href={`/products_categories?category=${item.name}`}
+                    href={`/products_categories?category=${item.url}`}
                   >
                     {item.name}
                   </Link>
