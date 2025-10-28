@@ -32,7 +32,7 @@ const SecondCardProduct = ({
           />
 
           <span className="text-blk scale-minus-hover bg-gray-200 rounded-full p-2 text-2xl absolute -bottom-2 right-2 ">
-            <Icon name="ShoppingCart" />
+            <Icon name="Bag" />
           </span>
         </div>
         <span className="font-semibold font-A text-[red]">

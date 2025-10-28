@@ -46,7 +46,7 @@ const router=useRouter()
 
   // },[value,router])
   return (
-    <div className="w-full md:w-1/2 p-3 bg-white h-[350px] overflow-y-auto rounded-2xl overflow-hidden lg:w-1/2 font-A lg:sticky top-20">
+    <div className="select-none w-full md:w-1/2 p-3 bg-white h-[350px] overflow-y-auto rounded-2xl overflow-hidden lg:w-1/2 font-A lg:sticky top-20">
       <div className="flex flex-col gap-3 ">
         <div className="flex relative flex-col gap-y-1 rounded-lg overflow-hidden">
           <input 

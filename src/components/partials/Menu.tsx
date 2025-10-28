@@ -16,6 +16,7 @@ import SearchMenuLoading from "@/skeletons/searchMenu";
 import clsx from "clsx";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
+ import * as PhosphorIcons from "phosphor-react";
 
 const SearchInput = () => {
   const [isEmpty, setIsEmpty] = useState(true);
@@ -132,6 +133,36 @@ const SearchInput = () => {
     </div>
   );
 };
+const NavbarPhone=()=>{ 
+  const navLinks:{url:string,icon:keyof typeof PhosphorIcons}[] = [
+  {
+    url: "/",
+    icon: "House", 
+  },
+  {
+    url: "/products_categories",
+    icon: "SquaresFour", 
+  },
+  {
+    url: "/cart",
+    icon: "Bag", 
+  },{
+    url: `https://wa.me/212656757843?text=${encodeURIComponent("Bonjour KINATECH,")}`,
+    icon: "WhatsappLogo", 
+  },
+];
+const pathName=usePathname()
+
+  return  <div className="lg:hidden fixed bottom-0  w-full left-0 z-[999]  shadow-[0px_-4px_7px_0px_#ecececd6]">
+    <div className="flex p-2 justify-around gap-x-5 bg-white rounded-t-3xl mx-auto">
+      {navLinks.map((item,index)=>{
+        return <Link   key={index} className={clsx(pathName==item.url&&"bg-main text-white","text-3xl text-blk p-3  scale-minus- text-white-hover bg-maincolor-hover rounded-full")} href={item.url}>
+          <Icon name={item.icon} />
+        </Link>
+      })}
+    </div>
+  </div>
+}
 
 const Menu = () => {
   // hover category
@@ -316,7 +347,9 @@ const Menu = () => {
 
       {/* side bar */}
       <AnimatePresence>
-        {showSide && ( <div onClick={()=>setShowSide(false)} className="bg-black/60 z-[99999999999999] w-full fixed top-0 left-0 h-screen ">
+        {showSide && (<>
+        <div onClick={()=>setShowSide(false)} className="bg-black/60 z-[99999999999999] w-full fixed top-0 left-0 h-screen "/>
+       
        
           <motion.div
             initial={{ x: "-90%" }}
@@ -361,7 +394,7 @@ const Menu = () => {
                   </button>
                 )}
 
-                <h1 className="cursor-context-menu tracking-wider font-bold text-main">
+                <h1 className="cursor-context-menu tracking-wider font-D text-main">
                   Choisir par catégorie
                 </h1>
                 <ul className="py-padding flex flex-col gap-y-2 tracking-wide">
@@ -390,8 +423,10 @@ const Menu = () => {
             </div>
           </motion.div>
          
-        </div>)}
+        </>  )} 
       </AnimatePresence>
+      {/* {navbar phone} */} 
+      <NavbarPhone/>
     </nav>
   );
 };

@@ -4,15 +4,19 @@ import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { axiosInstance } from "@/lib/axios";
+import { ToggleSummary, ViderCart } from "@/store/productSlice";
+import Link from "next/link";
+import Image from "next/image";
 const Checkout = () => {
   const { cart } = useSelector((state: RootState) => state.cart);
   const router = useRouter();
- 
+  const dispatch = useDispatch();
+
   //ZOD
   const contactSchema = z.object({
     fullName: z.string().min(1, "Le nom complet est requis"),
@@ -31,7 +35,7 @@ const Checkout = () => {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
   });
@@ -52,21 +56,50 @@ const Checkout = () => {
           headers: { "Content-Type": "application/json" },
         }
       );
-
       if (res.status == 201) {
-        
-        router.push('/confirmation')
+        dispatch(ToggleSummary(false));
 
-      } else {
-        alert("il y a un erreur");
+        const timer = setTimeout(() => {
+          dispatch(ViderCart()); 
+                  dispatch(ToggleSummary(true));
+
+          reset();
+        }, 12000);
+        return ()=>clearTimeout(timer)
       }
     } catch (err) {
-      console.error(err);
-      alert("Essayer after");
+      alert("il y a un erreur réssayer");
     }
   };
 
-  return (
+  return isSubmitSuccessful ? (
+    <div className=" md:w-1/2 mx-auto flex select-none  justify-center items-center font-A  flex-col gap-y-5">
+      <div className="relative h-52 w-52 ">
+        <Image
+          fill
+          alt="icon confirmation"
+          src={
+            "/images/cart/iconconfirm.webp"
+          }
+          className="w-full h-full absolute pointer-events-none object-cover"
+        />
+      </div>
+      <div className="flex flex-col justify-center items-center">
+        <h1 className="   text-center font-D text-2xl">
+          Votre commande a été enregistrée avec succès.
+        </h1>
+        <p className="text-center max-w-md text-grey">
+          Nous vous contacterons par téléphone pour confirmer votre commande
+        </p>
+      </div>
+      <Link
+        href={"/products_categories"}
+        className="w-fit text-sm flex bg-second-hover font-D  border p-2 rounded-lg text-center bg-second text-white"
+      >
+        Continuer vos achats
+      </Link>
+    </div>
+  ) : (
     <div className="flex flex-col gap-y-5 w-full">
       <h1 className=" font-D text-3xl tracking-wider">
         Validation de la commande

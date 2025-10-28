@@ -18,10 +18,11 @@ export interface Cart {
 
 interface CartState {
   cart: Cart[];
-  dialog:{
-    show:boolean,
-    product:Cart|null
+  dialog: {
+    show: boolean;
+    product: Cart | null;
   };
+  showSummary: boolean;
 }
 
 const initialState: CartState = {
@@ -30,6 +31,7 @@ const initialState: CartState = {
     show: false,
     product: null,
   },
+  showSummary: true,
 };
 
 const CartSlice = createSlice({
@@ -46,16 +48,17 @@ const CartSlice = createSlice({
       const Item = state.cart[findIndex];
       if (findIndex == -1) {
         if (action.payload.max > 0) {
-          state.cart.push(action.payload); 
-        
+          state.dialog.show = true;
+          state.dialog.product = action.payload;
+          state.cart.push(action.payload);
         }
       } else {
         if (Item.quantity < Item.max) {
           Item.quantity++;
+          state.dialog.show = true;
+          state.dialog.product = Item;
         }
-      } 
-        state.dialog.show=true
-          state.dialog.product=Item
+      }
     },
     RemoveFromCart: (state, action: PayloadAction<number>) => {
       state.cart = state.cart.filter((item) => item.id !== action.payload);
@@ -79,17 +82,30 @@ const CartSlice = createSlice({
       if (Item.quantity > 1) {
         Item.quantity--;
       }
-    }, 
-    hiddenDialog:(state) => {
-state.dialog={
-   show: false,
-    product: null,
-}
-
-    }
+    },
+    hiddenDialog: (state) => {
+      state.dialog = {
+        show: false,
+        product: null,
+      };
+    },
+    ViderCart: (state) => {
+      state.cart = [];
+    },
+    ToggleSummary: (state,action:PayloadAction<boolean>) => {
+      state.showSummary = action.payload;
+    },
   },
 });
 
-export const { setInCart, setCart, RemoveFromCart, Increase, Decrease,hiddenDialog } =
-  CartSlice.actions;
+export const {
+  setInCart,
+  ToggleSummary,
+  setCart,
+  RemoveFromCart,
+  Increase,
+  Decrease,
+  hiddenDialog,
+  ViderCart,
+} = CartSlice.actions;
 export default CartSlice.reducer;

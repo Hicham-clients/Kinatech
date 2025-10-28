@@ -30,3 +30,6 @@
 .bg-gray-hover{
   @apply sm:hover:bg-[#f4f4f4] active:bg-[#f4f4f4];
 }
+.bg-maincolor-hover{
+  @apply sm:hover:bg-main active:bg-main
+}

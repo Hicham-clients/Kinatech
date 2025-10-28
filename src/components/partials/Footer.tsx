@@ -144,7 +144,8 @@ const Footer = () => {
             Tous droits reservés. Kinatech {new Date().getFullYear()} &copy;
           </div>
       
-          <a
+          <a 
+          target="_blank"
             href="https://www.elloutfi.com"
             className=" group transitionclass hover:underline hover:opacity-100  opacity-80 text-sm flex justify-center items-start "
           >

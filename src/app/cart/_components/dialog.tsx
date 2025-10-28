@@ -45,7 +45,7 @@ const Dialog = ({
           </div>
           <div className="flex flex-col gap-y-5">
             <h1 className="font-D">
-              iphone 17 pro max - 356 GB-Black avec granti de 6{" "}
+{name}
             </h1>
             <strong>
               {" "}

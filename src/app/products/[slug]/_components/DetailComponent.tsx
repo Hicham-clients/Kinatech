@@ -11,7 +11,6 @@ import { calculNewPrice } from "@/functions/Discount";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { hiddenDialog, setInCart } from "@/store/productSlice";
-import Link from "next/link";
 import Dialog from "@/app/cart/_components/dialog";
 const CardVariantItem = ({
   id,
@@ -37,7 +36,7 @@ const CardVariantItem = ({
       )}
     >
       <h1 className="font-semibold text-sm">
-        {capacity} | {ram}a
+        {capacity} | {ram}
       </h1>
       <span className="text-sm">
         {discount != null ? calculNewPrice(+discount, +price) : price} Dh
@@ -401,8 +400,8 @@ const DetailComponent = ({
                 }} 
                 title={cart?.find(item=>item.id==currentVariant?.id)?.quantity===currentVariant?.quantity?"tu as atteint la quantité maximale disponible pour ce produit":''}
                 disabled={currentVariant?.quantity==0 || +allQ == 0 || cart?.find(item=>item.id==currentVariant?.id)?.quantity==currentVariant?.quantity}
-                className={clsx(
-                  "bg-main-hover text-white w-full kinatech-btn bg-main "
+                className={clsx(cart?.find(item=>item.id==currentVariant?.id)?.quantity===currentVariant?.quantity?"opacity-[0.5] bg-main hover:bg-main active:bg-main":"bg-main bg-main-hover",
+                  " text-white w-full kinatech-btn  font-D"
                 )}
               >
                 <span className="text-2xl">

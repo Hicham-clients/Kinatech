@@ -17,7 +17,7 @@ const SuggestionCard=({cover_mobile,cover_pc,created_at,id,product,product_id,ta
                 index == 2
                   ? "lg:row-span-2 lg:col-span-2 bg-[#f4f4f4]  order-4 lg:order-none col-span-2 h-[380px] lg:h-full"
                   : "lg:h-[200px] ",
-                " rounded-2xl overflow-hidden  h-[280px]  flex  w-full cursor-pointer relative"
+                " rounded-2xl overflow-hidden  h-[150px] md:h-[280px]  flex  w-full cursor-pointer relative"
               )}
             >
               <Image
@@ -33,7 +33,7 @@ const SuggestionCard=({cover_mobile,cover_pc,created_at,id,product,product_id,ta
            
                 {" "}
                 <button
-                  className={clsx(isHover&&"-translate-y-14"," absolute z-30 bg-black/60 -bottom-10  left-1/2 -translate-x-1/2 w-[90%] font-D text-white  flex justify-center items-center rounded-3xl p-2 ")}
+                  className={clsx(isHover&&"-translate-y-14"," absolute z-30 bg-black/60 -bottom-10  left-1/2 -translate-x-1/2 w-[90%] font-D text-white  flex justify-center items-center rounded-3xl p-2 text-sm ")}
                 >
                   Acheter maintenant
                 </button>
@@ -91,7 +91,7 @@ const Suggestion = () => {
                     Réssayer
                   </button>
                 </div>: <div className="text-center font-A tracking-wider text-xl">
-                  Pas des promos ce semaine
+                  Pas des suggestions
                 </div>}
  </div>
     </div>
