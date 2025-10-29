@@ -12,38 +12,38 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { hiddenDialog, setInCart } from "@/store/productSlice";
 import Dialog from "@/app/cart/_components/dialog";
-const CardVariantItem = ({
-  id,
-  quantity,
-  price,
-  capacity,
-  ram,
-  onClick,
-  currentId,
-  discount,
-}: Variant & {
-  onClick: () => void;
-  currentId: number;
-  discount: string | null;
-}) => {
-  return (
-    <div
-      onClick={onClick}
-      className={clsx(
-        currentId == id && "border-main",
-        quantity == 0 && "opacity-[0.2]",
-        " font-A border-2 select-none justify-center items-center rounded-xl p-5  flex  bg-gray-hover cursor-pointer flex-col "
-      )}
-    >
-      <h1 className="font-semibold text-sm">
-        {capacity} | {ram}
-      </h1>
-      <span className="text-sm">
-        {discount != null ? calculNewPrice(+discount, +price) : price} Dh
-      </span>
-    </div>
-  );
-};
+// const CardVariantItem = ({
+//   id,
+//   quantity,
+//   price,
+//   capacity,
+//   ram,
+//   onClick,
+//   currentId,
+//   discount,
+// }: Variant & {
+//   onClick: () => void;
+//   currentId: number;
+//   discount: string | null;
+// }) => {
+//   return (
+//     <div
+//       onClick={onClick}
+//       className={clsx(
+//         currentId == id && "border-main",
+//         quantity == 0 && "opacity-[0.2]",
+//         " font-A border-2 select-none justify-center items-center rounded-xl p-5  flex  bg-gray-hover cursor-pointer flex-col "
+//       )}
+//     >
+//       <h1 className="font-semibold text-sm">
+//         {capacity} | {ram}
+//       </h1>
+//       <span className="text-sm">
+//         {discount != null ? calculNewPrice(+discount, +price) : price} DH
+//       </span>
+//     </div>
+//   );
+// };
 const CardColor = ({
   name,
   image,
@@ -83,7 +83,7 @@ const CardColor = ({
       <p className="first-letter:uppercase ">à partir de </p>
       <span>
         {discount != null ? calculNewPrice(+discount, +price) : price}
-        Dh
+        DH
       </span>
     </div>
   );
@@ -122,7 +122,7 @@ const DetailComponent = ({
   brand_logo,
   discount,
   colors,
-  url
+  url,
 }: Product) => {
   const [currentVariant, setCurrentVariant] = useState<null | Variant>(null);
   const [currentColor, setCurrentColor] = useState<null | Color>(
@@ -138,12 +138,11 @@ const DetailComponent = ({
   }, [currentColor]);
   //REDUX TOOLKIT
   const dispatch = useDispatch();
-  const { cart ,dialog} = useSelector((state: RootState) => state.cart);
-
+  const { cart, dialog } = useSelector((state: RootState) => state.cart);
 
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart))
-  }, [cart])
+    sessionStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   return (
     <div
@@ -153,7 +152,15 @@ const DetailComponent = ({
         "p-padding lg:px-paddingPC pb-32 "
       )}
     >
-      { dialog.show&&dialog.product &&<Dialog name={dialog?.product?.name} photo={dialog?.product?.photo} price={dialog?.product?.price.toString()} quantity={dialog?.product?.quantity}    onclick={()=>dispatch(hiddenDialog())}/>}
+      {dialog.show && dialog.product && (
+        <Dialog
+          name={dialog?.product?.name}
+          photo={dialog?.product?.photo}
+          price={dialog?.product?.price.toString()}
+          quantity={dialog?.product?.quantity}
+          onclick={() => dispatch(hiddenDialog())}
+        />
+      )}
       <div className="kinatech-container">
         <div className="flex gap-10 flex-col lg:flex-row ">
           <div className=" w-full">
@@ -269,9 +276,9 @@ const DetailComponent = ({
                 </div>
               </div>
             )}
-            <hr />
-            {currentVariant?.capacity && (
-              <>
+            {/* {currentVariant?.capacity && ( */}
+            {/* <>
+              <hr />
                 <div className="flex flex-col gap-y-5">
                   <h1 className="font-B font-medium text-grey">
                     Choisissez La capacité
@@ -283,14 +290,46 @@ const DetailComponent = ({
                         onClick={() => setCurrentVariant(variant)}
                         {...variant}
                         key={index}
-                        currentId={currentVariant.id}
+                        currentId={currentVariant?.id}
                       />
                     ))}
                   </div>
                 </div>
                 <hr />
-              </>
-            )}
+              </> */}
+            {/* )}  */}
+            {/* {currentVariant?.custom_variant && ( */}
+            <>
+              <hr />
+              <div className="flex flex-col gap-y-5">
+                <h1 className="font-B font-medium text-grey">
+                  Choisissez votre Variante
+                </h1>
+                <div className="grid grid-cols-2  gap-5">
+                  {currentColor?.variants.map((item) => (
+                    <div
+                      key={item.id}
+                      className={clsx(
+                        currentVariant?.id == item.id && "border-main",
+                        "flex items-center  bg-gray-hover cursor-pointer select-none rounded-xl p-5 font-A flex-col text-xs text-blk gap-y-1 border-2"
+                      )}
+                    >
+                      <span className="text-sm font-D">
+                        {item.custom_variant}
+                      </span>
+                      <span className="text-sm">
+                        {discount != null
+                          ? calculNewPrice(+discount, +item.price)
+                          : item.price}{" "}
+                        DH
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <hr />
+            </>
+            {/* )} */}
             {/* ICON TITLE */}
             <div
               className={clsx(currentVariant?.quantity == 0 && "opacity-[0.5]")}
@@ -378,8 +417,8 @@ const DetailComponent = ({
                   </p> */}
                 </div>
               </div>
-          {/* {cart.findIndex(item=>item.id==currentVariant?.id)==-1? */}
-                <button
+              {/* {cart.findIndex(item=>item.id==currentVariant?.id)==-1? */}
+              <button
                 onClick={() => {
                   if (currentColor && currentVariant) {
                     dispatch(
@@ -390,17 +429,34 @@ const DetailComponent = ({
                         max: currentVariant?.quantity,
                         name: currentVariant?.name,
                         capacity: currentVariant?.capacity,
-                        price:discount!=null ?(calculNewPrice(+discount,+currentVariant?.price)):calculNewPrice(0,(+currentVariant?.price) ),
+                        price:
+                          discount != null
+                            ? calculNewPrice(+discount, +currentVariant?.price)
+                            : calculNewPrice(0, +currentVariant?.price),
                         ram: currentVariant?.ram,
                         quantity: 1,
-                        url:url,
+                        url: url,
                       })
                     );
-                  } 
-                }} 
-                title={cart?.find(item=>item.id==currentVariant?.id)?.quantity===currentVariant?.quantity?"tu as atteint la quantité maximale disponible pour ce produit":''}
-                disabled={currentVariant?.quantity==0 || +allQ == 0 || cart?.find(item=>item.id==currentVariant?.id)?.quantity==currentVariant?.quantity}
-                className={clsx(cart?.find(item=>item.id==currentVariant?.id)?.quantity===currentVariant?.quantity?"opacity-[0.5] bg-main hover:bg-main active:bg-main":"bg-main bg-main-hover",
+                  }
+                }}
+                title={
+                  cart?.find((item) => item.id == currentVariant?.id)
+                    ?.quantity === currentVariant?.quantity
+                    ? "tu as atteint la quantité maximale disponible pour ce produit"
+                    : ""
+                }
+                disabled={
+                  currentVariant?.quantity == 0 ||
+                  +allQ == 0 ||
+                  cart?.find((item) => item.id == currentVariant?.id)
+                    ?.quantity == currentVariant?.quantity
+                }
+                className={clsx(
+                  cart?.find((item) => item.id == currentVariant?.id)
+                    ?.quantity === currentVariant?.quantity
+                    ? "opacity-[0.5] bg-main hover:bg-main active:bg-main"
+                    : "bg-main bg-main-hover",
                   " text-white w-full kinatech-btn  font-D"
                 )}
               >
@@ -408,9 +464,9 @@ const DetailComponent = ({
                   {" "}
                   <Icon name="ShoppingBag" />
                 </span>
-            Ajouter au panier
+                Ajouter au panier
               </button>
-            {/* //   :<Link href={'/cart'}
+              {/* //   :<Link href={'/cart'}
               
             //     className={clsx(
             //       "bg-second-hover text-white w-full kinatech-btn bg-second "

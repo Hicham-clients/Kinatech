@@ -1,18 +1,17 @@
-'use client'
+"use client";
 
-import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { setCart } from './productSlice'
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setCart } from "./productSlice";
 
 export function CartLoader() {
-  const dispatch = useDispatch()
-
+  const dispatch = useDispatch();
   useEffect(() => {
-    const saved = localStorage.getItem('cart')
+    const saved = sessionStorage.getItem("cart");
     if (saved) {
-      dispatch(setCart(JSON.parse(saved)))
+      dispatch(setCart(JSON.parse(saved)));
     }
-  }, [dispatch])
+  }, [dispatch]);
 
-  return null
+  return null;
 }

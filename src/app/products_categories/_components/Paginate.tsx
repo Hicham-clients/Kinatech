@@ -1,5 +1,4 @@
 'se client'
-import Icon from "@/components/IconComponent";
 import clsx from "clsx";
 import { ArrowLeft, ArrowRight } from "phosphor-react";
 import ReactPaginate from "react-paginate";

@@ -6,12 +6,13 @@ import SecondCardProduct from "../products_categories/_components/SecondCardProd
 import { usePromos } from "@/hooks/usePromos";
 import { motion } from "framer-motion";
 import SecondCardLoading from "@/skeletons/SecondCardLoading";
+import Refetch from "@/components/Refetch";
 
 const WeekPromos = () => {
   const { data, isLoading, error, refetch } = usePromos();
   return (
      (
-      <div className="px-paddingPhone  lg:px-paddingPC pt-20  ">
+      <div className="px-paddingPhone  lg:px-paddingPC py-20  ">
         <div className="kinatech-container flex flex-col gap-y-5  ">
           <div className="w-fit  ">
             <h1 className=" font-D text-2xl lg:text-3xl tracking-wide  text-blk">
@@ -67,15 +68,8 @@ const WeekPromos = () => {
                   </SwiperSlide>
                 ))
               ) : error ? (
-                <div className="text-center font-A tracking-wider text-xl text-[red] flex flex-col justify-center items-center gap-5">
-                  Erreur de chargement{" "}
-                  <button
-                    className="kinatech-btn bg-blk bg-black-hover scale-minus-hover"
-                    onClick={() => refetch()}
-                  >
-                    Réssayer
-                  </button>
-                </div>
+               
+        <Refetch onclick={refetch}/>
               ) : (
                 <div className="text-center font-A tracking-wider text-xl">
                   Pas des promos ce semaine

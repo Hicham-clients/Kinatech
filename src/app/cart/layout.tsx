@@ -14,10 +14,10 @@ const LayoutCart = ({ children }: { children: React.ReactNode }) => {
   const { cart, showSummary } = useSelector((state: RootState) => state.cart);
   const pathname = usePathname();
   const [loading, setLoading] = useState(true);
-console.log(showSummary);
+  console.log(showSummary);
 
   useEffect(() => {
-    // simulate waiting localStorage load (CartLoader)
+    // simulate waiting sessionStorage load (CartLoader)
     const timer = setTimeout(() => setLoading(false), 100);
     return () => clearTimeout(timer);
   }, []);
@@ -39,7 +39,9 @@ console.log(showSummary);
               <div
                 key={index}
                 className={clsx(
-                  (pathname == item.url&&showSummary||!showSummary&&index==2) && " text-second", 
+                  ((pathname == item.url && showSummary) ||
+                    (!showSummary && index == 2)) &&
+                    " text-second",
                   "flex items-center cursor-context-menu"
                 )}
               >

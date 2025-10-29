@@ -46,7 +46,7 @@ const contact = [
 ];
 
 const links = [
-  { name: "Qui sommes nous", url: "/qui-sommes-nous" },
+  { name: "Panier", url: "/cart" },
   { name: "Nos produits", url: "/products_categories" },
   { name: "Marques", url: "/products_categories?brand=apple" },
   { name: "Contactez nous", url: "/contact" },
@@ -64,7 +64,7 @@ const Footer = () => {
   const { data } = useMenuCategories();
 
   return (
-    <footer className="cursor-context-menu   border-t    text-blk  md:p-5 md:py-16 font-A ">
+    <footer className="cursor-context-menu   border-t    text-blk  md:p-5 md:py-16 font-A text-sm ">
       <div className="flex p-5 lg:px-20    flex-col gap-y-20 kinatech-container ">
         <div className="flex  flex-col gap-y-10 md:flex-row justify-between  ">
           <div className="flex  flex-col gap-y-4  w-fit">

@@ -11,8 +11,11 @@ import { Metadata } from "next";
 import { Providers } from "@/store/Providers";
 
 //SEO OPTIMIZATION
-export const metadata: Metadata = {
-  title: "KINATECH",
+export const metadata:Metadata = {
+  title: {
+    default:"KINATECH",
+    template:" KINATECH | %s",
+  },
   description:
     "Découvrez KINATECH, votre boutique en ligne au Maroc pour acheter ordinateurs, smartphones, accessoires et produits high-tech de qualité. Livraison rapide et service client professionnel.",
   openGraph: {

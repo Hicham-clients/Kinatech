@@ -8,15 +8,15 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
 import Image from "next/image";
 import { imageSrc } from "@/lib/getSrc";
-import { fetchHeros, useHero } from "@/hooks/useHero";
+import {  useHero } from "@/hooks/useHero";
 import HeroLoading from "@/skeletons/HeroLoading";
 
 const Hero = () => {
-  const { data, isLoading,error } = useHero("hero section")
-  if (isLoading||error) {
+  const { data, isLoading, error } = useHero("hero section");
+  if (isLoading || error) {
     return <HeroLoading />;
   }
- 
+
   return (
     data && (
       <Swiper
@@ -40,7 +40,9 @@ const Hero = () => {
                 href={
                   item.target_type == "product"
                     ? `/products/${item.product.url}`
-                    : `/products_categories?category=${item.product.category.url}`
+                    : item.target_type == "product"
+                    ? `/products_categories?category=${item.product.category.url}`
+                    : `/products_categories?category=${item.product.brand}`
                 }
               >
                 {/* IMAGE FOR Mobile */}
@@ -49,7 +51,7 @@ const Hero = () => {
                   loading="lazy"
                   fill
                   className="lg:hidden w-full h-full top-0 left-0  object-cover"
-                  src={imageSrc(item?.cover_mobile??item?.cover_pc)}
+                  src={imageSrc(item?.cover_mobile ?? item?.cover_pc)}
                   alt={item?.product?.slug}
                 />
                 {/* IMAGE FOR PC */}

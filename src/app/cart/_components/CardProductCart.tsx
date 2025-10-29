@@ -2,12 +2,11 @@
 import Icon from "@/components/IconComponent";
 import { imageSrc } from "@/lib/getSrc";
 import { Cart, Decrease, Increase, RemoveFromCart } from "@/store/productSlice";
-import { RootState } from "@/store/store";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Confirmer from "./confirmer";
 
 export default function CartProduct({

@@ -113,7 +113,7 @@ params.set("search",e.target.value)
           )}
            
         </div> 
-        <div className="flex flex-col gap-y-3 px-padding"> 
+    {(brands??[])?.length>0&&    <div className="flex flex-col gap-y-3 px-padding"> 
                           <h1 className="font-A font-semibold">Marques</h1>
 
                   <select onChange={(e:React.ChangeEvent<HTMLSelectElement>)=>{ 
@@ -126,7 +126,7 @@ params.set("search",e.target.value)
                     {brands?.map(item=><option key={item.id}      value={item.name}>{item.name}</option>)}
                     
                   </select>
-                </div>
+                </div>}
       </div>
     </div>
   );

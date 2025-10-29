@@ -34,7 +34,7 @@ const ReasonCard = ({
 }: Reason) => {
   return (
     <div
-      className=" bg-white w-full flex flex-col gap-y-3 cursor-context-menu  p-6 rounded-2xl  border-gray-200      hover:shadow- lg hover:shadow-[#e5e2e2]   transform hover:-translate-y-1 h-auto"
+      className=" bg-black text-white w-full flex flex-col gap-y-3 cursor-context-menu  p-6 rounded-2xl  border-gray-200      hover:shadow- lg hover:shadow-[#e5e2e2]   transform hover:-translate-y-1 h-auto"
     >
       <div className="  flex bg-second  bg-gradient-to-tr  shadow-xl  text-2xl text-white  items-center justify-center h-14 p-4 w-14 rounded-2xl  ">
 <Icon name={icon}/>

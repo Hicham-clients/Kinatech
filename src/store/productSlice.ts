@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 const savedCart =
   typeof window !== "undefined"
-    ? JSON.parse(localStorage.getItem("cart") || "[]")
+    ? JSON.parse(sessionStorage.getItem("cart") || "[]")
     : [];
 export interface Cart {
   id: number;
@@ -26,7 +26,7 @@ interface CartState {
 }
 
 const initialState: CartState = {
-  cart: [],
+  cart: savedCart,
   dialog: {
     show: false,
     product: null,
@@ -61,7 +61,8 @@ const CartSlice = createSlice({
       }
     },
     RemoveFromCart: (state, action: PayloadAction<number>) => {
-      state.cart = state.cart.filter((item) => item.id !== action.payload);
+      state.cart = state.cart.filter((item) => item.id !== action.payload); 
+      sessionStorage.setItem('cart',JSON.stringify(state.cart))
     },
     Increase: (state, action: PayloadAction<number>) => {
       const findIndex = state.cart.findIndex(
@@ -92,7 +93,7 @@ const CartSlice = createSlice({
     ViderCart: (state) => {
       state.cart = [];
     },
-    ToggleSummary: (state,action:PayloadAction<boolean>) => {
+    ToggleSummary: (state, action: PayloadAction<boolean>) => {
       state.showSummary = action.payload;
     },
   },

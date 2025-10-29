@@ -9,6 +9,7 @@ export interface Variant {
   quantity: number;
   ram: string;
   capacity: string;
+  custom_variant: string;
 }
 
 // Color

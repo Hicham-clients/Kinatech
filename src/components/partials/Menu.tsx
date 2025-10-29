@@ -16,7 +16,8 @@ import SearchMenuLoading from "@/skeletons/searchMenu";
 import clsx from "clsx";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
- import * as PhosphorIcons from "phosphor-react";
+import * as PhosphorIcons from "phosphor-react";
+import Refetch from "../Refetch";
 
 const SearchInput = () => {
   const [isEmpty, setIsEmpty] = useState(true);
@@ -31,7 +32,7 @@ const SearchInput = () => {
   const router = useRouter();
   const pathName = usePathname();
   const [value, setValue] = useState("");
-  const { data, error, isLoading } = useProductsSearch(value);
+  const { data, error, isLoading, refetch } = useProductsSearch(value);
 
   useEffect(() => {
     if (value) {
@@ -47,7 +48,11 @@ const SearchInput = () => {
         <input
           onChange={(e) => {
             setValue(e?.target?.value);
-            e.target.value.trim() !== "" ? setIsEmpty(false) : setIsEmpty(true);
+            if (e.target.value.trim() !== "") {
+              setIsEmpty(false);
+            } else {
+              setIsEmpty(true);
+            }
           }}
           className="w-full pr-12 h-12 p-2 outline-none text-black placeholder:text-grey placeholder:tracking-wide placeholder:text-sm"
           type="search"
@@ -118,9 +123,7 @@ const SearchInput = () => {
                   </Link>
                 ))
               ) : error ? (
-                <div className="text-blk flex justify-center items-center font-A tracking-wider text-sm text-[red] ">
-                  Erreur de chargement
-                </div>
+                <Refetch onclick={refetch} />
               ) : (
                 <div className="text-blk font-A tracking-wider text-sm flex justify-center items-center  w-full ">
                   Aucun Resultat
@@ -133,36 +136,50 @@ const SearchInput = () => {
     </div>
   );
 };
-const NavbarPhone=()=>{ 
-  const navLinks:{url:string,icon:keyof typeof PhosphorIcons}[] = [
-  {
-    url: "/",
-    icon: "House", 
-  },
-  {
-    url: "/products_categories",
-    icon: "SquaresFour", 
-  },
-  {
-    url: "/cart",
-    icon: "Bag", 
-  },{
-    url: `https://wa.me/212656757843?text=${encodeURIComponent("Bonjour KINATECH,")}`,
-    icon: "WhatsappLogo", 
-  },
-];
-const pathName=usePathname()
+const NavbarPhone = () => {
+  const navLinks: { url: string; icon: keyof typeof PhosphorIcons }[] = [
+    {
+      url: "/",
+      icon: "House",
+    },
+    {
+      url: "/products_categories",
+      icon: "SquaresFour",
+    },
+    {
+      url: "/cart",
+      icon: "Bag",
+    },
+    {
+      url: `https://wa.me/212656757843?text=${encodeURIComponent(
+        "Bonjour KINATECH,"
+      )}`,
+      icon: "WhatsappLogo",
+    },
+  ];
+  const pathName = usePathname();
 
-  return  <div className="lg:hidden fixed bottom-0  w-full left-0 z-[999]  shadow-[0px_-4px_7px_0px_#ecececd6]">
-    <div className="flex p-2 justify-around gap-x-5 bg-white rounded-t-3xl mx-auto">
-      {navLinks.map((item,index)=>{
-        return <Link   key={index} className={clsx(pathName==item.url&&"bg-main text-white","text-3xl text-blk p-3  scale-minus- text-white-hover bg-maincolor-hover rounded-full")} href={item.url}>
-          <Icon name={item.icon} />
-        </Link>
-      })}
+  return (
+    <div className="lg:hidden fixed bottom-0  w-full left-0 z-[999]  shadow-[0px_-4px_7px_0px_#ecececd6]">
+      <div className="flex p-2 justify-around gap-x-5 bg-white rounded-t-3xl mx-auto">
+        {navLinks.map((item, index) => {
+          return (
+            <Link
+              key={index}
+              className={clsx(
+                pathName == item.url && "bg-main text-white",
+                "text-3xl text-blk p-3  scale-minus- text-white-hover bg-maincolor-hover rounded-full"
+              )}
+              href={item.url}
+            >
+              <Icon name={item.icon} />
+            </Link>
+          );
+        })}
+      </div>
     </div>
-  </div>
-}
+  );
+};
 
 const Menu = () => {
   // hover category
@@ -347,64 +364,69 @@ const Menu = () => {
 
       {/* side bar */}
       <AnimatePresence>
-        {showSide && (<>
-        <div onClick={()=>setShowSide(false)} className="bg-black/60 z-[99999999999999] w-full fixed top-0 left-0 h-screen "/>
-       
-       
-          <motion.div
-            initial={{ x: "-90%" }}
-            exit={{ x: "-90%", opacity: 0 }}
-            animate={{ x: "0%" }}
-            className="bg-blk select-none z-[99999999999999] fixed top-0 left-0 w-2/3 h-screen overflow-y-auto lg:hidden"
-          >
-            <div className="py-7 px-padding sticky left-0 bg-main top-0">
-              <button
-                onClick={() => ToggleSide(false)}
-                className="text-4xl text-white-hover"
-              >
-                <Icon name="X" />
-              </button>
-            </div>
-            <div>
-              <div className="bg-main px-padding">
-                <Link
-                  href={"products_categories?brand=samsung"}
-                  className="py-padding text-white-hover uppercase tracking-wide flex items-center gap-x-5"
-                >
-                  <span className="text-4xl">
-                    <Icon name="AppleLogo" />
-                  </span>
-                  <span className="underline-hover"> Nos Marques</span>
-                </Link>
-                <hr />
-                <Link
-                  href={"/products_categories"}
-                  className="py-padding text-white-hover uppercase tracking-wide flex items-center gap-x-5"
-                >
-                  <span className="text-4xl">
-                    <Icon name="Storefront" />
-                  </span>
-                  <span className="underline-hover">Tous Nos Produits</span>
-                </Link>
-              </div>
-              <div className="p-5">
-                {history.length > 0 && (
-                  <button className="my-5 text-xl" onClick={handleBack}>
-                    <Icon name="ArrowLeft" />
-                  </button>
-                )}
+        {showSide && (
+          <>
+            <div
+              onClick={() => setShowSide(false)}
+              className="bg-black/60 z-[99999999999999] w-full fixed top-0 left-0 h-screen "
+            />
 
-                <h1 className="cursor-context-menu tracking-wider font-D text-main">
-                  Choisir par catégorie
-                </h1>
-                <ul className="py-padding flex flex-col gap-y-2 tracking-wide">
-                  {currentCategoriesForDrilling.length > 0
-                    ? currentCategoriesForDrilling.map((item, index) => (
+            <motion.div
+              initial={{ x: "-90%" }}
+              exit={{ x: "-90%", opacity: 0 }}
+              animate={{ x: "0%" }}
+              className="bg-blk select-none z-[99999999999999] fixed top-0 left-0 w-2/3 h-screen overflow-y-auto lg:hidden"
+            >
+              <div className="py-7 px-padding sticky left-0 bg-main top-0">
+                <button
+                  onClick={() => ToggleSide(false)}
+                  className="text-4xl text-white-hover"
+                >
+                  <Icon name="X" />
+                </button>
+              </div>
+              <div>
+                <div className="bg-main px-padding">
+                  <Link
+                    href={"products_categories?brand=samsung"}
+                    className="py-padding text-white-hover uppercase tracking-wide flex items-center gap-x-5"
+                  >
+                    <span className="text-4xl">
+                      <Icon name="AppleLogo" />
+                    </span>
+                    <span className="underline-hover"> Nos Marques</span>
+                  </Link>
+                  <hr />
+                  <Link
+                    href={"/products_categories"}
+                    className="py-padding text-white-hover uppercase tracking-wide flex items-center gap-x-5"
+                  >
+                    <span className="text-4xl">
+                      <Icon name="Storefront" />
+                    </span>
+                    <span className="underline-hover">Tous Nos Produits</span>
+                  </Link>
+                </div>
+                <div className="p-5">
+                  {history.length > 0 && (
+                    <button className="my-5 text-xl" onClick={handleBack}>
+                      <Icon name="ArrowLeft" />
+                    </button>
+                  )}
+
+                  <h1 className="cursor-context-menu tracking-wider font-D text-main">
+                    Choisir par catégorie
+                  </h1>
+                  <ul className="py-padding flex flex-col gap-y-2 tracking-wide">
+                    {currentCategoriesForDrilling.length > 0 &&
+                      currentCategoriesForDrilling.map((item, index) => (
                         <li
                           key={index}
                           className="cursor-pointer text-white-hover capitalize flex justify-between items-center"
                         >
-                          <Link href={`/products_categories?category=${item.url}`}>
+                          <Link
+                            href={`/products_categories?category=${item.url}`}
+                          >
                             {item.name}
                           </Link>
                           {(item?.childrens ?? []).length > 0 && (
@@ -416,17 +438,16 @@ const Menu = () => {
                             </span>
                           )}
                         </li>
-                      ))
-                    : ""}
-                </ul>
+                      ))}
+                  </ul>
+                </div>
               </div>
-            </div>
-          </motion.div>
-         
-        </>  )} 
+            </motion.div>
+          </>
+        )}
       </AnimatePresence>
-      {/* {navbar phone} */} 
-      <NavbarPhone/>
+      {/* {navbar phone} */}
+      <NavbarPhone />
     </nav>
   );
 };

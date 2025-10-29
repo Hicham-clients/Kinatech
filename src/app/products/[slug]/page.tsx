@@ -1,16 +1,12 @@
-"use client";
-import { useDetails } from "@/hooks/useDetail";
-import DetailComponent from "./_components/DetailComponent";
-import { useParams } from "next/navigation";
-import DetailSkeleton from "@/skeletons/DetailLoading";
-
+import PageDetail from "./_components/PageDetail"
+export const generateMetadata=async({params}:{params:{slug:string}})=>{
+  
+return {
+  title:params.slug.split('-').join(' ')
+}
+}
 const Detail = () => {
-  const { slug }: { slug: string } = useParams();
-  const { data, isLoading } = useDetails(slug);
-  if (isLoading) {
-    return <DetailSkeleton />;
-  }
-
-  return data && <DetailComponent {...data} />;
-};
-export default Detail;
+  return (
+<PageDetail/>  )
+}
+export default Detail
