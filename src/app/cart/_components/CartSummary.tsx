@@ -1,5 +1,6 @@
 "use client";
 
+import { PriceFormat } from "@/functions/Discount";
 import { RootState } from "@/store/store";
 import Link from "next/link";
 import { useSelector } from "react-redux";
@@ -30,7 +31,7 @@ return curr+=+acc
       <div className="flex  justify-between items-center text-lg font-bold text-gray-900">
         <span className="uppercase">Total</span>
         <div>
-          <p className="font-B">{total.toFixed(2)} DH</p>
+          <p className="font-B">{PriceFormat(total)} DH</p>
           {/* <p className="text-xs font-normal text-gray-500 text-right">
             Incluant TVA
           </p> */}

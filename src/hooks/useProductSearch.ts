@@ -29,8 +29,11 @@ export interface Product {
 async function fetchProductSearch(
   query: string
 ): Promise<Product[] | undefined> {
-  const { data } = await axiosInstance.get(`/api/productssearch?q=${query}`);
-  return data;
+if (query.trim() === "") return []
+    const { data } = await axiosInstance.get(`/api/productssearch?q=${query}`);
+  return data;  
+
+
 }
 
 export function useProductsSearch(query: string) {

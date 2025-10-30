@@ -5,7 +5,7 @@ import ProductCard from "./ProductCard";
 import { useCategories } from "@/hooks/useCategories";
 import { useSearchParams } from "next/navigation";
 import Paginate from "./Paginate";
-import { Suspense, useState } from "react";
+import {  useState } from "react";
 import CardProductLoading from "@/skeletons/CardProductLoading";
 import clsx from "clsx";
 import Refetch from "@/components/Refetch";

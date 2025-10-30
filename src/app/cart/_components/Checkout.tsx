@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { axiosInstance } from "@/lib/axios";
 import { ToggleSummary, ViderCart } from "@/store/productSlice";
@@ -33,12 +33,13 @@ const CheckoutComponent = () => {
   //use form hook
   const {
     register,
+    
     handleSubmit,
     reset,
     formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
-  });
+  }); 
   const onSubmit = async (commande: ContactFormData) => {
     const products = cart.map((item) => {
       return { id: item.id, quantity: item.quantity };
@@ -48,24 +49,31 @@ const CheckoutComponent = () => {
       products,
     };
 
+    try{
       const res = await axiosInstance.post(
         "/api/commandes/store",
         JSON.stringify(myData),
         {
           headers: { "Content-Type": "application/json" },
         }
-      );
-      if (res.status == 201) {
+      ); 
+      
+      if (res.status == 200) {
         dispatch(ToggleSummary(false));
 
         const timer = setTimeout(() => {
-          dispatch(ViderCart()); 
-                  dispatch(ToggleSummary(true));
-
+                  dispatch(ViderCart()); 
+// 
           reset();
-        }, 12000);
+          dispatch(ToggleSummary(true));
+        
+        }, 7000);
         return ()=>clearTimeout(timer)
-      }
+      }}catch(error:unknown)
+    {
+alert('Réessayez la validation de la commande, il y a un problème')   
+dispatch(ViderCart())
+}
     
   };
 //Protected Route 
@@ -74,7 +82,7 @@ if(cart.length==0){
 router.push('/products_categories')
 }
 },[cart,router])
-  return isSubmitSuccessful ? (
+  return isSubmitSuccessful? (
     <div className=" md:w-1/2 mx-auto flex select-none  justify-center items-center font-A  flex-col gap-y-5">
       <div className="relative h-52 w-52 ">
         <Image
@@ -206,8 +214,8 @@ router.push('/products_categories')
               <p className="error-input">{errors.adress.message}</p>
             )}
           </div>
-          <button className="bg-main bg-main-hover kinatech-btn">
-            {isSubmitting ? "chargement..." : "Envoyer La commande"}
+          <button  disabled={isSubmitting} className={clsx(isSubmitting&&"opacity-[0.8]"," bg-main bg-main-hover kinatech-btn w-fit ")}>
+            {isSubmitting ? "en cours..." : "Commander"}
           </button>
         </form>
       </motion.div>

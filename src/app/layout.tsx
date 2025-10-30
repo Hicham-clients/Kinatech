@@ -1,8 +1,4 @@
 import "../css/globals.css";
-import "../css/classes.css";
-import "../css/tailwind.css";
-import "../css/hover.css";
-import "../css/swiper.css";
 import Menu from "@/components/partials/Menu";
 import Footer from "@/components/partials/Footer";
 import Brands from "./_components/brands";
@@ -11,10 +7,10 @@ import { Metadata } from "next";
 import { Providers } from "@/store/Providers";
 
 //SEO OPTIMIZATION
-export const metadata:Metadata = {
+export const metadata: Metadata = {
   title: {
-    default:"KINATECH",
-    template:" KINATECH | %s",
+    default: "KINATECH",
+    template: " KINATECH | %s",
   },
   description:
     "Découvrez KINATECH, votre boutique en ligne au Maroc pour acheter ordinateurs, smartphones, accessoires et produits high-tech de qualité. Livraison rapide et service client professionnel.",
@@ -67,7 +63,7 @@ export const metadata:Metadata = {
     "vente accessoires téléphone",
     "produits connectés Maroc",
     "innovation technologique Maroc",
-    "boutique en ligne fiable Maroc"
+    "boutique en ligne fiable Maroc",
   ],
   authors: [{ name: "Elloutfi Hicham" }],
   creator: "Elloutfi Hicham",
@@ -89,19 +85,18 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body>
-                <Providers>
+        <Providers>
+          <ReactQueryProvider>
+            <header>
+              <Menu />
+            </header>
+            <main className="min-h-[80vh]">{children}</main>
 
-        <ReactQueryProvider>
-          <header>
-            <Menu />
-          </header>
-          <main className="min-h-[80vh]">{children}</main>
-
-          <footer>
-            <Brands />
-            <Footer />
-          </footer>
-        </ReactQueryProvider>
+            <footer>
+              <Brands />
+              <Footer />
+            </footer>
+          </ReactQueryProvider>
         </Providers>
       </body>
     </html>

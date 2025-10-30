@@ -14,7 +14,6 @@ const LayoutCart = ({ children }: { children: React.ReactNode }) => {
   const { cart, showSummary } = useSelector((state: RootState) => state.cart);
   const pathname = usePathname();
   const [loading, setLoading] = useState(true);
-  console.log(showSummary);
 
   useEffect(() => {
     // simulate waiting sessionStorage load (CartLoader)
@@ -57,7 +56,7 @@ const LayoutCart = ({ children }: { children: React.ReactNode }) => {
         </div>
       )}
 
-      {cart.length > 0 ? (
+      {cart.length > 0  ? (
         <div className="p-paddingPhone py-paddingPC lg:px-paddingPC">
           <div className="flex flex-col gap-10 md:flex-row kinatech-container ">
             {children}

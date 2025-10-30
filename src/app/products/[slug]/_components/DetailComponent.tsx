@@ -7,7 +7,7 @@ import Image from "next/image";
 import { CaretLeft, CaretRight } from "phosphor-react";
 import { useEffect, useState } from "react";
 import * as PhosphorIcons from "phosphor-react";
-import { calculNewPrice } from "@/functions/Discount";
+import { calculNewPrice, PriceFormat } from "@/functions/Discount";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { hiddenDialog, setInCart } from "@/store/productSlice";
@@ -299,7 +299,9 @@ const DetailComponent = ({
               </> */}
             {/* )}  */}
             {/* {currentVariant?.custom_variant && ( */}
-            <>
+            {
+
+              currentVariant?.custom_variant&&   <>
               <hr />
               <div className="flex flex-col gap-y-5">
                 <h1 className="font-B font-medium text-grey">
@@ -309,7 +311,8 @@ const DetailComponent = ({
                   {currentColor?.variants.map((item) => (
                     <div
                       key={item.id}
-                      className={clsx(
+                      className={clsx( 
+                         item.quantity == 0 && "opacity-[0.2]",
                         currentVariant?.id == item.id && "border-main",
                         "flex items-center  bg-gray-hover cursor-pointer select-none rounded-xl p-5 font-A flex-col text-xs text-blk gap-y-1 border-2"
                       )}
@@ -329,6 +332,8 @@ const DetailComponent = ({
               </div>
               <hr />
             </>
+            }
+         
             {/* )} */}
             {/* ICON TITLE */}
             <div
@@ -378,11 +383,12 @@ const DetailComponent = ({
                       {currentColor?.name || ""}
                     </span>
                     {
-                      <span className="text-sm text-grey">
-                        {`${currentVariant?.capacity ?? ""}  ${
+                      <span className="text-sm text-grey ">
+                        {/* {`${currentVariant?.capacity ?? ""}  ${
                           (currentVariant?.ram && "| " + currentVariant?.ram) ||
                           ""
-                        }` || ""}
+                        }` || ""} */}
+                        {currentVariant?.custom_variant}
                       </span>
                     }
                   </div>
@@ -432,7 +438,7 @@ const DetailComponent = ({
                         price:
                           discount != null
                             ? calculNewPrice(+discount, +currentVariant?.price)
-                            : calculNewPrice(0, +currentVariant?.price),
+                            : PriceFormat(+currentVariant?.price),
                         ram: currentVariant?.ram,
                         quantity: 1,
                         url: url,
@@ -455,9 +461,9 @@ const DetailComponent = ({
                 className={clsx(
                   cart?.find((item) => item.id == currentVariant?.id)
                     ?.quantity === currentVariant?.quantity
-                    ? "opacity-[0.5] bg-main hover:bg-main active:bg-main"
+                    ? "opacity-[0.5] bg-main hover:bg-main active:bg-main w-full"
                     : "bg-main bg-main-hover",
-                  " text-white w-full kinatech-btn  font-D"
+                  " text-white w-full kinatech-btn  font-D w-full "
                 )}
               >
                 <span className="text-2xl">

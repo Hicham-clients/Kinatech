@@ -1,8 +1,24 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-const savedCart =
-  typeof window !== "undefined"
-    ? JSON.parse(sessionStorage.getItem("cart") || "[]")
-    : [];
+const savedCart = () => {
+  try {
+    if (typeof window !== "undefined") {
+      const data = sessionStorage.getItem("cart");
+      if (!data) return;
+      const parsed = JSON.parse(data);
+      if (!Array.isArray(parsed)) throw new Error("il ya un probleme");
+      for (const item of parsed) {
+        if (typeof item != "object" || !item.id) {
+          throw new Error("il ya un probleme");
+        }
+      }
+      return parsed;
+    }
+  } catch (err: unknown) {
+    sessionStorage.setItem("cart", JSON.stringify([]));
+    return [];
+  }
+};
+
 export interface Cart {
   id: number;
   name: string;
@@ -26,7 +42,7 @@ interface CartState {
 }
 
 const initialState: CartState = {
-  cart: savedCart,
+  cart: savedCart()||[],
   dialog: {
     show: false,
     product: null,
@@ -61,8 +77,8 @@ const CartSlice = createSlice({
       }
     },
     RemoveFromCart: (state, action: PayloadAction<number>) => {
-      state.cart = state.cart.filter((item) => item.id !== action.payload); 
-      sessionStorage.setItem('cart',JSON.stringify(state.cart))
+      state.cart = state.cart.filter((item) => item.id !== action.payload);
+      sessionStorage.setItem("cart", JSON.stringify(state.cart));
     },
     Increase: (state, action: PayloadAction<number>) => {
       const findIndex = state.cart.findIndex(
@@ -92,6 +108,8 @@ const CartSlice = createSlice({
     },
     ViderCart: (state) => {
       state.cart = [];
+        sessionStorage.setItem("cart", JSON.stringify([]))
+
     },
     ToggleSummary: (state, action: PayloadAction<boolean>) => {
       state.showSummary = action.payload;

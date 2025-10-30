@@ -13,19 +13,20 @@ const Brands = () => {
   const {data:brands}=useBrands()
  
   return (
-    <div className="p-6 lg:px-12 border-t">
+    <div className="p-6 lg:px-12 border-t cursor-grab">
       <Swiper
         className="overflow-visible kinatech-container  h-14"
         modules={[Navigation, Pagination]}
-        loop 
-        // autoplay
+        // loop 
+        // autoplay 
+        navigation
         slidesPerView={4}
       >
         {brands?.map((item, index) => {
           return (
             <SwiperSlide key={index} className="px-10 ">
               <Link
-                className="w-14 h-full flexCenter "
+                className="w-14 h-full flexCenter  mx-auto "
                 href={`/products_categories?brand=${item.name}`}
               >
                 <Image

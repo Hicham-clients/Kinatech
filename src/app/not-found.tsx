@@ -20,7 +20,7 @@ const NotFound = () => {
         <h1 className="font-semibold text-7xl tracking-wide">Oops!</h1>
         <p className="text-grey font-A">{"La page n'existe pas"}</p>
 
-        <Link href="/products_categories" className="kinatech-btn bg-blk bg-black-hover">
+        <Link  href="/products_categories" className="kinatech-btn w-fit bg-blk bg-black-hover">
           <ArrowLeft size={"1rem"} weight="regular" />
           Retour
         </Link>

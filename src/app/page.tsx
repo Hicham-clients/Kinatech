@@ -1,8 +1,10 @@
 import { Metadata } from "next"
-import Hero from "./_components/Hero"
-import Suggestion from "./_components/Suggestion"
-import WeekPromos from "./_components/WeekPromos"
-import WhyKinatech from "./_components/WhyKinatech"
+
+import WhyKinatech  from "./_components/WhyKinatech" 
+import dynamic from "next/dynamic" 
+const Hero=dynamic(()=>import('./_components/Hero'))
+const Suggestion=dynamic(()=>import('./_components/Suggestion'))
+const WeekPromos=dynamic(()=>import('./_components/WeekPromos'))
 export const metadata:Metadata={
   title:"Kinatech | Acceuil"
 }

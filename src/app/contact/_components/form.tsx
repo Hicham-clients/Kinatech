@@ -49,7 +49,7 @@ const ContactForm = () => {
       }
     } catch (err) {
       console.error(err);
-      alert("Essayer after");
+      alert("Erreur");
     }
   };
 
@@ -160,7 +160,7 @@ const ContactForm = () => {
                 <p className="error-input">{errors.message.message}</p>
               )}
             </div>
-            <button className="bg-main bg-main-hover kinatech-btn">
+            <button className="bg-main bg-main-hover kinatech-btn w-fit">
              {isSubmitting?'chargement...':'Envoyer'} 
             </button>
           </form>

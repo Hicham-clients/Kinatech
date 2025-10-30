@@ -1,3 +1,7 @@
+/*tailwind*/ 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 :root {
   --main: #0c549f;
   --second: #ffb300;
@@ -51,3 +55,110 @@
   word-break: break-word;
   hyphens: manual;
 }
+/*classes*/
+.transitionclass{
+    @apply transition-all duration-200 ease-linear;
+}
+.kinatech-container{
+    @apply container mx-auto
+}
+.flexCenter{
+@apply flex items-center justify-center
+}
+.form-input {
+  @apply outline-none w-full   border  rounded-lg px-4 py-3 focus:ring-main focus:ring-1 focus:border-main text-sm sm:text-[16px] md:text-base placeholder:text-sm placeholder:sm:text-[15px] placeholder:md:text-base font-A;
+}
+.error-input {
+  @apply text-red-500 text-xs tracking-wide font-A pl-2;
+}
+.kinatech-btn{
+  @apply  font-A   px-6 py-2  text-white text-base font-bold rounded-lg  flex justify-center items-center gap-x-2  tracking-wider  
+}
+
+/* brands */ 
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-100% - 1.25rem));
+  }
+}
+
+.scroll-animate {
+  display: flex;
+  animation: scroll 5s linear infinite;
+  will-change: transform;
+}
+
+.cardSkills:hover .scroll-animate {
+  animation-play-state: paused;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/*HOVER*/
+.bg-second-hover {
+  @apply sm:hover:bg-secondHover active:bg-secondHover;
+}
+.text-white-hover{
+  @apply sm:hover:text-[#ffffffaf] active:text-[#ffffffaf]
+
+}.text-fff-hover{
+  @apply sm:hover:text-white active:text-white
+
+}
+.text-main-hover{
+  @apply sm:hover:text-main active:text-main
+}
+.underline-hover{
+  @apply sm:hover:underline active:underline; 
+}
+.scale-minus-hover{
+  @apply sm:hover:scale-95 active:scale-95; 
+}
+.bg-black-hover {
+  @apply sm:hover:bg-[#000] active:bg-black;
+
+}.text-black-hover {
+  @apply sm:hover:text-[#000] active:text-black;
+
+}
+.bg-main-hover {
+  @apply sm:hover:bg-mainHover active:bg-mainHover;
+}
+.bg-gray-hover{
+  @apply sm:hover:bg-[#f4f4f4] active:bg-[#f4f4f4];
+}
+.bg-maincolor-hover{
+  @apply sm:hover:bg-main active:bg-main
+}
+
+/*swiper*/
+
+.swiper-button-prev {
+  left: 10 !important;
+  color: grey !important;
+  display: flex;
+  padding: 10px;
+}
+.swiper-button-next {
+  color: grey !important;
+  display: flex;
+  padding: 10px;
+    right: 10 !important;
+
+} 

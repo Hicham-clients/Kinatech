@@ -20,27 +20,34 @@ import * as PhosphorIcons from "phosphor-react";
 import Refetch from "../Refetch";
 
 const SearchInput = () => {
-  const [isEmpty, setIsEmpty] = useState(true);
-  //prevent scroll
+
+  const router = useRouter();
+  const pathName = usePathname();
+  const [value, setValue] = useState("");
+  const [debouncedValue, setDebouncedValue] = useState(value);
+  //debounced Value 
+  useEffect(()=>{
+const timer=setTimeout(()=>{
+setDebouncedValue(value.trim())
+},500) 
+return ()=>clearTimeout(timer)
+  },[value])
+  
+  const { data, error, isLoading, refetch } = useProductsSearch(debouncedValue.trim());
   useEffect(() => {
-    if (isEmpty) {
+    if (value.trim()=='') {
       document.body.style.overflow = "visible";
     } else {
       document.body.style.overflow = "hidden";
     }
-  }, [isEmpty]);
-  const router = useRouter();
-  const pathName = usePathname();
-  const [value, setValue] = useState("");
-  const { data, error, isLoading, refetch } = useProductsSearch(value);
-
+  }, [value]);
   useEffect(() => {
     if (value) {
-      router.push("?q=" + value);
+      router.push("?q=" + debouncedValue);
     }
-  }, [value, router]);
+  }, [debouncedValue, router]);
   useEffect(() => {
-    setIsEmpty(true);
+setValue('')
   }, [pathName]);
   return (
     <div className="py-3 relative">
@@ -48,11 +55,7 @@ const SearchInput = () => {
         <input
           onChange={(e) => {
             setValue(e?.target?.value);
-            if (e.target.value.trim() !== "") {
-              setIsEmpty(false);
-            } else {
-              setIsEmpty(true);
-            }
+        
           }}
           className="w-full pr-12 h-12 p-2 outline-none text-black placeholder:text-grey placeholder:tracking-wide placeholder:text-sm"
           type="search"
@@ -62,12 +65,11 @@ const SearchInput = () => {
           <Icon name="MagnifyingGlass" weight="regular" />
         </button>
       </div>
-      {!isEmpty && (
+      {value.trim()!=='' && (
         <>
           <div
             onClick={() => {
               setValue("");
-              setIsEmpty(true);
             }}
             className="bg-black/50 fixed top-0 left-0 w-full h-screen z-50"
           />
@@ -160,7 +162,7 @@ const NavbarPhone = () => {
   const pathName = usePathname();
 
   return (
-    <div className="lg:hidden fixed bottom-0  w-full left-0 z-[999]  shadow-[0px_-4px_7px_0px_#ecececd6]">
+    <div className="sm:hidden fixed bottom-0  w-full left-0 z-[999]  shadow-[0px_-4px_7px_0px_#ecececd6]">
       <div className="flex p-2 justify-around gap-x-5 bg-white rounded-t-3xl mx-auto">
         {navLinks.map((item, index) => {
           return (
@@ -206,7 +208,7 @@ const Menu = () => {
     const handlScroll = () => {
       if (Navref.current) {
         Navref.current.style.position =
-          window.scrollY > 168 ? "fixed" : "static";
+          window.scrollY > 90 ? "fixed" : "static";
       }
     };
     window.addEventListener("scroll", handlScroll);
@@ -268,9 +270,11 @@ const Menu = () => {
               <Link href={"/cart"} className="text-4xl text-white-hover">
                 <Icon name="ShoppingBag" />
               </Link>
-              <span className="bg-second absolute -top-2 -left-2 rounded-full h-5 w-5 p-3 text-xs flexCenter bg-second-hover">
-                {cart?.length < 100 ? cart?.length : "+99"}
-              </span>
+             
+  <span className="bg-second absolute -top-2 -left-2 rounded-full h-5 w-5 p-3 text-xs flexCenter bg-second-hover">
+    {cart?(cart?.length < 100 ? cart?.length : "+99"):"0"}
+  </span>
+
             </div>
           </div>
           <div className="lg:hidden">
@@ -373,9 +377,9 @@ const Menu = () => {
 
             <motion.div
               initial={{ x: "-90%" }}
-              exit={{ x: "-90%", opacity: 0 }}
+              exit={{ x: "-90%", opacity: 0 }} 
               animate={{ x: "0%" }}
-              className="bg-blk select-none z-[99999999999999] fixed top-0 left-0 w-2/3 h-screen overflow-y-auto lg:hidden"
+              className="bg-blk select-none z-[99999999999999] fixed top-0 left-0 w-2/3 h-screen overflow-y-auto lg:hidden "
             >
               <div className="py-7 px-padding sticky left-0 bg-main top-0">
                 <button

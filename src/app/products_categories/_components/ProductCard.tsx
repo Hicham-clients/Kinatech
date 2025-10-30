@@ -1,4 +1,4 @@
-import { calculNewPrice } from "@/functions/Discount";
+import { calculNewPrice, PriceFormat } from "@/functions/Discount";
 import { Product } from "@/hooks/useCategories";
 import { imageSrc } from "@/lib/getSrc";
 import clsx from "clsx";
@@ -58,7 +58,7 @@ const ProductCard = ({
             <span className=" font-A text-[red]">
               {promo !== null && all_quantity > 0
                 ? calculNewPrice(+promo.discount, +base_price)
-                : calculNewPrice(0, +base_price)}
+                : PriceFormat(+base_price)}
               DH
             </span>
             {promo !== null && all_quantity > 0 && <del>{base_price}</del>}{" "}
@@ -66,7 +66,7 @@ const ProductCard = ({
 
           <button
             disabled={all_quantity == 0 ? true : false}
-            className="kinatech-btn bg-blk bg-black-hover md:text-xs 2xl:text-sm w-full"
+            className="kinatech-btn  bg-blk bg-black-hover md:text-xs 2xl:text-sm w-full"
           >
             <span className="">Ajouter au panier</span>
           </button>

@@ -9,8 +9,8 @@ import { useEffect, useState } from "react";
 const Filter = () => {
   // fetch data
   const { data, isLoading } = useMenuCategories();
-  const {data:brands}=useBrands()
-const router=useRouter()
+  const { data: brands } = useBrands();
+  const router = useRouter();
   const [currentCategoriesForDrilling, setCurrentCategoriesForDrilling] =
     useState<Category[]>(data ?? []);
   useEffect(() => {
@@ -39,23 +39,34 @@ const router=useRouter()
   };
 
   //filtring
-  // search params  
+  // search params
 
-  const searchParams=useSearchParams() 
-  // useEffect(()=>{
-
-  // },[value,router])
+  const searchParams = useSearchParams();
+  const [value, setValue] = useState("");
+  const [debouncedValue, setDebouncedValue] = useState(value);
+  //debounced Value
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedValue(value.trim());
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [value]);
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams);
+  if (debouncedValue) {
+    params.set("search", debouncedValue);
+  } else {
+    params.delete("search");
+  }    router.push(`/products_categories?${params.toString()}`);
+  }, [debouncedValue,router,searchParams]);
   return (
     <div className="select-none w-full md:w-1/2 p-3 bg-white h-[350px] overflow-y-auto rounded-2xl overflow-hidden lg:w-1/2 font-A lg:sticky top-20">
       <div className="flex flex-col gap-3 ">
         <div className="flex relative flex-col gap-y-1 rounded-lg overflow-hidden">
-          <input 
-          onChange={(e)=>{
- const params = new URLSearchParams(searchParams)
-params.set("search",e.target.value) 
-    router.push(`/products_categories?${params.toString()}`);
-
-          }}
+          <input
+            onChange={(e) => {
+              setValue(e.target.value.trim());
+            }}
             placeholder="Rechercher"
             name="name"
             className={clsx("form-input ring-red")}
@@ -66,10 +77,14 @@ params.set("search",e.target.value)
             <MagnifyingGlass size={"1rem"} weight="regular" />
           </span>
         </div>
-        {searchParams.toString().length>0&&<button
-         
-         onClick={()=>router.push('/products_categories')}
-         className="text-sm underline-hover text-main-hover">Supprimer les filters</button>}
+        {searchParams.toString().length > 0 && (
+          <button
+            onClick={() => router.push("/products_categories")}
+            className="text-sm underline-hover text-main-hover"
+          >
+            Supprimer les filters
+          </button>
+        )}
         <div className="h-full">
           {isLoading ? (
             <div className="bg-gray-200 animate-pulse w-full h-[200px] rounded-xl"></div>
@@ -94,7 +109,11 @@ params.set("search",e.target.value)
                         key={item.id}
                         className="flex text-black-hover items-center justify-between text-sm text-blk"
                       >
-                        <Link href={`/products_categories?category=${item.url}`}>{item.name}</Link>
+                        <Link
+                          href={`/products_categories?category=${item.url}`}
+                        >
+                          {item.name}
+                        </Link>
                         {(item?.childrens ?? []).length > 0 && (
                           <span
                             className="w-full flex justify-end"
@@ -106,27 +125,36 @@ params.set("search",e.target.value)
                       </li>
                     );
                   })}
-                </ul> 
-              
+                </ul>
               </div>
             )
           )}
-           
-        </div> 
-    {(brands??[])?.length>0&&    <div className="flex flex-col gap-y-3 px-padding"> 
-                          <h1 className="font-A font-semibold">Marques</h1>
+        </div>
+        {(brands ?? [])?.length > 0 && (
+          <div className="flex flex-col gap-y-3 px-padding">
+            <h1 className="font-A font-semibold">Marques</h1>
 
-                  <select onChange={(e:React.ChangeEvent<HTMLSelectElement>)=>{ 
-                    
-                    const params=new URLSearchParams(searchParams) 
-                    params.set('brand',e.target.value) 
-                    router.push(`/products_categories?${params.toString()}`)
-                  }}  className="border w-full outline-none focus:ring-1 ring-main  p-2 rounded text-blk font-A mx-5" name="" id="">
-                  <option value={""}  disabled >--Choisissez une marque--</option>
-                    {brands?.map(item=><option key={item.id}      value={item.name}>{item.name}</option>)}
-                    
-                  </select>
-                </div>}
+            <select
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                const params = new URLSearchParams(searchParams);
+                params.set("brand", e.target.value);
+                router.push(`/products_categories?${params.toString()}`);
+              }}
+              className="border w-full outline-none focus:ring-1 ring-main  p-2 rounded text-blk font-A mx-5"
+              name=""
+              id=""
+            >
+              <option value={""} disabled>
+                --Choisissez une marque--
+              </option>
+              {brands?.map((item) => (
+                <option key={item.id} value={item.name}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
       </div>
     </div>
   );
