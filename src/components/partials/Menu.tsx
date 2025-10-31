@@ -45,7 +45,7 @@ return ()=>clearTimeout(timer)
     if (value) {
       router.push("?q=" + debouncedValue);
     }
-  }, [debouncedValue, router]);
+  }, [debouncedValue, router,value]);
   useEffect(() => {
 setValue('')
   }, [pathName]);
@@ -260,7 +260,7 @@ const Menu = () => {
                 href={"/"}
                 className="text-4xl tracking-wide font-C lg:text-5xl"
               >
-<Image height={1000} className="w-20 h-20 pointer-events-none object-contain" width={1000} alt="KINATECH" src={'/images/kinatech/logo2.png'}/>
+<Image height={1000} className="w-20 h-20 pointer-events-none object-contain" width={1000} alt="KINATECH" src={'/images/kinatech/logo2.webp'}/>
               </Link>
             </div>
             <div className="hidden lg:block w-1/2">

@@ -6,7 +6,6 @@ import {
   FacebookLogo,
   IconWeight,
   InstagramLogo,
-  LinkedinLogo,
   WhatsappLogo,
 } from "phosphor-react";
 import React from "react";

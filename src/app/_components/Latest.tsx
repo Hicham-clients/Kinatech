@@ -8,7 +8,7 @@ const Latest = () => {
   const { data, isLoading } = useSuggestions();
 
   return (
-    <div className="px-paddingPhone  lg:px-paddingPC py-20 bg-[url('https://cdn.dribbble.com/userupload/24440437/file/original-e4a13963eb78583fd43060170accd42a.gif')]  bg-cover">
+    <div className="px-paddingPhone  lg:px-paddingPC py-20 bg-[url('/images/bg.webp')]  bg-cover">
       <div className="kinatech-container flex flex-col gap-y-10  ">
         <div className="w-fit  ">
           <div className="relative text-white font-D text-2xl lg:text-3xl tracking-wide  text-blk">

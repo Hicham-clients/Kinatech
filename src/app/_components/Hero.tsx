@@ -40,7 +40,7 @@ const Hero = () => {
           return (
             <SwiperSlide key={item.id}>
               <Link
-                className="relative w-full flex h-[50vh] cursor-grab"
+                className="relative w-full flex h-[400px] cursor-grab"
                 href={
                   item.target_type == "product"
                     ? `/products/${item.product.url}`

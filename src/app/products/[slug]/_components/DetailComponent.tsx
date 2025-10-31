@@ -309,7 +309,9 @@ const DetailComponent = ({
                 </h1>
                 <div className="grid grid-cols-2  gap-5">
                   {currentColor?.variants.map((item) => (
-                    <div
+                    <div 
+                                            onClick={() => setCurrentVariant(item)}
+
                       key={item.id}
                       className={clsx( 
                          item.quantity == 0 && "opacity-[0.2]",

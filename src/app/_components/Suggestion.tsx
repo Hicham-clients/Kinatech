@@ -101,7 +101,7 @@ const Suggestion = () => {
           <Refetch onclick={refetch} />
         ) : (
           <div className="text-center font-A tracking-wider text-xl">
-            Pas des suggestions
+            Pas des Produits
           </div>
         )}
       </div>
