@@ -44,9 +44,9 @@ const Hero = () => {
                 href={
                   item.target_type == "product"
                     ? `/products/${item.product.url}`
-                    : item.target_type == "product"
+                    : item.target_type == "category"
                     ? `/products_categories?category=${item.product.category.url}`
-                    : `/products_categories?category=${item.product.brand}`
+                    : `/products_categories?brand=${item.product.brand.name}`
                 }
               >
                 {/* IMAGE FOR Mobile */}

@@ -7,7 +7,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 const SuggestionCard = ({
- 
   cover_pc,
   product,
   target_type,
@@ -22,14 +21,14 @@ const SuggestionCard = ({
       href={
         target_type == "product"
           ? `/products/${product.url}`
-          : target_type == "product"
+          : target_type == "category"
           ? `/products_categories?category=${product.category.url}`
-          : `/products_categories?category=${product.brand}`
+          : `/products_categories?brand=${product.brand.name}`
       }
       className={clsx(
         index == 2
           ? "lg:row-span-2 lg:col-span-2 bg-[#f4f4f4]  order-4 lg:order-none col-span-2 h-[380px] lg:h-full"
-          : "lg:h-[200px] ",
+          : " lg:h-full",
         " rounded-2xl overflow-hidden  h-[150px] md:h-[280px]  flex  w-full cursor-pointer relative"
       )}
     >
@@ -59,7 +58,7 @@ const Suggestion = () => {
   return (
     <div className="py-20 pt-32 px-paddingPhone lg:px-paddingPC ">
       <div className="flex flex-col gap-y-20 kinatech-container">
-        <div className="text-center font-D tracking-wider text-xl sm:text-2xl md:text-4xl  ">
+        <div className="text-center font-D tracking-wider  text-2xl sm:text-3xl md:text-4xl  ">
           <h1> Informatique, Audio & High-Tech.</h1>
           <h1 className="text-black/60">
             PC portables & Gamer hautes performances au Maroc.
@@ -99,7 +98,7 @@ const Suggestion = () => {
             })}
           </div>
         ) : error ? (
-        <Refetch onclick={refetch}/>
+          <Refetch onclick={refetch} />
         ) : (
           <div className="text-center font-A tracking-wider text-xl">
             Pas des suggestions

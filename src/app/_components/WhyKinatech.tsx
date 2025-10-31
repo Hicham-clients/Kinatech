@@ -1,6 +1,6 @@
-'use client'
+"use client";
 import Icon from "@/components/IconComponent";
- import * as PhosphorIcons from "phosphor-react";
+import * as PhosphorIcons from "phosphor-react";
 
 type Reason = {
   title: string;
@@ -26,23 +26,18 @@ const reasons: Reason[] = [
   },
 ];
 
-
-const ReasonCard = ({
-  title,
-  text,
-  icon,
-}: Reason) => {
+const ReasonCard = ({ title, text, icon }: Reason) => {
   return (
-    <div
-      className=" bg-white text-blk w-full flex flex-col gap-y-3 cursor-context-menu  p-6 rounded-2xl  border-gray-200      hover:shadow- lg hover:shadow-[#e5e2e2]   transform hover:-translate-y-1 h-auto"
-    >
+    <div className=" bg-white text-blk w-full flex flex-col gap-y-3 cursor-context-menu  p-6 rounded-2xl  border-gray-200      hover:shadow- lg hover:shadow-[#e5e2e2]   transform hover:-translate-y-1 h-auto">
       <div className="  flex bg-main  bg-gradient-to-tr  shadow-xl  text-2xl text-white  items-center justify-center h-14 p-4 w-14 rounded-2xl  ">
-<Icon name={icon}/>
+        <Icon name={icon} />
       </div>
       <h4 className="font-D  h-full tracking-wider  sm:text-[16px] 2xl:text-xl ">
         {title}
       </h4>
-      <p className="h-full font-A tracking-wide font-[400] text-sm leading-relaxed">{text}</p>
+      <p className="h-full font-A tracking-wide font-[400] text-sm leading-relaxed">
+        {text}
+      </p>
     </div>
   );
 };
@@ -50,10 +45,20 @@ const ReasonCard = ({
 const WhyKinatech = () => {
   return (
     <div className="px-paddingPhone lg:px-paddingPC py-24 bg-[#f5f5f5]">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 kinatech-container">
-            {reasons.map((item,index)=><ReasonCard key={index} {...item}/>)}
+      <div className="kinatech-container flex flex-col gap-y-10">
+          <div className="w-fit mx-auto ">
+            <h1 className=" font-D text-2xl lg:text-3xl text-center  tracking-wide  text-blk ">
+Pourquoi acheter directement auprès de<br/> <span className="text-black/70">KINATECH?</span>
+           
+            </h1>
+            </div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 ">
+          {reasons.map((item, index) => (
+            <ReasonCard key={index} {...item} />
+          ))}
         </div>
+      </div>
     </div>
-  )
-}
-export default WhyKinatech
+  );
+};
+export default WhyKinatech;

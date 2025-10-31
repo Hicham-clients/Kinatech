@@ -60,7 +60,7 @@ const Filter = () => {
   }    router.push(`/products_categories?${params.toString()}`);
   }, [debouncedValue,router,searchParams]);
   return (
-    <div className="select-none w-full md:w-1/2 p-3 bg-white h-[350px] overflow-y-auto rounded-2xl overflow-hidden lg:w-1/2 font-A lg:sticky top-20">
+    <div className="select-none w-full md:w-1/2 p-3 bg-white h-[350px] overflow-y-auto rounded-2xl overflow-hidden lg:w-1/2 font-A lg:sticky top-20  border-white border-b-[1rem]">
       <div className="flex flex-col gap-3 ">
         <div className="flex relative flex-col gap-y-1 rounded-lg overflow-hidden">
           <input
@@ -82,7 +82,7 @@ const Filter = () => {
             onClick={() => router.push("/products_categories")}
             className="text-sm underline-hover text-main-hover"
           >
-            Supprimer les filters
+            Supprimer les filtres
           </button>
         )}
         <div className="h-full">
@@ -91,7 +91,7 @@ const Filter = () => {
           ) : (
             (data ?? []).length > 0 && (
               <div className="bg-gray-100 p-padding rounded-xl cursor-pointer flex flex-col gap-y-5 h-full">
-                <h1 className="font-A font-semibold">Catégories</h1>
+                <h1 className="font-D">Catégories</h1>
                 {/* CATEGORIES */}
                 {history.length > 0 && (
                   <button
@@ -132,7 +132,7 @@ const Filter = () => {
         </div>
         {(brands ?? [])?.length > 0 && (
           <div className="flex flex-col gap-y-3 px-padding">
-            <h1 className="font-A font-semibold">Marques</h1>
+            <h1 className="font-D ">Marques</h1>
 
             <select
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {

@@ -1,11 +1,13 @@
 "use client";
 import { useMenuCategories } from "@/hooks/useMenuCategories";
+import Image from "next/image";
 import Link from "next/link";
 import {
   FacebookLogo,
   IconWeight,
   InstagramLogo,
   LinkedinLogo,
+  WhatsappLogo,
 } from "phosphor-react";
 import React from "react";
 const iconsize: { size: string; weight: IconWeight } = {
@@ -30,11 +32,11 @@ const social: {
     icon: <InstagramLogo {...iconsize} />,
     color: "purple",
   },
-  {
-    name: "LinkedIn",
+ {
+    name: "WhatsAPP",
     url: "",
-    icon: <LinkedinLogo {...iconsize} />,
-    color: "blue",
+    icon: <WhatsappLogo {...iconsize} />,
+    color: "green",
   },
 ];
 
@@ -46,6 +48,7 @@ const contact = [
 ];
 
 const links = [
+  { name: "Accueil", url: "/" },
   { name: "Panier", url: "/cart" },
   { name: "Nos produits", url: "/products_categories" },
   { name: "Marques", url: "/products_categories?brand=apple" },
@@ -64,12 +67,12 @@ const Footer = () => {
   const { data } = useMenuCategories();
 
   return (
-    <footer className="cursor-context-menu   border-t    text-blk  md:p-5 md:py-16 font-A text-sm ">
+    <footer className="cursor-context-menu   border-t    text-blk  md:p-5 md:py-16 font-A text-sm select-none ">
       <div className="flex p-5 lg:px-20    flex-col gap-y-20 kinatech-container ">
         <div className="flex  flex-col gap-y-10 md:flex-row justify-between  ">
           <div className="flex  flex-col gap-y-4  w-fit">
-            <Title value="KINATECH" />
-            <div className="flex  items-center gap-x-2   max-w-xs   md:items-start">
+<Image height={1000} className="w-20 h-20 object-contain" width={1000} alt="" src={'/images/kinatech/logo.png'}/>
+            <div className="flex  items-center gap-x-2 leading-relaxed  max-w-xs   md:items-start">
               L’équipe KINATECH est composée d’ingénieurs et de techniciens
               hautement qualifiés dans les nouvelles technologies. On vous offre
               un large choix de matériel de haute qualité à des prix

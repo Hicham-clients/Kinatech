@@ -4,35 +4,38 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import SecondCardProduct from "../products_categories/_components/SecondCardProduct";
 import { usePromos } from "@/hooks/usePromos";
-import { motion } from "framer-motion";
 import SecondCardLoading from "@/skeletons/SecondCardLoading";
-import Refetch from "@/components/Refetch";
 
 const WeekPromos = () => {
-  const { data, isLoading, error, refetch } = usePromos();
+  const { data, isLoading} = usePromos(); 
+if(isLoading){
+  return  (
+   <div className="px-paddingPhone  lg:px-paddingPC py-20  ">
+        <div className="kinatech-container flex flex-col gap-y-5  ">
+ <div className="w-fit">
+          <div className="h-8 w-64 bg-gray-200 rounded-md relative overflow-hidden">
+            <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.6s_infinite] bg-gradient-to-r from-transparent via-white/60 to-transparent"></div>
+          </div>
+        </div>
+  <div className="flex">
+               { [...Array(4)].map((_, index) => (
+                    <SecondCardLoading key={index} />
+                ))}
+             </div>
+             </div>
+             </div>
+              )
+}
   return (
      (
-      <div className="px-paddingPhone  lg:px-paddingPC py-20  ">
+   (data??[])?.length>0&&   <div className="px-paddingPhone  lg:px-paddingPC py-20  ">
         <div className="kinatech-container flex flex-col gap-y-5  ">
           <div className="w-fit  ">
             <h1 className=" font-D text-2xl lg:text-3xl tracking-wide  text-blk">
-              Promos de la semaine
+              Les promostions de la semaine
+           
             </h1>
-            <motion.svg
-              // viewport={{ once: true, amount: 0.3 }}
-              initial={{ width: 0 }}
-              whileInView={{ width: "100%" }}
-              viewBox="0 0 200 20"
-              aria-hidden="true"
-            >
-              <path
-                d="M5 10 C40 20, 80 0, 195 10"
-                fill="none"
-                stroke="var(--second)"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
-            </motion.svg>
+          
 
           </div>
           <div className="pt-padding ">
@@ -55,26 +58,14 @@ const WeekPromos = () => {
                 },
               }}
             >
-              {isLoading ? (
-                [...Array(4)].map((_, index) => (
-                  <SwiperSlide key={index} className="  ">
-                    <SecondCardLoading />
-                  </SwiperSlide>
-                ))
-              ) : (data ?? [])?.length > 0 ? (
+               {
                 data?.map((item) => (
                   <SwiperSlide key={item.id} className="pb-16">
                     <SecondCardProduct {...item} />
                   </SwiperSlide>
                 ))
-              ) : error ? (
-               
-        <Refetch onclick={refetch}/>
-              ) : (
-                <div className="text-center font-A tracking-wider text-xl">
-                  Pas des promos ce semaine
-                </div>
-              )}
+              }
+      
             </Swiper>
           </div>
         </div>

@@ -13,7 +13,7 @@ const Brands = () => {
   const {data:brands}=useBrands()
  
   return (
-    <div className="p-6 lg:px-12 border-t cursor-grab">
+    <div className="p-6 select-none lg:px-12 border-t cursor-grab">
       <Swiper
         className="overflow-visible kinatech-container  h-14"
         modules={[Navigation, Pagination]}
@@ -35,7 +35,7 @@ const Brands = () => {
                   width={1000}
                   height={1000}
                   // style={{            filter: "grayscale(0%)"}}
-                  className="w-full h-full object-contain filter hover:grayscale-0 grayscale"
+                  className="pointer-events-none w-full h-full object-contain filter hover:grayscale-0 grayscale"
                   src={imageSrc(item?.logo)}
                   alt={item.name}
                 />

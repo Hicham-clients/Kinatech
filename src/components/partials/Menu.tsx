@@ -162,7 +162,7 @@ const NavbarPhone = () => {
   const pathName = usePathname();
 
   return (
-    <div className="sm:hidden fixed bottom-0  w-full left-0 z-[999]  shadow-[0px_-4px_7px_0px_#ecececd6]">
+    <div className="sm:hidden fixed bottom-0  w-full left-0 z-[999] rounded-t-3xl border border-gray-300">
       <div className="flex p-2 justify-around gap-x-5 bg-white rounded-t-3xl mx-auto">
         {navLinks.map((item, index) => {
           return (
@@ -260,7 +260,7 @@ const Menu = () => {
                 href={"/"}
                 className="text-4xl tracking-wide font-C lg:text-5xl"
               >
-                Kinatech
+<Image height={1000} className="w-20 h-20 pointer-events-none object-contain" width={1000} alt="KINATECH" src={'/images/kinatech/logo2.png'}/>
               </Link>
             </div>
             <div className="hidden lg:block w-1/2">
@@ -318,7 +318,7 @@ const Menu = () => {
                 setIshover(false);
                 setItemhover(null);
               }}
-              className="absolute z-50 text-blk bg-white border-t shadow-lg shadow-[#eeeeee] top-full left-0 w-full overflow-auto h-[350px] flex justify-center gap-x-24 p-padding"
+              className="absolute z-50 text-blk bg-white border-t border-b  top-full left-0 w-full overflow-auto h-[350px] flex justify-center gap-x-24 p-padding"
             >
               {/* Parent Products */}
               {(currentCategoryData.products ?? []).length > 0 && (

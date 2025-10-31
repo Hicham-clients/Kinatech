@@ -13,7 +13,7 @@ export type Product = {
   url: string;
   base_price: string;
   photo: string;
-  category_id: number;
+  category_id?: number;
   brand_id: number;
   all_quantity: number;
   promo: { product_id: number; discount: string } | null;
