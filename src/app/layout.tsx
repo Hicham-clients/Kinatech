@@ -5,6 +5,7 @@ import Brands from "./_components/brands";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import { Metadata } from "next";
 import { Providers } from "@/store/Providers";
+import Whatsapp from "@/components/Whatsapp";
 
 //SEO OPTIMIZATION
 export const metadata: Metadata = {
@@ -90,7 +91,10 @@ export default function RootLayout({
             <header>
               <Menu />
             </header>
-            <main className="min-h-[80vh]">{children}</main>
+            <main className="min-h-[80vh]">{children}
+
+             <Whatsapp/>
+            </main>
 
             <footer>
               <Brands />

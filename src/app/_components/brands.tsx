@@ -14,7 +14,16 @@ const Brands = () => {
  
   return (
     <div className="p-6 select-none lg:px-12 border-t cursor-grab">
-      <Swiper
+      <Swiper 
+       breakpoints={{
+                0: {
+                  slidesPerView: 3,
+                },
+                
+                1024: {
+                  slidesPerView: 4,
+                },
+              }}
         className="overflow-visible kinatech-container  h-14"
         modules={[Navigation, Pagination]}
         // loop 
@@ -24,9 +33,9 @@ const Brands = () => {
       >
         {brands?.map((item, index) => {
           return (
-            <SwiperSlide key={index} className="px-10 ">
+            <SwiperSlide key={index} className="  ">
               <Link
-                className="w-14 h-full flexCenter  mx-auto "
+                className="w-8 lg:w-12 h-full flexCenter mx-auto    "
                 href={`/products_categories?brand=${item.name}`}
               >
                 <Image

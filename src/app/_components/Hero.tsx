@@ -32,7 +32,7 @@ const Hero = () => {
         pagination={{
           clickable: true,
           renderBullet: function (index, className) {
-            return `<span class="${className}">${data?.[index]?.product?.slug}</span>`;
+            return `<span class="${className}">${data?.[index]?.product?.slug.slice(0,20)+(data?.[index]?.product?.slug.slice(20).length>0?'...':'')}</span>`;
           },
         }}
       >
@@ -40,7 +40,7 @@ const Hero = () => {
           return (
             <SwiperSlide key={item.id}>
               <Link
-                className="relative w-full flex h-[400px] cursor-grab"
+                className="relative w-full flex h-[60vh] cursor-grab"
                 href={
                   item.target_type == "product"
                     ? `/products/${item.product.url}`

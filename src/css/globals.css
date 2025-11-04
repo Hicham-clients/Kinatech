@@ -3,13 +3,13 @@
 @tailwind components;
 @tailwind utilities;
 :root {
-  --main: #0c549f;
+  --main: #4eabf9;
   --second: #ffb300;
   --wt: #fff;
   --blk: #1e1e1e;
   --grey: rgb(149, 149, 149);
-  --mainHover: #103c6b;
-  --secondHover: #ffb300a1;
+  --mainHover: #0c8cf6;
+  --secondHover: #ff9900;
   --whiteHover: #ffffffaf;
 
   --paddingPhone: 1.25rem;
@@ -72,7 +72,7 @@
   @apply text-red-500 text-xs tracking-wide font-A pl-2;
 }
 .kinatech-btn{
-  @apply  font-A   px-6 py-2  text-white text-base font-bold rounded-lg  flex justify-center items-center gap-x-2  tracking-wider  
+  @apply  font-A select-none  px-6 py-2  text-white text-base font-bold rounded-lg  flex justify-center items-center gap-x-2  tracking-wider  
 }
 
 /* brands */ 

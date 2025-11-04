@@ -8,7 +8,14 @@ const Latest = () => {
   const { data, isLoading } = useSuggestions();
 
   return (
-    <div className="px-paddingPhone  lg:px-paddingPC py-20 bg-[url('/images/bg.webp')]  bg-cover">
+    <div
+      style={{
+        background:
+          "linear-gradient(45deg, var(--main) 0%, var(--main)50%, #ff00aa 50%,#ff00aa 50%, purple 100%)",
+      }}
+      // style={{background:'linear-gradient(45deg, var(--main) 0%, var(--main)50%, var(--second) 50%, var(--secondHover))'}}
+      className="px-paddingPhone  lg:px-paddingPC py-20  bg-[url('/im ages/bg.webp')] rounded-[50px] bg-cover"
+    >
       <div className="kinatech-container flex flex-col gap-y-10  ">
         <div className="w-fit  ">
           <div className="relative text-white font-D text-2xl lg:text-3xl tracking-wide  text-blk">
@@ -19,21 +26,21 @@ const Latest = () => {
             </div>
           </div>
         </div>
-        <div className="grid gap-10 grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
+        <div className="grid  gap-10 grid-cols-1 sm:grid-cols-2  lg:grid-cols-4">
           {isLoading
             ? [...Array(4)].map((_, index) => (
                 <CardProductLoading key={index} />
               ))
             : data?.map((item, index) => <ProductCard {...item} key={index} />)}
-        </div> 
-          <div className="flexCenter">
-                <Link
-                  href={"/products_categories"}
-                  className="bg-white text-blk p-2 rounded-lg font-D px-5 scale-minus-hover   w-fit"
-                >
-                  Savoir plus{" "}
-                </Link>
-              </div>
+        </div>
+        <div className="flexCenter">
+          <Link
+            href={"/products_categories"}
+            className="bg-white text-blk p-2 rounded-lg font-D px-5 scale-minus-hover   w-fit"
+          >
+            En savoir plus{" "}
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -153,7 +153,7 @@ const NavbarPhone = () => {
       icon: "Bag",
     },
     {
-      url: `https://wa.me/212656757843?text=${encodeURIComponent(
+      url: `https://wa.me/212661613561?text=${encodeURIComponent(
         "Bonjour KINATECH,"
       )}`,
       icon: "WhatsappLogo",
@@ -290,7 +290,7 @@ const Menu = () => {
               {data?.map((item) => (
                 <li key={item.id} className="text-sm underline-hover">
                   <Link
-                    className="py-6"
+                    className="py-6 "
                     onMouseEnter={() => {
                       setItemhover(item.id);
                       setIshover(true);
@@ -428,7 +428,8 @@ const Menu = () => {
                           key={index}
                           className="cursor-pointer text-white-hover capitalize flex justify-between items-center"
                         >
-                          <Link
+                          <Link 
+                          className="min-w-fit  text-sm "
                             href={`/products_categories?category=${item.url}`}
                           >
                             {item.name}

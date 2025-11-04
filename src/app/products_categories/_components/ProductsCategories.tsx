@@ -24,7 +24,7 @@ const ProductsCategories = () => {
       <div className="bg-[#f4f4f4] p-paddingPhone lg:px-paddingPC pb-32">
       <div className=" flex flex-col gap-y-20 kinatech-container">
         <PageTitle
-          title={searchParams.has('brand')?searchParams.get('brand'):"Nos Produits"}
+          title={searchParams.has('brand')?searchParams.get('brand'):searchParams.has('category')?searchParams.get('category'):"Nos Produits"}
           text="Nous serions heureux de vous accompagner dans vos besoins. Découvrez nos produits et profitez d’un service rapide et de qualité."
           // title={searchParams?.toString().length==0?"Toutes les produits":searchParams.has('category')?searchParams.get('category')?.toUpperCase():''}
         />

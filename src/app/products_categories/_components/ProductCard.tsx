@@ -32,7 +32,7 @@ const ProductCard = ({
             alt={slug}
           />
 
-          <span className="absolute  top-1 left-1">
+          <span className="absolute  top-2 left-2">
             <Image
               loading="lazy"
               alt={brand.name}
@@ -46,7 +46,9 @@ const ProductCard = ({
             <span className="bg-[red] font-B rounded-bl-2xl  rounded-tr-2xl  text-white  p-1 absolute top-1 right-1 ">
               Promo -{promo.discount}%
             </span>
-          )}
+          )} 
+          {all_quantity == 0 &&             <span className=" font-D  rounded-bl-2xl  rounded-tr-2xl  text-[red]  p-1 absolute top-1 right-1 text-xs">En rupture de stock</span>}
+          
         </div>
         <div className="p-4 flex flex-col gap-y-4">
           <h1 className="font-semibold text-blk font-A h-14 md:text-sm lg:text-base tracking-wide">

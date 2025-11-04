@@ -164,9 +164,9 @@ const DetailComponent = ({
       <div className="kinatech-container">
         <div className="flex gap-10 flex-col lg:flex-row ">
           <div className=" w-full">
-            <div className="lg:sticky lg:top-20  w-full flex flex-col lg:flex-row-reverse  items-center  relative lg:h-[400px]   border  rounded-xl ">
+            <div className="lg:sticky lg:top-20 overflow-hidden w-full flex flex-col lg:flex-row-reverse  items-center  relative lg:h-[400px]   border  rounded-xl ">
               <div className=" w-full h-full ">
-                <div className="w-full  bg-white border border-x-0 lg:border-r  rounded-br-none rounded-bl-none rounded-xl md:h-full overflow-hidden relative ">
+                <div className="w-full  bg-white  border-x-0 border-b-0  h-[300px] rounded-br-none rounded-bl-none rounded-xl lg:h-full overflow-hidden relative ">
                   <Image
                     loading="lazy"
                     width={1000}
@@ -231,7 +231,7 @@ const DetailComponent = ({
           <div className="w-full font-A flex-col gap-y-5 flex">
             {+allQ == 0 && (
               <h1 className="text-xl font-bold text-[red] font-B uppercase tracking-wider">
-                pas disponible
+                En rupture de stock
               </h1>
             )}{" "}
             <div title={brand_name} className="flex flex-col gap-y-1">
@@ -241,7 +241,7 @@ const DetailComponent = ({
                 height={1000}
                 src={imageSrc(brand_logo)}
                 alt={brand_name ?? "brand"}
-                className="w-16 object-contain pointer-events-none rounded-md"
+                className="w-12 object-contain pointer-events-none rounded-md"
               />
               <h1 className="text-2xl md:text-3xl lg:text-4xl font-D">
                 {currentVariant?.name || slug}
@@ -316,7 +316,7 @@ const DetailComponent = ({
                       className={clsx( 
                          item.quantity == 0 && "opacity-[0.2]",
                         currentVariant?.id == item.id && "border-main",
-                        "flex items-center  bg-gray-hover cursor-pointer select-none rounded-xl p-5 font-A flex-col text-xs text-blk gap-y-1 border-2"
+                        "flex items-center justify-between  bg-gray-hover cursor-pointer select-none rounded-xl p-5 font-A flex-col text-xs text-blk gap-y-1 border-2"
                       )}
                     >
                       <span className="text-sm font-D">
@@ -379,10 +379,10 @@ const DetailComponent = ({
                     {currentVariant?.name || slug}
                   </h1>
                 </div>
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between gap-5 items-center">
                   <div className="flex flex-col">
                     <span className="text-sm text-grey">
-                      {currentColor?.name || ""}
+                      -{currentColor?.name || ""}
                     </span>
                     {
                       <span className="text-sm text-grey ">
@@ -390,7 +390,7 @@ const DetailComponent = ({
                           (currentVariant?.ram && "| " + currentVariant?.ram) ||
                           ""
                         }` || ""} */}
-                        {currentVariant?.custom_variant}
+                        -{currentVariant?.custom_variant}
                       </span>
                     }
                   </div>
@@ -465,7 +465,7 @@ const DetailComponent = ({
                     ?.quantity === currentVariant?.quantity
                     ? "opacity-[0.5] bg-main hover:bg-main active:bg-main w-full"
                     : "bg-main bg-main-hover",
-                  " text-white w-full kinatech-btn  font-D w-full "
+                  " text-white w-full kinatech-btn  font-D  "
                 )}
               >
                 <span className="text-2xl">
