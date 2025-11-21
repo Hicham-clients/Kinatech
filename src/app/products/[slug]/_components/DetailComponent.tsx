@@ -31,7 +31,7 @@ import Dialog from "@/app/cart/_components/dialog";
 //       onClick={onClick}
 //       className={clsx(
 //         currentId == id && "border-main",
-//         quantity == 0 && "opacity-[0.2]",
+//         quantity <=0 && "opacity-[0.2]",
 //         " font-A border-2 select-none justify-center items-center rounded-xl p-5  flex  bg-gray-hover cursor-pointer flex-col "
 //       )}
 //     >
@@ -299,43 +299,40 @@ const DetailComponent = ({
               </> */}
             {/* )}  */}
             {/* {currentVariant?.custom_variant && ( */}
-            {
-
-              currentVariant?.custom_variant&&   <>
-              <hr />
-              <div className="flex flex-col gap-y-5">
-                <h1 className="font-B font-medium text-grey">
-                  Choisissez votre Variante
-                </h1>
-                <div className="grid grid-cols-2  gap-5">
-                  {currentColor?.variants.map((item) => (
-                    <div 
-                                            onClick={() => setCurrentVariant(item)}
-
-                      key={item.id}
-                      className={clsx( 
-                         item.quantity == 0 && "opacity-[0.2]",
-                        currentVariant?.id == item.id && "border-main",
-                        "flex items-center justify-between  bg-gray-hover cursor-pointer select-none rounded-xl p-5 font-A flex-col text-xs text-blk gap-y-1 border-2"
-                      )}
-                    >
-                      <span className="text-sm font-D">
-                        {item.custom_variant}
-                      </span>
-                      <span className="text-sm">
-                        {discount != null
-                          ? calculNewPrice(+discount, +item.price)
-                          : item.price}{" "}
-                        DH
-                      </span>
-                    </div>
-                  ))}
+            {currentVariant?.custom_variant && (
+              <>
+                <hr />
+                <div className="flex flex-col gap-y-5">
+                  <h1 className="font-B font-medium text-grey">
+                    Choisissez votre Variante
+                  </h1>
+                  <div className="grid grid-cols-2  gap-5">
+                    {currentColor?.variants.map((item) => (
+                      <div
+                        onClick={() => setCurrentVariant(item)}
+                        key={item.id}
+                        className={clsx(
+                          item.quantity == 0 && "opacity-[0.2]",
+                          currentVariant?.id == item.id && "border-main",
+                          "flex items-center justify-between  bg-gray-hover cursor-pointer select-none rounded-xl p-5 font-A flex-col text-xs text-blk gap-y-1 border-2"
+                        )}
+                      >
+                        <span className="text-sm font-D">
+                          {item.custom_variant}
+                        </span>
+                        <span className="text-sm">
+                          {discount != null
+                            ? calculNewPrice(+discount, +item.price)
+                            : item.price}{" "}
+                          DH
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-              <hr />
-            </>
-            }
-         
+                <hr />
+              </>
+            )}
             {/* )} */}
             {/* ICON TITLE */}
             <div

@@ -20,22 +20,23 @@ import * as PhosphorIcons from "phosphor-react";
 import Refetch from "../Refetch";
 
 const SearchInput = () => {
-
   const router = useRouter();
   const pathName = usePathname();
   const [value, setValue] = useState("");
   const [debouncedValue, setDebouncedValue] = useState(value);
-  //debounced Value 
-  useEffect(()=>{
-const timer=setTimeout(()=>{
-setDebouncedValue(value.trim())
-},500) 
-return ()=>clearTimeout(timer)
-  },[value])
-  
-  const { data, error, isLoading, refetch } = useProductsSearch(debouncedValue.trim());
+  //debounced Value
   useEffect(() => {
-    if (value.trim()=='') {
+    const timer = setTimeout(() => {
+      setDebouncedValue(value.trim());
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [value]);
+
+  const { data, error, isLoading, refetch } = useProductsSearch(
+    debouncedValue.trim()
+  );
+  useEffect(() => {
+    if (value.trim() == "") {
       document.body.style.overflow = "visible";
     } else {
       document.body.style.overflow = "hidden";
@@ -45,9 +46,9 @@ return ()=>clearTimeout(timer)
     if (value) {
       router.push("?q=" + debouncedValue);
     }
-  }, [debouncedValue, router,value]);
+  }, [debouncedValue, router, value]);
   useEffect(() => {
-setValue('')
+    setValue("");
   }, [pathName]);
   return (
     <div className="py-3 relative">
@@ -55,7 +56,6 @@ setValue('')
         <input
           onChange={(e) => {
             setValue(e?.target?.value);
-        
           }}
           className="w-full pr-12 h-12 p-2 outline-none text-black placeholder:text-grey placeholder:tracking-wide placeholder:text-sm"
           type="search"
@@ -65,7 +65,7 @@ setValue('')
           <Icon name="MagnifyingGlass" weight="regular" />
         </button>
       </div>
-      {value.trim()!=='' && (
+      {value.trim() !== "" && (
         <>
           <div
             onClick={() => {
@@ -260,7 +260,13 @@ const Menu = () => {
                 href={"/"}
                 className="text-4xl tracking-wide font-C lg:text-5xl"
               >
-<Image height={1000} className="w-20 h-20 pointer-events-none object-contain" width={1000} alt="KINATECH" src={'/images/kinatech/logo2.webp'}/>
+                <Image
+                  height={1000}
+                  className="w-20 h-20 pointer-events-none object-contain"
+                  width={1000}
+                  alt="KINATECH"
+                  src={"/images/kinatech/logo2.webp"}
+                />
               </Link>
             </div>
             <div className="hidden lg:block w-1/2">
@@ -270,11 +276,10 @@ const Menu = () => {
               <Link href={"/cart"} className="text-4xl text-white-hover">
                 <Icon name="ShoppingBag" />
               </Link>
-             
-  <span className="bg-second absolute -top-2 -left-2 rounded-full h-5 w-5 p-3 text-xs flexCenter bg-second-hover">
-    {cart?(cart?.length < 100 ? cart?.length : "+99"):"0"}
-  </span>
 
+              <span className="bg-second absolute -top-2 -left-2 rounded-full h-5 w-5 p-3 text-xs flexCenter bg-second-hover">
+                {cart ? (cart?.length < 100 ? cart?.length : "+99") : "0"}
+              </span>
             </div>
           </div>
           <div className="lg:hidden">
@@ -377,7 +382,7 @@ const Menu = () => {
 
             <motion.div
               initial={{ x: "-90%" }}
-              exit={{ x: "-90%", opacity: 0 }} 
+              exit={{ x: "-90%", opacity: 0 }}
               animate={{ x: "0%" }}
               className="bg-blk select-none z-[99999999999999] fixed top-0 left-0 w-2/3 h-screen overflow-y-auto lg:hidden "
             >
@@ -428,8 +433,8 @@ const Menu = () => {
                           key={index}
                           className="cursor-pointer text-white-hover capitalize flex justify-between items-center"
                         >
-                          <Link 
-                          className="min-w-fit  text-sm "
+                          <Link
+                            className="min-w-fit  text-sm "
                             href={`/products_categories?category=${item.url}`}
                           >
                             {item.name}
