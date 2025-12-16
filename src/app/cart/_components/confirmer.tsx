@@ -5,6 +5,7 @@ const Confirmer = ({
   name,
   onclick,
   confirmer,
+  
 }: {
   confirmer: () => void;
   name: string;
@@ -44,7 +45,9 @@ const Confirmer = ({
             Non
           </button>
           <button
-            onClick={confirmer}
+            onClick={()=>{
+              onclick()
+              confirmer()}}
             className="w-full bg-main-hover  border p-2 rounded-lg text-center bg-main text-white"
           >
             Oui
