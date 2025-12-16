@@ -34,7 +34,8 @@ const SuggestionCard = ({
     >
       <Image
         alt={product.slug}
-       fill
+        height={1000}
+        width={1000}
         className={clsx(
           index == 2 && "object-contain",
           "h-full pointer-events-none w-full object-cover   "
