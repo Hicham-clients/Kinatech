@@ -84,7 +84,10 @@ if(showDialog){
         </div>
       </div>
       {/* Show  */}
-      {showDialog&&<Confirmer confirmer={()=>dispatch(RemoveFromCart(id))} name={name}  onclick={()=>setShowDialog(false)}/>}
+      {showDialog&&<Confirmer confirmer={()=>{dispatch(RemoveFromCart(id))
+
+        setShowDialog(false)
+      }} name={name}  onclick={()=>setShowDialog(false)}/>}
     </div>
   );
 }
