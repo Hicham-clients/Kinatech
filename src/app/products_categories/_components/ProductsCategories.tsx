@@ -34,7 +34,7 @@ const ProductsCategories = () => {
             {isLoading ? (
               <div
                 className={clsx(
-                  "w-full grid md:grid-cols-2 xl:grid-cols-3 gap-y-14 md:gap-5"
+                  "w-full grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-y-14 gap-5"
                 )}
               >
                 {[...Array(4)].map((_, i) => (
@@ -44,7 +44,7 @@ const ProductsCategories = () => {
             ) : (data?.data ?? [])?.length > 0 ? (
               <div
                 className={clsx(
-                  "w-full grid md:grid-cols-2 xl:grid-cols-3 gap-y-14 md:gap-5"
+                  "w-full grid sm:grid-cols-2 xl:grid-cols-3 gap-y-14 gap-5"
                 )}
               >
                 {data?.data.map((item) => (

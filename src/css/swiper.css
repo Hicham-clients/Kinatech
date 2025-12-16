@@ -5,13 +5,13 @@
           }
           @media (min-width: 640px) {
             .swiper-pagination {
-              max-width: 640px;
+              max-width: 100%;
               display: flex;
             }
           }
           @media (min-width: 768px) {
             .swiper-pagination {
-              max-width: 768px;
+              max-width: 100%;
             }
           }
           .swiper-pagination {

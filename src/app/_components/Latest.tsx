@@ -9,12 +9,12 @@ const Latest = () => {
 
   return (
     <div
-      style={{
-        background:
-          "linear-gradient(45deg, var(--main) 0%, var(--main)50%, #ff00aa 50%,#ff00aa 50%, purple 100%)",
-      }}
+      // style={{
+      //   background:
+      //     "linear-gradient(45deg, var(-- main) 0%, var(--main)50%, #ff00aa 50%,#ff00aa 50%, purple 100%)",
+      // }}
       // style={{background:'linear-gradient(45deg, var(--main) 0%, var(--main)50%, var(--second) 50%, var(--secondHover))'}}
-      className="px-paddingPhone  lg:px-paddingPC py-20  bg-[url('/im ages/bg.webp')] rounded-[50px] bg-cover"
+      className="px-paddingPhone  lg:px-paddingPC py-20  bg-[url('/images/bg.webp')] rounded-t-[40px] bg-cover"
     >
       <div className="kinatech-container flex flex-col gap-y-10  ">
         <div className="w-fit  ">
@@ -26,7 +26,7 @@ const Latest = () => {
             </div>
           </div>
         </div>
-        <div className="grid  gap-10 grid-cols-1 sm:grid-cols-2  lg:grid-cols-4">
+        <div className="containerGridCase2 grid  gap-10 grid-cols-1 sm:grid-cols-2  lg:grid-cols-4">
           {isLoading
             ? [...Array(4)].map((_, index) => (
                 <CardProductLoading key={index} />

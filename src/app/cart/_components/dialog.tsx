@@ -19,9 +19,9 @@ const Dialog = ({
   return (
     <div
       onClick={onclick}
-      className="select-none fixed top-0 left-0 w-full h-svh bg-black/40 z-[9999] font-A"
+      className=" select-none fixed top-0 left-0 w-full h-svh bg-black/40 z-[9999] font-A"
     >
-      <div className="bg-white kinatech-container rounded-xl fixed top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-[90%] lg:w-1/2 h-80 p-padding flex flex-col justify-between gap-5">
+      <div className="bg-white kinatech-container rounded-xl fixed top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-[90%] lg:w-1/2  p-padding flex flex-col justify-between gap-5">
         <div className="flex items-center justify-between">
           <h1 className="text-3xl font-D">
             Vous avez ajouter un article à votre panier
@@ -54,12 +54,12 @@ const Dialog = ({
           </div>
         </div>
 
-        <div className="flex items-center gap-5">
+        <div className="flex items-center text-sm gap-5">
           <Link
-            className="border p-2 w-full rounded-lg text-center bg-gray-hover"
+            className="border p-2 w-full  rounded-lg text-center bg-gray-hover"
             href={"/cart"}
           >
-            Consulter votre Panier
+            Consulter votre panier
           </Link>
           <button
             onClick={onclick}

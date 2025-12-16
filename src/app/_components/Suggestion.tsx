@@ -60,10 +60,9 @@ const Suggestion = () => {
     <div className="py-20 pt-32 px-paddingPhone lg:px-paddingPC ">
       <div className="flex flex-col gap-y-20 kinatech-container">
         <div className="text-center font-D tracking-wider  text-2xl sm:text-3xl md:text-4xl  ">
-          <h1> Informatique, Audio & High-Tech.</h1>
+          <h1> Technologie Fiable,</h1>
           <h1 className="text-black/60">
-            PC portables & Gamer hautes performances au Maroc.
-          </h1>
+Performance Durable          </h1>
         </div>
         {isLoading ? (
           <div className="grid gap-4 grid-cols-2  lg:grid-cols-4 lg:grid-rows-2 ">

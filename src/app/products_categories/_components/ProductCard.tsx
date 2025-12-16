@@ -18,7 +18,7 @@ const ProductCard = ({
     <Link
       href={`/products/${url}`}
       className={clsx(
-        all_quantity == 0 && "opacity-[0.5]",
+        all_quantity == 0 && "opacity-[0.8]",
         "w-full block select-none overflow-auto bg-white rounded-2xl "
       )}
     >
@@ -71,7 +71,7 @@ const ProductCard = ({
 
           <button
             disabled={all_quantity == 0 ? true : false}
-            className="kinatech-btn  bg-blk bg-black-hover md:text-xs 2xl:text-sm w-full"
+            className="kinatech-btn  bg-blk bg-black-hover text-sm md:text-xs 2xl:text-sm w-full"
           >
             <span className="">Ajouter au panier</span>
           </button>

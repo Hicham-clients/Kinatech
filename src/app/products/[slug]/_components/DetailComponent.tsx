@@ -147,7 +147,7 @@ const DetailComponent = ({
   return (
     <div
       className={clsx(
-        +allQ == 0 && "opacity-[0.5]",
+        +allQ == 0 && "opacity-[0.8]",
         currentVariant?.quantity == 0 || (!currentVariant && "opacity-[0.5]"),
         "p-padding lg:px-paddingPC pb-32 "
       )}
@@ -312,7 +312,7 @@ const DetailComponent = ({
                         onClick={() => setCurrentVariant(item)}
                         key={item.id}
                         className={clsx(
-                          item.quantity == 0 && "opacity-[0.2]",
+                          item.quantity == 0 && "opacity-[0.5]",
                           currentVariant?.id == item.id && "border-main",
                           "flex items-center justify-between  bg-gray-hover cursor-pointer select-none rounded-xl p-5 font-A flex-col text-xs text-blk gap-y-1 border-2"
                         )}
@@ -460,7 +460,7 @@ const DetailComponent = ({
                 className={clsx(
                   cart?.find((item) => item.id == currentVariant?.id)
                     ?.quantity === currentVariant?.quantity
-                    ? "opacity-[0.5] bg-main hover:bg-main active:bg-main w-full"
+                    ? "opacity-[0.8] bg-main hover:bg-main active:bg-main w-full"
                     : "bg-main bg-main-hover",
                   " text-white w-full kinatech-btn  font-D  "
                 )}

@@ -82,7 +82,7 @@ const Filter = () => {
             onClick={() => router.push("/products_categories")}
             className="text-sm underline-hover text-main-hover"
           >
-            Supprimer les filtres
+            Supprimer Les Filtres
           </button>
         )}
         <div className="h-full">
@@ -105,9 +105,10 @@ const Filter = () => {
                 <ul className="px-padding flex flex-col gap-y-2">
                   {currentCategoriesForDrilling.map((item) => {
                     return (
-                      <li
+                      <li 
+
                         key={item.id}
-                        className="flex text-black-hover items-center justify-between text-sm text-black "
+                        className={clsx(searchParams.get('category')?.split('-')[0].toLowerCase().startsWith(item.name.split(' ')[0].toLowerCase())&&'text-main',"flex  text-black-hover items-center justify-between text-lg sm:text-sm tracking-wider  text-black ")}
                       >
                         <Link 
                         className="min-w-fit"

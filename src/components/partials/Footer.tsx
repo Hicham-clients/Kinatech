@@ -141,7 +141,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="flex sm:flex-row flex-col-reverse gap-y-2    justify-between items-center">
+        <div className="flex sm:flex-row flex-col-reverse gap-y-2  pb-20 md:pb-0  justify-between items-center">
           <div className=" text-sm">
             Tous droits reservés. Kinatech {new Date().getFullYear()} &copy;
           </div>

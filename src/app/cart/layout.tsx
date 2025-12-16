@@ -46,7 +46,7 @@ const LayoutCart = ({ children }: { children: React.ReactNode }) => {
               >
                 <div>{item.name}</div>
                 {index < 2 && (
-                  <span className="text-xl">
+                  <span className="">
                     <Icon name="CaretRight" />
                   </span>
                 )}
