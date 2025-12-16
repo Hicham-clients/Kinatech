@@ -15,46 +15,42 @@ const SuggestionCard = ({
 }: HeroSectionType & { index: number }) => {
   const [isHover, setIshover] = useState(false);
   return (
-  <Link
-  onMouseEnter={() => setIshover(true)}
-  onMouseLeave={() => setIshover(false)}
-  href={
-    target_type == "product"
-      ? `/products/${product.url}`
-      : target_type == "category"
-      ? `/products_categories?category=${product.category.url}`
-      : `/products_categories?brand=${product.brand.name}`
-  }
-  className={clsx(
-    index == 2
-      ? "lg:row-span-2 lg:col-span-2 bg-[#f4f4f4] order-4 lg:order-none col-span-2 h-[450px] lg:h-full"
-      : "lg:h-full",
-    "rounded-2xl overflow-hidden h-[170px] md:h-[280px] flex w-full cursor-pointer relative"
-  )}
->
-  {/* IMAGE */}
-  <Image
-    alt={product.slug}
-    src={imageSrc(cover_pc)}
-    fill
-    className={clsx(
-      index === 2 ? "object-contain" : "object-cover",
-      "pointer-events-none"
-    )}
-  />
-
-  {/* BUTTON */}
-  <button
-    className={clsx(
-      index == 2 ? "w-1/2" : "w-[90%]",
-      isHover && "-translate-y-14",
-      "absolute z-30 bg-black/60 -bottom-10 left-1/2 -translate-x-1/2 font-D text-white flex justify-center items-center rounded-3xl p-2 text-sm transition-transform"
-    )}
-  >
-    Acheter maintenant
-  </button>
-</Link>
-
+    <Link
+      onMouseEnter={() => setIshover(true)}
+      onMouseLeave={() => setIshover(false)}
+      href={
+        target_type == "product"
+          ? `/products/${product.url}`
+          : target_type == "category"
+          ? `/products_categories?category=${product.category.url}`
+          : `/products_categories?brand=${product.brand.name}`
+      }
+      className={clsx(
+        index == 2
+          ? "lg:row-span-2 lg:col-span-2 bg-[#f4f4f4]  order-4 lg:order-none col-span-2 h-[450px] lg:h-full"
+          : " lg:h-full",
+        " rounded-2xl overflow-hidden  h-[170px] md:h-[280px]  flex  w-full cursor-pointer relative"
+      )}
+    >
+      <Image
+        alt={product.slug}
+       fill
+        className={clsx(
+          index == 2 && "object-contain",
+          "h-full pointer-events-none w-full object-cover   "
+        )}
+        src={imageSrc(cover_pc)}
+      />{" "}
+      <button
+        className={clsx(
+          index==2?'w-1/2':'w-[90%]',
+          isHover && "-translate-y-14",
+          " absolute z-30 bg-black/60 -bottom-10  left-1/2 -translate-x-1/2  font-D text-white  flex justify-center items-center rounded-3xl p-2 text-sm "
+        )}
+      >
+        Acheter maintenant
+      </button>
+    </Link>
   );
 };
 const Suggestion = () => {

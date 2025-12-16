@@ -1,3 +1,4 @@
+'use client'
 import { ArrowClockwise } from "phosphor-react"
 
 const Refetch = ({onclick}:{onclick:()=>void}) => {
