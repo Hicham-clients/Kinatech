@@ -5,7 +5,7 @@ import { Cart, Decrease, Increase, RemoveFromCart } from "@/store/productSlice";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import Confirmer from "./confirmer";
 
@@ -18,7 +18,15 @@ export default function CartProduct({
 
 const dispatch=useDispatch()  
 //show dialog for delete 
-const [showDialog,setShowDialog]=useState(false)
+const [showDialog,setShowDialog]=useState(false) 
+useEffect(()=>{
+if(showDialog){
+  document.body.style.overflow='hidden'
+}else{
+  
+  document.body.style.overflow='visible'
+}
+},[showDialog])
   return (
     <div className="flex font-A items-start py-6 border-b border-grey w-full  ">
       <Link href={`/products/${url}`} className="flex-shrink-0 flexCenter">

@@ -139,7 +139,16 @@ const DetailComponent = ({
   //REDUX TOOLKIT
   const dispatch = useDispatch();
   const { cart, dialog } = useSelector((state: RootState) => state.cart);
+//prevent scrolling 
 
+useEffect(()=>{
+if(dialog.show){
+  document.body.style.overflow='hidden'
+}else{
+    document.body.style.overflow='visible'
+
+}
+},[dialog])
   useEffect(() => {
     sessionStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);

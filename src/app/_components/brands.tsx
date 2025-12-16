@@ -4,7 +4,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import Image from "next/image";
 import { imageSrc } from "@/lib/getSrc";
 import { useBrands } from "@/hooks/useBrands";
@@ -14,7 +14,8 @@ const Brands = () => {
  
   return (
     <div className="p-6 select-none lg:px-12 border-t cursor-grab">
-      <Swiper 
+      <Swiper  
+      
        breakpoints={{
                 0: {
                   slidesPerView: 3,
@@ -25,9 +26,9 @@ const Brands = () => {
                 },
               }}
         className="overflow-visible kinatech-container  h-14"
-        modules={[Navigation, Pagination]}
+        modules={[Navigation, Pagination,Autoplay]}
         // loop 
-        // autoplay 
+        autoplay 
         navigation
         slidesPerView={4}
       >

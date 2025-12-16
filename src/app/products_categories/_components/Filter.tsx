@@ -108,7 +108,9 @@ const Filter = () => {
                       <li 
 
                         key={item.id}
-                        className={clsx(searchParams.get('category')?.split('-')[0].toLowerCase().startsWith(item.name.split(' ')[0].toLowerCase())&&'text-main',"flex  text-black-hover items-center justify-between text-lg sm:text-sm tracking-wider  text-black ")}
+                        className={clsx(
+                          // searchParams.get('category')?.split('-')[0].toLowerCase().startsWith(item.name.split(' ')[0].toLowerCase())&&'text-main'
+                          "flex  text-black-hover items-center justify-between text-[1rem] sm:text-sm tracking-wider  text-black ")}
                       >
                         <Link 
                         className="min-w-fit"
