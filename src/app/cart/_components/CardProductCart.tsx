@@ -10,23 +10,21 @@ import { useDispatch } from "react-redux";
 import Confirmer from "./confirmer";
 
 export default function CartProduct({
-  
-   photo
-  ,color,id,max,name,price,quantity,capacity,ram,url
-  
-}:Cart) {
-
-const dispatch=useDispatch()  
-//show dialog for delete 
-const [showDialog,setShowDialog]=useState(false) 
-useEffect(()=>{
-if(showDialog){
-  document.body.style.overflow='hidden'
-}else{
-  
-  document.body.style.overflow='visible'
-}
-},[showDialog])
+  photo,
+  color,
+  id,
+  max,
+  name,
+  price,
+  quantity,
+  capacity,
+  ram,
+  url,
+}: Cart) {
+  const dispatch = useDispatch();
+  //show dialog for delete
+  const [showDialog, setShowDialog] = useState(false);
+ 
   return (
     <div className="flex font-A items-start py-6 border-b border-grey w-full  ">
       <Link href={`/products/${url}`} className="flex-shrink-0 flexCenter">
@@ -44,39 +42,49 @@ if(showDialog){
           <Link href={`/products/${url}`}>
             <h2 className=" text-lg font-D text-blk">{name}</h2>
             <p className="text-sm  text-grey mt-1">Couleur : {color}</p>
-{ capacity||ram&&           <p className="text-sm  text-grey">Capacité : {capacity}| {ram}</p>
-}          </Link>
-          <p className="  text-lg font-D text-blk ">
-            {price} DH
-          </p>
+            {capacity ||
+              (ram && (
+                <p className="text-sm  text-grey">
+                  Capacité : {capacity}| {ram}
+                </p>
+              ))}{" "}
+          </Link>
+          <p className="  text-lg font-D text-blk ">{price} DH</p>
         </div>
         <div className="flex justify-between items-center mt-4">
           <div className="flex items-center">
             <button
-              onClick={()=>dispatch(Decrease(id))}
-              className={clsx(quantity==1?"cursor-not-allowed opacity-[0.5] ":"bg-main-hover text-fff-hover",
+              onClick={() => dispatch(Decrease(id))}
+              className={clsx(
+                quantity == 1
+                  ? "cursor-not-allowed opacity-[0.5] "
+                  : "bg-main-hover text-fff-hover",
 
-              "w-8 h-8 flex items-center justify-center border rounded-l-md  0  border-grey")}
+                "w-8 h-8 flex items-center justify-center border rounded-l-md  0  border-grey"
+              )}
             >
               <Icon name="Minus" />
             </button>
             <span className="select-none px-5 font-B w-12 py-1 border-t border-b border-grey flexCenter">
               {quantity}
             </span>
-            <button 
-            
-              onClick={()=>dispatch(Increase(id))}
-              className={clsx(quantity==max?"cursor-not-allowed opacity-[0.5] ":"bg-main-hover text-fff-hover","w-8 h-8  flexCenter border border-grey rounded-r-md ")}
+            <button
+              onClick={() => dispatch(Increase(id))}
+              className={clsx(
+                quantity == max
+                  ? "cursor-not-allowed opacity-[0.5] "
+                  : "bg-main-hover text-fff-hover",
+                "w-8 h-8  flexCenter border border-grey rounded-r-md "
+              )}
             >
               <Icon name="Plus" />
             </button>
           </div>
-          <button  
-            onClick={()=>setShowDialog(true)}
+          <button
+            onClick={() => setShowDialog(true)}
             className="text-sm select-none font-medium text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-500 flex items-center"
           >
-            <span         
- className="text-xl">
+            <span className="text-xl">
               <Icon name="Trash" />{" "}
             </span>
             <span className="hidden sm:inline">Supprimer</span>
@@ -84,10 +92,16 @@ if(showDialog){
         </div>
       </div>
       {/* Show  */}
-      {showDialog&&<Confirmer confirmer={()=>{dispatch(RemoveFromCart(id))
-
-        setShowDialog(false)
-      }} name={name}  onclick={()=>setShowDialog(false)}/>}
+      {showDialog && (
+        <Confirmer
+          confirmer={() => {
+            setShowDialog(false)
+            dispatch(RemoveFromCart(id));
+          }}
+          name={name}
+          onclick={() => setShowDialog(false)}
+        />
+      )}
     </div>
   );
 }
