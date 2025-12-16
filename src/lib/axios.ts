@@ -1,5 +1,7 @@
 import axios, { InternalAxiosRequestConfig } from "axios";
-import Cookies from "js-cookie";
+import Cookies from "js-cookie"; 
+// const url=process.env.NEXT_PUBLIC_API_URL
+const url="https://soriac.ma/admin/public"
 export const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   headers: {
@@ -10,7 +12,7 @@ export const axiosInstance = axios.create({
 });
 
 export const fetchCsrfToken = async () => {
-  await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`, {
+  await axios.get(`${url}/sanctum/csrf-cookie`, {
     withCredentials: true,
   });
 };
