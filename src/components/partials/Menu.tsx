@@ -291,7 +291,7 @@ const Menu = () => {
       <div ref={Navref} className=" w-full z-40 top-0">
         <div className=" text-blk bg-white relative border-b py-3 hidden lg:flex">
           {(data ?? []).length > 0 ? (
-            <ul className="flex justify-between px-paddingPC w-full items-center kinatech-container">
+            <ul className="flex justify-between gap-x-5 px-paddingPC w-full items-center kinatech-container">
               {data?.map((item) => (
                 <li key={item.id} className="text-sm underline-hover">
                   <Link

@@ -66,7 +66,7 @@ const ProductCard = ({
                 : PriceFormat(+base_price)}
               DH
             </span>
-            {promo !== null && all_quantity > 0 && <del>{base_price}</del>}{" "}
+            {promo !== null && all_quantity > 0 && <del>{base_price} dh</del>}{" "}
           </div>
 
           <button
