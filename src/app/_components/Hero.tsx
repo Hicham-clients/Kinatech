@@ -52,8 +52,8 @@ const Hero = () => {
                 {/* IMAGE FOR Mobile */}
 
                 <Image
-                 decoding="async"
-                  fetchPriority="high"
+               
+                  priority
                   fill
                   className="sm:hidden pointer-events-none w-full h-full top-0 left-0  object-cover"
                   src={imageSrc(item?.cover_mobile ?? item?.cover_pc)}
@@ -61,8 +61,7 @@ const Hero = () => {
                 />
                 {/* IMAGE FOR PC */}
                 <Image
-                 decoding="async"
-                  fetchPriority="high"
+                priority
                   fill
                   className="hidden sm:inline-block pointer-events-none  w-full h-full top-0 left-0  object-cover"
                   src={imageSrc(item?.cover_pc)}
