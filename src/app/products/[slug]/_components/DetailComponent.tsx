@@ -71,6 +71,7 @@ const CardColor = ({
     >
       <div className="w-full  flexCenter">
         <Image
+          quality={70}
           loading="lazy"
           width={1000}
           height={1000}
@@ -82,7 +83,9 @@ const CardColor = ({
       <h3 className="font-semibold">{name}</h3>
       <p className="first-letter:uppercase ">à partir de </p>
       <span>
-        {discount != null ? PriceFormat(calculNewPrice(Number(discount), Number(price))) : PriceFormat(+price)}
+        {discount != null
+          ? PriceFormat(calculNewPrice(Number(discount), Number(price)))
+          : PriceFormat(+price)}
         DH
       </span>
     </div>
@@ -139,16 +142,15 @@ const DetailComponent = ({
   //REDUX TOOLKIT
   const dispatch = useDispatch();
   const { cart, dialog } = useSelector((state: RootState) => state.cart);
-//prevent scrolling 
+  //prevent scrolling
 
-useEffect(()=>{
-if(dialog.show){
-  document.body.style.overflow='hidden'
-}else{
-    document.body.style.overflow='visible'
-
-}
-},[dialog])
+  useEffect(() => {
+    if (dialog.show) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "visible";
+    }
+  }, [dialog]);
   useEffect(() => {
     sessionStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
@@ -177,6 +179,7 @@ if(dialog.show){
               <div className=" w-full h-full ">
                 <div className="w-full  bg-white  border-x-0 border-b-0  h-[300px] rounded-br-none rounded-bl-none rounded-xl lg:h-full overflow-hidden relative ">
                   <Image
+                    quality={70}
                     loading="lazy"
                     width={1000}
                     height={1000}
@@ -223,6 +226,7 @@ if(dialog.show){
                       )}
                     >
                       <Image
+                        quality={70}
                         loading="lazy"
                         width={1000}
                         height={1000}
@@ -245,6 +249,7 @@ if(dialog.show){
             )}{" "}
             <div title={brand_name} className="flex flex-col gap-y-1">
               <Image
+                quality={70}
                 loading="lazy"
                 width={1000}
                 height={1000}
@@ -331,7 +336,12 @@ if(dialog.show){
                         </span>
                         <span className="text-sm">
                           {discount != null
-                            ? PriceFormat(calculNewPrice(Number(discount), Number(item.price)))
+                            ? PriceFormat(
+                                calculNewPrice(
+                                  Number(discount),
+                                  Number(item.price)
+                                )
+                              )
                             : PriceFormat(+item.price)}
                           DH
                         </span>
@@ -403,10 +413,12 @@ if(dialog.show){
 
                   <span>
                     {discount != null && +allQ > 0
-                      ? PriceFormat(calculNewPrice(
-                          Number(discount),
-                          Number(currentVariant?.price ?? base_price)
-                        ))
+                      ? PriceFormat(
+                          calculNewPrice(
+                            Number(discount),
+                            Number(currentVariant?.price ?? base_price)
+                          )
+                        )
                       : PriceFormat(+(currentVariant?.price || base_price))}
                     DH
                   </span>
@@ -419,10 +431,12 @@ if(dialog.show){
                 <div>
                   <p className="font-B text-2xl">
                     {discount != null && +allQ > 0
-                      ? PriceFormat(calculNewPrice(
-                          Number(discount),
-                          Number(currentVariant?.price ?? base_price)
-                        ))
+                      ? PriceFormat(
+                          calculNewPrice(
+                            Number(discount),
+                            Number(currentVariant?.price ?? base_price)
+                          )
+                        )
                       : PriceFormat(+(currentVariant?.price || base_price))}
                     DH
                   </p>
@@ -445,7 +459,10 @@ if(dialog.show){
                         capacity: currentVariant?.capacity,
                         price:
                           discount != null
-                            ? calculNewPrice(Number(discount), Number(currentVariant?.price))
+                            ? calculNewPrice(
+                                Number(discount),
+                                Number(currentVariant?.price)
+                              )
                             : currentVariant?.price,
                         ram: currentVariant?.ram,
                         quantity: 1,

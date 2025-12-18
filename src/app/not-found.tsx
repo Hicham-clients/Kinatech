@@ -8,6 +8,7 @@ const NotFound = () => {
     <div className="flex font-A   items-center justify-center flex-col md:flex-row h-[70vh] gap-5">
       <div>
         <Image
+          quality={70}
           loading="lazy"
           width={1000}
           height={1000}
@@ -20,7 +21,10 @@ const NotFound = () => {
         <h1 className="font-semibold text-7xl tracking-wide">Oops!</h1>
         <p className="text-grey font-A">{"La page n'existe pas"}</p>
 
-        <Link  href="/products_categories" className="kinatech-btn w-fit bg-blk bg-black-hover">
+        <Link
+          href="/products_categories"
+          className="kinatech-btn w-fit bg-blk bg-black-hover"
+        >
           <ArrowLeft size={"1rem"} weight="regular" />
           Retour
         </Link>

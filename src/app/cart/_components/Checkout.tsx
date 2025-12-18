@@ -33,13 +33,13 @@ const CheckoutComponent = () => {
   //use form hook
   const {
     register,
-    
+
     handleSubmit,
     reset,
     formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
-  }); 
+  });
   const onSubmit = async (commande: ContactFormData) => {
     const products = cart.map((item) => {
       return { id: item.id, quantity: item.quantity };
@@ -49,48 +49,45 @@ const CheckoutComponent = () => {
       products,
     };
 
-    try{
+    try {
       const res = await axiosInstance.post(
         "/api/commandes/store",
         JSON.stringify(myData),
         {
           headers: { "Content-Type": "application/json" },
         }
-      ); 
-      
+      );
+
       if (res.status == 200) {
         dispatch(ToggleSummary(false));
 
         const timer = setTimeout(() => {
-                  dispatch(ViderCart()); 
-// 
+          dispatch(ViderCart());
+          //
           reset();
           dispatch(ToggleSummary(true));
-        
         }, 7000);
-        return ()=>clearTimeout(timer)
-      }}catch(error:unknown)
-    {
-alert('Réessayez la validation de la commande, il y a un problème')   
-dispatch(ViderCart())
-}
-    
+        return () => clearTimeout(timer);
+      }
+    } catch (error: unknown) {
+      alert("Réessayez la validation de la commande, il y a un problème");
+      dispatch(ViderCart());
+    }
   };
-//Protected Route 
-useEffect(()=>{
-if(cart.length==0){
-router.push('/products_categories')
-}
-},[cart,router])
-  return isSubmitSuccessful? (
+  //Protected Route
+  useEffect(() => {
+    if (cart.length == 0) {
+      router.push("/products_categories");
+    }
+  }, [cart, router]);
+  return isSubmitSuccessful ? (
     <div className=" md:w-1/2 mx-auto flex select-none  justify-center items-center font-A  flex-col gap-y-5">
       <div className="relative h-52 w-52 ">
         <Image
+          quality={70}
           fill
           alt="icon confirmation"
-          src={
-            "/images/cart/iconconfirm.webp"
-          }
+          src={"/images/cart/iconconfirm.webp"}
           className="w-full h-full absolute pointer-events-none object-cover"
         />
       </div>
@@ -214,7 +211,13 @@ router.push('/products_categories')
               <p className="error-input">{errors.adress.message}</p>
             )}
           </div>
-          <button  disabled={isSubmitting} className={clsx(isSubmitting&&"opacity-[0.8]"," bg-main bg-main-hover kinatech-btn w-fit ")}>
+          <button
+            disabled={isSubmitting}
+            className={clsx(
+              isSubmitting && "opacity-[0.8]",
+              " bg-main bg-main-hover kinatech-btn w-fit "
+            )}
+          >
             {isSubmitting ? "en cours..." : "Commander"}
           </button>
         </form>

@@ -33,6 +33,7 @@ const SuggestionCard = ({
       )}
     >
       <Image
+        quality={70}
         alt={product.slug}
         height={700}
         width={700}
@@ -44,7 +45,7 @@ const SuggestionCard = ({
       />{" "}
       <button
         className={clsx(
-          index==2?'w-1/2':'w-[90%]',
+          index == 2 ? "w-1/2" : "w-[90%]",
           isHover && "-translate-y-14",
           " absolute z-30 bg-black/60 -bottom-10  left-1/2 -translate-x-1/2  font-D text-white  flex justify-center items-center rounded-3xl p-2 text-sm "
         )}
@@ -61,8 +62,7 @@ const Suggestion = () => {
       <div className="flex flex-col gap-y-20 kinatech-container">
         <div className="text-center font-D tracking-wider  text-2xl sm:text-3xl md:text-4xl  ">
           <h1> Technologie Fiable,</h1>
-          <h1 className="text-black/60">
-Performance Durable          </h1>
+          <h1 className="text-black/60">Performance Durable </h1>
         </div>
         {isLoading ? (
           <div className="grid gap-4 grid-cols-2  lg:grid-cols-4 lg:grid-rows-2 ">

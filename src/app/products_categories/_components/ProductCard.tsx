@@ -25,6 +25,7 @@ const ProductCard = ({
       <div className="flex flex-col ">
         <div className="w-full  h-[200px] relative">
           <Image
+            quality={70}
             loading="lazy"
             fill
             className="h-full p-2 w-full pointer-events-none  left-0 top-0 object-contain"
@@ -34,6 +35,7 @@ const ProductCard = ({
 
           <span className="absolute  top-2 left-2">
             <Image
+              quality={70}
               loading="lazy"
               alt={brand.name}
               src={imageSrc(brand.logo)}
@@ -62,11 +64,15 @@ const ProductCard = ({
           <div className="text-sm flex justify-between items-center font-A">
             <span className=" font-A text-[red]">
               {promo !== null && all_quantity > 0
-                ? PriceFormat(calculNewPrice(Number(promo.discount), Number(base_price)))
+                ? PriceFormat(
+                    calculNewPrice(Number(promo.discount), Number(base_price))
+                  )
                 : PriceFormat(+base_price)}
               DH
             </span>
-            {promo !== null && all_quantity > 0 && <del>{PriceFormat(+base_price)} DH</del>}{" "}
+            {promo !== null && all_quantity > 0 && (
+              <del>{PriceFormat(+base_price)} DH</del>
+            )}{" "}
           </div>
 
           <button

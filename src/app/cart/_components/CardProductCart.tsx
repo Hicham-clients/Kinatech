@@ -25,11 +25,12 @@ export default function CartProduct({
   const dispatch = useDispatch();
   //show dialog for delete
   const [showDialog, setShowDialog] = useState(false);
- 
+
   return (
     <div className="flex font-A items-start py-6 border-b border-grey w-full  ">
       <Link href={`/products/${url}`} className="flex-shrink-0 flexCenter">
         <Image
+          quality={70}
           loading="lazy"
           width={1000}
           height={1000}
@@ -96,7 +97,7 @@ export default function CartProduct({
       {showDialog && (
         <Confirmer
           confirmer={() => {
-            setShowDialog(false)
+            setShowDialog(false);
             dispatch(RemoveFromCart(id));
           }}
           name={name}

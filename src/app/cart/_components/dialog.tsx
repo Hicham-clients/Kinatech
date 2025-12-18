@@ -37,6 +37,7 @@ const Dialog = ({
         <div className="flex gap-5 items-center">
           <div className=" relative w-40 h-32 ">
             <Image
+              quality={70}
               fill
               alt={name}
               src={imageSrc(photo)}
@@ -44,9 +45,7 @@ const Dialog = ({
             />
           </div>
           <div className="flex flex-col gap-y-5">
-            <h1 className="font-D">
-{name}
-            </h1>
+            <h1 className="font-D">{name}</h1>
             <strong>
               {" "}
               • {quantity} pièce{quantity > 1 && "s"} * {price} DH

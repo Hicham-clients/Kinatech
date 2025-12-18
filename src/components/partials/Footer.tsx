@@ -31,7 +31,7 @@ const social: {
     icon: <InstagramLogo {...iconsize} />,
     color: "purple",
   },
- {
+  {
     name: "WhatsAPP",
     url: "https://wa.me/212661613561",
     icon: <WhatsappLogo {...iconsize} />,
@@ -70,7 +70,14 @@ const Footer = () => {
       <div className="flex p-5 lg:px-20    flex-col gap-y-20 kinatech-container ">
         <div className="flex  flex-col gap-10 md:flex-row justify-between  ">
           <div className="flex  flex-col gap-y-4  w-fit">
-<Image height={1000} className="w-20 pointer-events-none h-20 object-contain" width={1000} alt="" src={'/images/kinatech/logo.png'}/>
+            <Image
+              quality={70}
+              height={1000}
+              className="w-20 pointer-events-none h-20 object-contain"
+              width={1000}
+              alt=""
+              src={"/images/kinatech/logo.png"}
+            />
             <div className="flex  items-center gap-x-2 leading-relaxed  max-w-xs   md:items-start">
               L’équipe KINATECH est composée d’ingénieurs et de techniciens
               hautement qualifiés dans les nouvelles technologies. On vous offre
@@ -145,9 +152,9 @@ const Footer = () => {
           <div className=" text-sm">
             Tous droits reservés. Kinatech {new Date().getFullYear()} &copy;
           </div>
-      
-          <a 
-          target="_blank"
+
+          <a
+            target="_blank"
             href="https://www.elloutfi.com"
             className=" group transitionclass hover:underline hover:opacity-100  opacity-80 text-sm flex justify-center items-start "
           >

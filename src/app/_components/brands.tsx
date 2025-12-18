@@ -10,25 +10,24 @@ import { imageSrc } from "@/lib/getSrc";
 import { useBrands } from "@/hooks/useBrands";
 
 const Brands = () => {
-  const {data:brands}=useBrands()
- 
+  const { data: brands } = useBrands();
+
   return (
     <div className="p-6 select-none lg:px-12 border-t cursor-grab">
-      <Swiper  
-      
-       breakpoints={{
-                0: {
-                  slidesPerView: 3,
-                },
-                
-                1024: {
-                  slidesPerView: 4,
-                },
-              }}
+      <Swiper
+        breakpoints={{
+          0: {
+            slidesPerView: 3,
+          },
+
+          1024: {
+            slidesPerView: 4,
+          },
+        }}
         className="overflow-visible kinatech-container  h-14"
-        modules={[Navigation, Pagination,Autoplay]}
-        // loop 
-        autoplay 
+        modules={[Navigation, Pagination, Autoplay]}
+        // loop
+        autoplay
         navigation
         slidesPerView={4}
       >
@@ -40,6 +39,7 @@ const Brands = () => {
                 href={`/products_categories?brand=${item.name}`}
               >
                 <Image
+                  quality={70}
                   loading="lazy"
                   title={item.name}
                   width={50}
@@ -53,7 +53,6 @@ const Brands = () => {
             </SwiperSlide>
           );
         })}
-        
       </Swiper>
     </div>
   );
