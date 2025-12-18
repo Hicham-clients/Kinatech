@@ -469,7 +469,7 @@ if(dialog.show){
                 className={clsx(
                   cart?.find((item) => item.id == currentVariant?.id)
                     ?.quantity === currentVariant?.quantity
-                    ? "opacity-[0.8] bg-main hover:bg-main active:bg-main w-full"
+                    ? "opacity-[0.6] cursor-not-allowed bg-main hover:bg-main active:bg-main w-full"
                     : "bg-main bg-main-hover",
                   " text-white w-full kinatech-btn  font-D  "
                 )}
