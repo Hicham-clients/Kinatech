@@ -51,25 +51,23 @@ const Hero = () => {
               >
                 {/* IMAGE FOR Mobile */}
 
-                {/* <Image
+                <Image
                  decoding="async"
                   fetchPriority="high"
                   fill
                   className="sm:hidden pointer-events-none w-full h-full top-0 left-0  object-cover"
                   src={imageSrc(item?.cover_mobile ?? item?.cover_pc)}
                   alt={item?.product?.slug}
-                /> */}
+                />
                 {/* IMAGE FOR PC */}
-               <Image
-    decoding="async"
-    fetchPriority="high"
-    src={imageSrc(item?.cover_pc)}
-    alt={item?.product?.slug}
-    fill
-    className="object-cover pointer-events-none"
-    sizes="(max-width: 768px) 100vw, 564px"
-    quality={75}
-  />
+                <Image
+                 decoding="async"
+                  fetchPriority="high"
+                  fill
+                  className="hidden sm:inline-block pointer-events-none  w-full h-full top-0 left-0  object-cover"
+                  src={imageSrc(item?.cover_pc)}
+                  alt={item?.product?.slug}
+                />
               </Link>
             </SwiperSlide>
           );
