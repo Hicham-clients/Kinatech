@@ -27,7 +27,6 @@ const SecondCardProduct = ({
 
         <div className="w-full  h-[7rem] relative">
           <Image
-            quality={70}
             loading="lazy"
             fill
             className="h-full w-full pointer-events-none   left-0 top-0 object-contain"

@@ -71,7 +71,6 @@ const CardColor = ({
     >
       <div className="w-full  flexCenter">
         <Image
-          quality={70}
           loading="lazy"
           width={1000}
           height={1000}
@@ -179,7 +178,6 @@ const DetailComponent = ({
               <div className=" w-full h-full ">
                 <div className="w-full  bg-white  border-x-0 border-b-0  h-[300px] rounded-br-none rounded-bl-none rounded-xl lg:h-full overflow-hidden relative ">
                   <Image
-                    quality={70}
                     loading="lazy"
                     width={1000}
                     height={1000}
@@ -226,7 +224,6 @@ const DetailComponent = ({
                       )}
                     >
                       <Image
-                        quality={70}
                         loading="lazy"
                         width={1000}
                         height={1000}
@@ -249,7 +246,6 @@ const DetailComponent = ({
             )}{" "}
             <div title={brand_name} className="flex flex-col gap-y-1">
               <Image
-                quality={70}
                 loading="lazy"
                 width={1000}
                 height={1000}

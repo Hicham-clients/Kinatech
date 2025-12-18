@@ -8,7 +8,6 @@ const NotFound = () => {
     <div className="flex font-A   items-center justify-center flex-col md:flex-row h-[70vh] gap-5">
       <div>
         <Image
-          quality={70}
           loading="lazy"
           width={1000}
           height={1000}

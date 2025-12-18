@@ -84,7 +84,6 @@ const CheckoutComponent = () => {
     <div className=" md:w-1/2 mx-auto flex select-none  justify-center items-center font-A  flex-col gap-y-5">
       <div className="relative h-52 w-52 ">
         <Image
-          quality={70}
           fill
           alt="icon confirmation"
           src={"/images/cart/iconconfirm.webp"}

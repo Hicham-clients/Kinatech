@@ -71,7 +71,6 @@ const Footer = () => {
         <div className="flex  flex-col gap-10 md:flex-row justify-between  ">
           <div className="flex  flex-col gap-y-4  w-fit">
             <Image
-              quality={70}
               height={1000}
               className="w-20 pointer-events-none h-20 object-contain"
               width={1000}

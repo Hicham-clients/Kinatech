@@ -9,7 +9,6 @@ const Whatsapp = () => {
       className="fixed bottom-5 hidden sm:block left-5 z-[9999999999999] cursor-pointer scale-minus-hover  rounded-full"
     >
       <Image
-        quality={70}
         alt="0656757843"
         src={"/images/whtasApp.webp"}
         height={1000}

@@ -33,7 +33,6 @@ const SuggestionCard = ({
       )}
     >
       <Image
-        quality={70}
         alt={product.slug}
         height={700}
         width={700}

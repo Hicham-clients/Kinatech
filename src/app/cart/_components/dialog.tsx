@@ -37,7 +37,6 @@ const Dialog = ({
         <div className="flex gap-5 items-center">
           <div className=" relative w-40 h-32 ">
             <Image
-              quality={70}
               fill
               alt={name}
               src={imageSrc(photo)}

@@ -39,7 +39,7 @@ const Brands = () => {
                 href={`/products_categories?brand=${item.name}`}
               >
                 <Image
-                  quality={70}
+                  
                   loading="lazy"
                   title={item.name}
                   width={50}

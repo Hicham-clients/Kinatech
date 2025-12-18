@@ -25,7 +25,6 @@ const ProductCard = ({
       <div className="flex flex-col ">
         <div className="w-full  h-[200px] relative">
           <Image
-            quality={70}
             loading="lazy"
             fill
             className="h-full p-2 w-full pointer-events-none  left-0 top-0 object-contain"
@@ -35,13 +34,12 @@ const ProductCard = ({
 
           <span className="absolute  top-2 left-2">
             <Image
-              quality={70}
               loading="lazy"
               alt={brand.name}
               src={imageSrc(brand.logo)}
-              width={1000000}
-              height={10000}
-              className="w-12  object-contain"
+              width={48}
+              height={14}
+              className="  object-contain"
             />
           </span>
           {promo !== null && all_quantity > 0 && (

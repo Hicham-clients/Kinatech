@@ -94,7 +94,6 @@ const SearchInput = () => {
                   >
                     <div className=" w-[30%] h-full">
                       <Image
-                        quality={70}
                         loading="lazy"
                         src={imageSrc(item.photo)}
                         height={100}
@@ -263,7 +262,6 @@ const Menu = () => {
                 className="text-4xl tracking-wide font-C lg:text-5xl"
               >
                 <Image
-                  quality={70}
                   height={1000}
                   className="w-20 h-20 pointer-events-none object-contain"
                   width={1000}

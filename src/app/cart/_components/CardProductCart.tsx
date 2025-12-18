@@ -30,7 +30,6 @@ export default function CartProduct({
     <div className="flex font-A items-start py-6 border-b border-grey w-full  ">
       <Link href={`/products/${url}`} className="flex-shrink-0 flexCenter">
         <Image
-          quality={70}
           loading="lazy"
           width={1000}
           height={1000}

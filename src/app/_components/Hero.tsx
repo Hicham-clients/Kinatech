@@ -54,7 +54,6 @@ const Hero = () => {
               >
                 {/* IMAGE FOR Mobile */}l{/* IMAGE FOR PC */}
                 <Image
-                  quality={70}
                   decoding="async"
                   fetchPriority="high"
                   fill
