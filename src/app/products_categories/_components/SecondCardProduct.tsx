@@ -1,6 +1,6 @@
 "use client";
 import Icon from "@/components/IconComponent";
-import { calculNewPrice } from "@/functions/Discount";
+import { calculNewPrice,PriceFormat } from "@/functions/Discount";
 import { Promos } from "@/hooks/usePromos";
 import { imageSrc } from "@/lib/getSrc";
 import clsx from "clsx";
@@ -36,7 +36,7 @@ const SecondCardProduct = ({
           </span>
         </div>
         <span className="font-semibold font-A text-[red]">
-          {calculNewPrice(+discount, +base_price)} DH
+          {PriceFormat(calculNewPrice(Number(discount), Number(base_price)))} DH
         </span>
       </div>
     </Link>

@@ -336,7 +336,7 @@ const Menu = () => {
                     {currentCategoryData.products?.map((pro) => (
                       <Link
                         key={pro.id}
-                        className="font-B tracking-wide text-main-hover block font-bold text-2xl"
+                        className="font-B tracking-wide text-main-hover block font-bold text-xl"
                         href={`/products/${pro.url}`}
                       >
                         {pro.slug}
@@ -357,7 +357,7 @@ const Menu = () => {
                       {child.products?.map((pro: Product) => (
                         <Link
                           key={pro.id}
-                          className="text-main-hover block text-sm"
+                          className="text-main-hover block "
                           href={`/products/${pro.url}`}
                         >
                           {pro.slug}

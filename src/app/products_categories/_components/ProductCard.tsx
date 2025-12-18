@@ -62,7 +62,7 @@ const ProductCard = ({
           <div className="text-sm flex justify-between items-center font-A">
             <span className=" font-A text-[red]">
               {promo !== null && all_quantity > 0
-                ? calculNewPrice(+promo.discount, +base_price)
+                ? PriceFormat(calculNewPrice(Number(promo.discount), Number(base_price)))
                 : PriceFormat(+base_price)}
               DH
             </span>

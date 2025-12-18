@@ -82,7 +82,7 @@ const CardColor = ({
       <h3 className="font-semibold">{name}</h3>
       <p className="first-letter:uppercase ">à partir de </p>
       <span>
-        {discount != null ? calculNewPrice(+discount, +price) : PriceFormat(+price)}
+        {discount != null ? PriceFormat(calculNewPrice(Number(discount), Number(price))) : PriceFormat(+price)}
         DH
       </span>
     </div>
@@ -331,7 +331,7 @@ if(dialog.show){
                         </span>
                         <span className="text-sm">
                           {discount != null
-                            ? calculNewPrice(+discount, +item.price)
+                            ? PriceFormat(calculNewPrice(Number(discount), Number(item.price)))
                             : PriceFormat(+item.price)}
                           DH
                         </span>
@@ -403,10 +403,10 @@ if(dialog.show){
 
                   <span>
                     {discount != null && +allQ > 0
-                      ? calculNewPrice(
-                          +discount,
-                          +(currentVariant?.price ?? base_price)
-                        )
+                      ? PriceFormat(calculNewPrice(
+                          Number(discount),
+                          Number(currentVariant?.price ?? base_price)
+                        ))
                       : PriceFormat(+(currentVariant?.price || base_price))}
                     DH
                   </span>
@@ -419,10 +419,10 @@ if(dialog.show){
                 <div>
                   <p className="font-B text-2xl">
                     {discount != null && +allQ > 0
-                      ? calculNewPrice(
-                          +discount,
-                          +(currentVariant?.price ?? base_price)
-                        )
+                      ? PriceFormat(calculNewPrice(
+                          Number(discount),
+                          Number(currentVariant?.price ?? base_price)
+                        ))
                       : PriceFormat(+(currentVariant?.price || base_price))}
                     DH
                   </p>
@@ -445,7 +445,7 @@ if(dialog.show){
                         capacity: currentVariant?.capacity,
                         price:
                           discount != null
-                            ? calculNewPrice(+discount, +currentVariant?.price)
+                            ? PriceFormat(calculNewPrice(Number(discount), Number(currentVariant?.price)))
                             : currentVariant?.price,
                         ram: currentVariant?.ram,
                         quantity: 1,
