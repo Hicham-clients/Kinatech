@@ -96,8 +96,8 @@ const SearchInput = () => {
                       <Image
                         loading="lazy"
                         src={imageSrc(item.photo)}
-                        height={1000}
-                        width={1000}
+                        height={100}
+                        width={100}
                         className="w-full h-full object-contain p-1 "
                         alt={item.slug}
                       />
