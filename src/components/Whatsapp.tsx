@@ -11,9 +11,9 @@ const Whatsapp = () => {
       <Image
         alt="0656757843"
         src={"/images/whtasApp.webp"}
-        height={1000}
-        width={1000}
-        className="w-20 h-20 object-contain"
+        height={80}
+        width={20}
+        className=" object-contain"
       />
     </Link>
   );

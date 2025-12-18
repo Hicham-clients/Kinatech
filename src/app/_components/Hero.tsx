@@ -12,7 +12,7 @@ import { imageSrc } from "@/lib/getSrc";
 import { useHero } from "@/hooks/useHero";
 import HeroLoading from "@/skeletons/HeroLoading";
 import { Swiper, SwiperSlide } from "swiper/react";
-// const  Swiper=dynamic(()=>(import("swiper/react")).then(m => m.Swiper), { ssr: false })
+// const  Swiper=dynamic(()=>(import("swiper/react")).then(m => m.Swiper), { ssr: false }) 
 // const SwiperSlide = dynamic(() => import("swiper/react").then(m => m.SwiperSlide), { ssr: false });
 
 const Hero = () => {
@@ -32,10 +32,7 @@ const Hero = () => {
         pagination={{
           clickable: true,
           renderBullet: function (index, className) {
-            return `<span class="${className}">${
-              data?.[index]?.product?.slug.slice(0, 20) +
-              (data?.[index]?.product?.slug.slice(20).length > 0 ? "..." : "")
-            }</span>`;
+            return `<span class="${className}">${data?.[index]?.product?.slug.slice(0,20)+(data?.[index]?.product?.slug.slice(20).length>0?'...':'')}</span>`;
           },
         }}
       >
@@ -52,23 +49,33 @@ const Hero = () => {
                     : `/products_categories?brand=${item.product.brand.name}`
                 }
               >
-                {/* IMAGE FOR Mobile */}l{/* IMAGE FOR PC */}
-                <Image
-                 width={564}  // العرض الفعلي المعروض
-  height={564} // الارتفاع الفعلي
-  sizes="(max-width: 768px) 100vw, 564px"
-  quality={75}
-                  decoding="async"
+                {/* IMAGE FOR Mobile */}
+
+                {/* <Image
+                 decoding="async"
                   fetchPriority="high"
-                  // fill
-                  className="hidden sm:inline-block pointer-events-none  w-full h-full top-0 left-0  object-cover"
-                  src={imageSrc(item?.cover_pc)}
+                  fill
+                  className="sm:hidden pointer-events-none w-full h-full top-0 left-0  object-cover"
+                  src={imageSrc(item?.cover_mobile ?? item?.cover_pc)}
                   alt={item?.product?.slug}
-                />
+                /> */}
+                {/* IMAGE FOR PC */}
+               <Image
+    decoding="async"
+    fetchPriority="high"
+    src={imageSrc(item?.cover_pc)}
+    alt={item?.product?.slug}
+    fill
+    className="object-cover pointer-events-none"
+    sizes="(max-width: 768px) 100vw, 564px"
+    quality={75}
+  />
               </Link>
             </SwiperSlide>
           );
         })}
+
+       
       </Swiper>
     )
   );
