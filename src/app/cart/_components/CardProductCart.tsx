@@ -50,7 +50,7 @@ export default function CartProduct({
                 </p>
               ))}{" "}
           </Link>
-          <p className="  text-lg font-D text-blk ">{PriceFormat(+price)} DH</p>
+          <p className="  text-lg font-D text-blk ">{PriceFormat(price)} DH</p>
         </div>
         <div className="flex justify-between items-center mt-4">
           <div className="flex items-center">
