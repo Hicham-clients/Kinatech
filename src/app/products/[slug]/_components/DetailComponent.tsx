@@ -445,7 +445,7 @@ if(dialog.show){
                         capacity: currentVariant?.capacity,
                         price:
                           discount != null
-                            ? PriceFormat(calculNewPrice(Number(discount), Number(currentVariant?.price)))
+                            ? calculNewPrice(Number(discount), Number(currentVariant?.price))
                             : currentVariant?.price,
                         ram: currentVariant?.ram,
                         quantity: 1,

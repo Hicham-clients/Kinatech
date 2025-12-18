@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 export default function CartSummary() {
   const { cart } = useSelector((state: RootState) => state.cart);
 const QxP=cart.map(item=>+item.price.toString().replace(',','.')*item.quantity) 
-console.log(cart[0].price);
 
 const total:number=QxP.reduce((curr:number,acc:number)=>{
 return curr+=+acc
