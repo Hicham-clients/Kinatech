@@ -18,6 +18,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import * as PhosphorIcons from "phosphor-react";
 import Refetch from "../Refetch";
+import { PriceFormat } from "@/functions/Discount";
 
 const SearchInput = () => {
   const router = useRouter();
@@ -117,7 +118,7 @@ const SearchInput = () => {
                         {item.promo !== null && (
                           <span className="text-[red]">
                             {" "}
-                            <del>{item.base_price}</del> DH
+                            <del>{PriceFormat(+item.base_price)}</del> DH
                           </span>
                         )}
                       </div>
