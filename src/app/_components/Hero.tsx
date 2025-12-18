@@ -54,9 +54,13 @@ const Hero = () => {
               >
                 {/* IMAGE FOR Mobile */}l{/* IMAGE FOR PC */}
                 <Image
+                 width={564}  // العرض الفعلي المعروض
+  height={564} // الارتفاع الفعلي
+  sizes="(max-width: 768px) 100vw, 564px"
+  quality={75}
                   decoding="async"
                   fetchPriority="high"
-                  fill
+                  // fill
                   className="hidden sm:inline-block pointer-events-none  w-full h-full top-0 left-0  object-cover"
                   src={imageSrc(item?.cover_pc)}
                   alt={item?.product?.slug}
