@@ -117,7 +117,7 @@ const SearchInput = () => {
                         {item.promo !== null && (
                           <span className="text-[red]">
                             {" "}
-                            <del>{item.base_price}</del> dh
+                            <del>{item.base_price}</del> DH
                           </span>
                         )}
                       </div>

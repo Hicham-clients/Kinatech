@@ -82,7 +82,7 @@ const CardColor = ({
       <h3 className="font-semibold">{name}</h3>
       <p className="first-letter:uppercase ">à partir de </p>
       <span>
-        {discount != null ? calculNewPrice(+discount, +price) : price}
+        {discount != null ? calculNewPrice(+discount, +price) : PriceFormat(+price)}
         DH
       </span>
     </div>
@@ -332,7 +332,7 @@ if(dialog.show){
                         <span className="text-sm">
                           {discount != null
                             ? calculNewPrice(+discount, +item.price)
-                            : item.price}{" "}
+                            : PriceFormat(+item.price)}
                           DH
                         </span>
                       </div>
@@ -407,7 +407,7 @@ if(dialog.show){
                           +discount,
                           +(currentVariant?.price ?? base_price)
                         )
-                      : currentVariant?.price || base_price}
+                      : PriceFormat(+(currentVariant?.price || base_price))}
                     DH
                   </span>
                 </div>
@@ -423,7 +423,7 @@ if(dialog.show){
                           +discount,
                           +(currentVariant?.price ?? base_price)
                         )
-                      : currentVariant?.price || base_price}
+                      : PriceFormat(+(currentVariant?.price || base_price))}
                     DH
                   </p>
                   {/* <p className="text-xs font-normal text-gray-500 text-right">
@@ -446,7 +446,7 @@ if(dialog.show){
                         price:
                           discount != null
                             ? calculNewPrice(+discount, +currentVariant?.price)
-                            : PriceFormat(+currentVariant?.price),
+                            : currentVariant?.price,
                         ram: currentVariant?.ram,
                         quantity: 1,
                         url: url,

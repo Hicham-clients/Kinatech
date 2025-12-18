@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import Confirmer from "./confirmer";
+import { PriceFormat } from "@/functions/Discount";
 
 export default function CartProduct({
   photo,
@@ -49,7 +50,7 @@ export default function CartProduct({
                 </p>
               ))}{" "}
           </Link>
-          <p className="  text-lg font-D text-blk ">{price} DH</p>
+          <p className="  text-lg font-D text-blk ">{PriceFormat(+price)} DH</p>
         </div>
         <div className="flex justify-between items-center mt-4">
           <div className="flex items-center">
