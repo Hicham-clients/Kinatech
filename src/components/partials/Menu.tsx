@@ -262,9 +262,9 @@ const Menu = () => {
                 className="text-4xl tracking-wide font-C lg:text-5xl"
               >
                 <Image
-                  height={1000}
-                  className="w-20 h-20 pointer-events-none object-contain"
-                  width={1000}
+                  height={90}
+                  className=" pointer-events-none object-contain"
+                  width={90}
                   alt="KINATECH"
                   src={"/images/kinatech/logo2.webp"}
                 />
