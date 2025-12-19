@@ -18,7 +18,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import * as PhosphorIcons from "phosphor-react";
 import Refetch from "../Refetch";
-import { PriceFormat } from "@/functions/Discount";
+import { calculNewPrice, PriceFormat } from "@/functions/Discount";
 
 const SearchInput = () => {
   const router = useRouter();
@@ -92,33 +92,36 @@ const SearchInput = () => {
                     href={`/products/${item.url}`}
                     className="flex border-b p-1  text-blk text-main-hover items-center gap-x-5 font-A"
                   >
-                    <div className=" w-[30%] h-full">
+                    <div className=" w-[30%] h-full relative">
                       <Image
                         loading="lazy"
-                        src={imageSrc(item.photo)}
-                        height={100}
-                        width={100}
+                        src={
+                          "/noir.webp"
+                          // imageSrc(item.photo)
+                        }
+                        fill 
+                        sizes="80px"
                         className="w-full h-full object-contain p-1 "
                         alt={item.slug}
                       />
                     </div>
                     <div className="w-full flex flex-col text-sm">
-                      <h1 className="font-D ">{item.slug}</h1>
+                      <h1 className="font-D ">{item.slug.slice(0,30) }{(item.slug.slice(30).length>0?'...':'')}</h1>
                       <span className="text-grey text-sm capitalize">
                         {item.category.name}
                       </span>
                       <div className="flex justify-between items-center text-xs">
                         <span className="font-D text-blk ">
                           {item.promo !== null
-                            ? +item.base_price -
-                              +item.base_price * (+item.promo.discount / 100)
-                            : item.base_price}{" "}
+                            ? PriceFormat(calculNewPrice(+item.promo.discount,
+                              +item.base_price )) 
+                            : PriceFormat(item.base_price)}{" "}
                           DH
                         </span>
                         {item.promo !== null && (
                           <span className="text-[red]">
                             {" "}
-                            <del>{PriceFormat(+item.base_price)}</del> DH
+                            <del>{PriceFormat(item.base_price)}</del> DH
                           </span>
                         )}
                       </div>
@@ -262,6 +265,7 @@ const Menu = () => {
                 className="text-4xl tracking-wide font-C lg:text-5xl"
               >
                 <Image
+                sizes="90px"
                   height={90}
                   className=" pointer-events-none object-contain"
                   width={90}
@@ -289,10 +293,10 @@ const Menu = () => {
         </div>
       </div>
 
-      <div ref={Navref} className=" w-full z-40 top-0">
-        <div className=" text-blk bg-white relative border-b py-3 hidden lg:flex">
+      <div ref={Navref} className=" w-full z-40 top-0 ">
+        <div className=" text-blk  bg-white relative border-b py-3 hidden lg:flex">
           {(data ?? []).length > 0 ? (
-            <ul className="flex justify-between gap-x-5 px-paddingPC w-full items-center kinatech-container">
+            <ul className="flex justify-between  gap-x-4 px-paddingPC w-full items-center kinate ch-container">
               {data?.map((item) => (
                 <li key={item.id} className="text-sm underline-hover">
                   <Link
@@ -336,7 +340,7 @@ const Menu = () => {
                     {currentCategoryData.products?.map((pro) => (
                       <Link
                         key={pro.id}
-                        className="font-B tracking-wide text-main-hover block font-bold text-xl"
+                        className="font-B tracking-wide text-main-hover block font-bold text-lg"
                         href={`/products/${pro.url}`}
                       >
                         {pro.slug}

@@ -70,13 +70,13 @@ const Footer = () => {
       <div className="flex p-5 lg:px-20    flex-col gap-y-20 kinatech-container ">
         <div className="flex  flex-col gap-10 md:flex-row justify-between  ">
           <div className="flex  flex-col gap-y-4  w-fit">
-            <Image
-              height={1000}
-              className="w-20 pointer-events-none h-20 object-contain"
-              width={1000}
-              alt=""
-              src={"/images/kinatech/logo.png"}
-            />
+           <Image
+  src="/images/kinatech/logo.png"
+  alt="kinatech"
+  width={80}
+  height={80}
+  className="pointer-events-none object-contain"
+/>
             <div className="flex  items-center gap-x-2 leading-relaxed  max-w-xs   md:items-start">
               L’équipe KINATECH est composée d’ingénieurs et de techniciens
               hautement qualifiés dans les nouvelles technologies. On vous offre

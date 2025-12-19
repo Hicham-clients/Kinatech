@@ -26,9 +26,14 @@ const ProductCard = ({
         <div className="w-full  h-[200px] relative">
           <Image
             loading="lazy"
-            fill
+            fill 
+            sizes="150px"
             className="h-full p-2 w-full pointer-events-none  left-0 top-0 object-contain"
-            src={imageSrc(photo)}
+            src={
+                            "/noir.webp"
+
+              // imageSrc(photo)
+            }
             alt={slug}
           />
 
@@ -36,9 +41,12 @@ const ProductCard = ({
             <Image
               loading="lazy"
               alt={brand.name}
-              src={imageSrc(brand.logo)}
+              src={ 
+                imageSrc(brand.logo)
+              }
               width={48}
               height={14}
+              
               className="  object-contain"
             />
           </span>

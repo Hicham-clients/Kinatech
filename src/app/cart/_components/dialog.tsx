@@ -38,6 +38,7 @@ const Dialog = ({
           <div className=" relative w-40 h-32 ">
             <Image
               fill
+              sizes="80px"
               alt={name}
               src={imageSrc(photo)}
               className="w-full h-full object-contain"

@@ -28,20 +28,22 @@ const SuggestionCard = ({
       className={clsx(
         index == 2
           ? "lg:row-span-2 lg:col-span-2 bg-[#f4f4f4]  order-4 lg:order-none col-span-2 h-[450px] lg:h-full"
-          : " lg:h-full",
-        " rounded-2xl overflow-hidden  h-[170px] md:h-[280px]  flex  w-full cursor-pointer relative"
+          : "h-[200px] lg:h-[250px]",
+        " rounded-2xl border overflow-hidden  h-[170px] md:h-[280px]  flex  w-full cursor-pointer relative"
       )}
     >
       <Image
         alt={product.slug}
         // height={700}
-        // width={700} 
+        // width={700}   
         fill
+        sizes="500px"
         className={clsx(
           index == 2 && "object-contain",
-          "h-full pointer-events-none w-full object-cover   "
+          " pointer-events-none w-full object-cover  "
         )}
-        src={imageSrc(cover_pc)}
+        // src={imageSrc(cover_pc)}
+        src={'/air.webp'}
       />{" "}
       <button
         className={clsx(

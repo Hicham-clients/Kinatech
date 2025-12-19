@@ -72,11 +72,12 @@ const CardColor = ({
       <div className="w-full  flexCenter">
         <Image
           loading="lazy"
-          width={1000}
-          height={1000}
+          width={70}
+          height={70}
+          sizes="60px"
           src={imageSrc(image)}
           alt={name}
-          className="w-16 h-16 object-contain pointer-events-none rounded-md"
+          className=" object-contain pointer-events-none rounded-md"
         />
       </div>
       <h3 className="font-semibold">{name}</h3>
@@ -177,14 +178,17 @@ const DetailComponent = ({
             <div className="lg:sticky lg:top-20 overflow-hidden w-full flex flex-col lg:flex-row-reverse  items-center  relative lg:h-[400px]   border  rounded-xl ">
               <div className=" w-full h-full ">
                 <div className="w-full  bg-white  border-x-0 border-b-0  h-[300px] rounded-br-none rounded-bl-none rounded-xl lg:h-full overflow-hidden relative ">
-                  <Image
-                    loading="lazy"
-                    width={1000}
-                    height={1000}
-                    src={imageSrc(currentColor?.images[currentIndex] || photo)}
-                    alt={currentVariant?.name ?? slug ?? ""}
-                    className="w-full p-padding h-full object-contain  pointer-events-none rounded-md"
-                  />
+                  <div className="relative h-full w-full">
+                    <Image
+                      loading="lazy"
+                      fill
+                      src={imageSrc(
+                        currentColor?.images[currentIndex] || photo
+                      )}
+                      alt={currentVariant?.name ?? slug ?? ""}
+                      className="w-full p-padding h-full object-contain  pointer-events-none rounded-md"
+                    />
+                  </div>
                   {/* Arrow */}
                   <>
                     {currentIndex < (currentColor?.images ?? []).length - 1 && (
@@ -220,13 +224,13 @@ const DetailComponent = ({
                       key={index}
                       className={clsx(
                         index == currentIndex && "border-main opacity-[1]",
-                        "w-12 cursor-pointer opacity-[0.5] bg-white h-12 border border-r   p-1 flexCenter md:w-14 md:h-14 lg:w-16 lg:h-16 "
+                        "w-12 cursor-pointer opacity-[0.5] bg-white h-12 border border-r   p-1 flexCenter md:w-14 md:h-14 lg:w-16 lg:h-16 relative"
                       )}
                     >
                       <Image
                         loading="lazy"
-                        width={1000}
-                        height={1000}
+                        fill
+                        sizes="10px"
                         src={imageSrc(img)}
                         alt={slug}
                         className="w-full  h-full object-contain pointer-events-none rounded-md"
@@ -247,8 +251,9 @@ const DetailComponent = ({
             <div title={brand_name} className="flex flex-col gap-y-1">
               <Image
                 loading="lazy"
-                width={1000}
-                height={1000}
+                width={50}
+                height={50}
+                sizes="40px"
                 src={imageSrc(brand_logo)}
                 alt={brand_name ?? "brand"}
                 className="w-12 object-contain pointer-events-none rounded-md"

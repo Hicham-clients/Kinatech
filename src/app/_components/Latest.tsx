@@ -14,7 +14,7 @@ const Latest = () => {
       //     "linear-gradient(45deg, var(-- main) 0%, var(--main)50%, #ff00aa 50%,#ff00aa 50%, purple 100%)",
       // }}
       // style={{background:'linear-gradient(45deg, var(--main) 0%, var(--main)50%, var(--second) 50%, var(--secondHover))'}}
-      className="px-paddingPhone  lg:px-paddingPC py-20  bg-[url('/images/bg.webp')] rounded-t-[40px] bg-cover"
+      className="px-paddingPhone  lg:px-paddingPC py-20  bg-[url('/images/bg.webp')]  rounded-t-[40px] bg-cover"
     >
       <div className="kinatech-container flex flex-col gap-y-10  ">
         <div className="w-fit  ">

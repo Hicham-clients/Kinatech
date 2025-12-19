@@ -5,7 +5,7 @@ import { Cart, Decrease, Increase, RemoveFromCart } from "@/store/productSlice";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import Confirmer from "./confirmer";
 import { PriceFormat } from "@/functions/Discount";
@@ -31,11 +31,16 @@ export default function CartProduct({
       <Link href={`/products/${url}`} className="flex-shrink-0 flexCenter">
         <Image
           loading="lazy"
-          width={1000}
-          height={1000}
-          src={imageSrc(photo)}
+          width={80}
+          height={80}
+          sizes="80px"
+          
+          src={
+            "/noir.webp"
+            // imageSrc(photo)
+          }
           alt={name}
-          className="w-28 h-28 object-contain pointer-events-none rounded-md"
+          className=" object-contain pointer-events-none rounded-md"
         />
       </Link>
       <div className="ml-6 flex-1">

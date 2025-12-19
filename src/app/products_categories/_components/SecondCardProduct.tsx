@@ -29,6 +29,7 @@ const SecondCardProduct = ({
           <Image
             loading="lazy"
             fill
+            sizes="140px"
             className="h-full w-full pointer-events-none   left-0 top-0 object-contain"
             src={imageSrc(photo)}
             alt={slug}

@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
      remotePatterns: [
       {
         protocol: "https",
-        hostname:"soriac.ma",
+        hostname:"kinatech.ma",
         pathname: "/**",
       },
     ]
