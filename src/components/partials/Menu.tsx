@@ -333,7 +333,7 @@ const Menu = () => {
               {/* Parent Products */}
               {(currentCategoryData.products ?? []).length > 0 && (
                 <div className="flex flex-col gap-y-5">
-                  <h1 className="text-grey tracking-wide capitalize">
+                  <h1 className="text-grey tracking-wide capitalize ">
                     {currentCategoryData.name}
                   </h1>
                   <div className="flex flex-col gap-y-2">

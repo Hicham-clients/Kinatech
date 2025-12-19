@@ -41,9 +41,9 @@ const Brands = () => {
                 <Image
                   loading="lazy"
                   title={item.name}
-                  height={120}
-                  width={120}
-                  sizes="70px"
+                  height={80}
+                  width={80}
+                  sizes="80px"
                   className="pointer-events-none   object-contain filter hover:grayscale-0 grayscale"
                   src={imageSrc(item?.logo)}
                   alt={item.name}
