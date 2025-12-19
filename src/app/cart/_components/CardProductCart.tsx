@@ -36,8 +36,8 @@ export default function CartProduct({
           sizes="80px"
           
           src={
-            "/noir.webp"
-            // imageSrc(photo)
+            // "/noir.webp"
+            imageSrc(photo)
           }
           alt={name}
           className=" object-contain pointer-events-none rounded-md"
