@@ -42,8 +42,7 @@ const SuggestionCard = ({
           index == 2 && "object-contain",
           " pointer-events-none w-full object-cover  "
         )}
-        // src={imageSrc(cover_pc)}
-        src={'/air.webp'}
+        src={imageSrc(cover_pc)}
       />{" "}
       <button
         className={clsx(
