@@ -190,10 +190,9 @@ const router=useRouter()
                       loading="lazy"
                       fill 
                       sizes="500px"
-                      src={'/noir.webp'}
-                      // src={imageSrc(
-                      //   currentColor?.images[currentIndex] || photo
-                      // )}
+                      src={imageSrc(
+                        currentColor?.images[currentIndex] || photo
+                      )}
                       alt={currentVariant?.name ?? slug ?? ""}
                       className="w-full p-padding h-full object-contain  pointer-events-none rounded-md"
                     />
