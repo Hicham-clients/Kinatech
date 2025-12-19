@@ -181,7 +181,8 @@ const DetailComponent = ({
                   <div className="relative h-full w-full">
                     <Image
                       loading="lazy"
-                      fill
+                      fill 
+                      sizes="500px"
                       src={imageSrc(
                         currentColor?.images[currentIndex] || photo
                       )}
