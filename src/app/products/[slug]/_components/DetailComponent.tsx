@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { hiddenDialog, setInCart } from "@/store/productSlice";
 import Dialog from "@/app/cart/_components/dialog";
+import { useRouter } from "next/navigation";
 // const CardVariantItem = ({
 //   id,
 //   quantity,
@@ -154,15 +155,21 @@ const DetailComponent = ({
   useEffect(() => {
     sessionStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
-
+const router=useRouter()
   return (
-    <div
+    <div> 
+
+      <div
       className={clsx(
         +allQ == 0 && "opacity-[0.8]",
         currentVariant?.quantity == 0 || (!currentVariant && "opacity-[0.5]"),
         "p-padding lg:px-paddingPC pb-32 "
       )}
     >
+      <button title="Retour" onClick={()=>router.back()} className="text-3xl md:text-4xl text-main-hover my-5 ">
+        <Icon  name="CaretCircleLeft"  /> 
+
+</button>
       {dialog.show && dialog.product && (
         <Dialog
           name={dialog?.product?.name}
@@ -183,9 +190,10 @@ const DetailComponent = ({
                       loading="lazy"
                       fill 
                       sizes="500px"
-                      src={imageSrc(
-                        currentColor?.images[currentIndex] || photo
-                      )}
+                      src={'/noir.webp'}
+                      // src={imageSrc(
+                      //   currentColor?.images[currentIndex] || photo
+                      // )}
                       alt={currentVariant?.name ?? slug ?? ""}
                       className="w-full p-padding h-full object-contain  pointer-events-none rounded-md"
                     />
@@ -518,6 +526,7 @@ const DetailComponent = ({
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };

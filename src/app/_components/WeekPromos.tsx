@@ -35,9 +35,9 @@ const WeekPromos = () => {
                 },
               }}
             >
-              {[...Array(4)].map((item) => (
-                <SwiperSlide key={item.id} className="pb-16">
-                  <SecondCardProduct {...item} />
+              {[...Array(4)].map((_,index) => (
+                <SwiperSlide key={index} className="pb-16">
+                  <SecondCardLoading  />
                 </SwiperSlide>
               ))}
             </Swiper>
