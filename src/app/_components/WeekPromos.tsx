@@ -20,7 +20,9 @@ const WeekPromos = () => {
           <div className="pt-padding ">
             <Swiper
               className="overflow-visible  flex  "
-              
+               modules={[Navigation, Pagination]}
+              navigation
+              loop
               spaceBetween={20}
               slidesPerView={4}
               breakpoints={{
