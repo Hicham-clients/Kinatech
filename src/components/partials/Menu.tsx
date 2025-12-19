@@ -343,7 +343,7 @@ const Menu = () => {
                         className="font-B tracking-wide text-main-hover block font-bold text-lg"
                         href={`/products/${pro.url}`}
                       >
-                        {pro.slug.slice(0,20) }{(pro.slug.slice(20).length>0?'...':'')}
+                        {pro.slug}
                       </Link>
                     ))}
                   </div>
