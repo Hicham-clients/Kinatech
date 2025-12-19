@@ -65,7 +65,6 @@ const Hero = () => {
                 {/* IMAGE FOR PC */}
                 <Image
                   priority
-                  sizes="100vw"
                   fill
                   className="hidden sm:inline-block pointer-events-none  top-0 left-0  object-cover"
                   src={imageSrc(item?.cover_pc)}

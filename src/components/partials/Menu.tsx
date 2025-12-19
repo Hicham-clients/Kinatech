@@ -96,8 +96,8 @@ const SearchInput = () => {
                       <Image
                         loading="lazy"
                         src={
-                          "/noir.webp"
-                          // imageSrc(item.photo)
+                          
+                          imageSrc(item.photo)
                         }
                         fill 
                         sizes="80px"
@@ -113,9 +113,9 @@ const SearchInput = () => {
                       <div className="flex justify-between items-center text-xs">
                         <span className="font-D text-blk ">
                           {item.promo !== null
-                            ? PriceFormat(calculNewPrice(+item.promo.discount,
-                              +item.base_price )) 
-                            : PriceFormat(item.base_price)}{" "}
+                            ? PriceFormat(calculNewPrice(Number(item.promo.discount),
+                              Number(item.base_price ))) 
+                            : PriceFormat(+item.base_price)}{" "}
                           DH
                         </span>
                         {item.promo !== null && (

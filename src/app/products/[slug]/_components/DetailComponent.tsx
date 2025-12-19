@@ -230,7 +230,7 @@ const DetailComponent = ({
                       <Image
                         loading="lazy"
                         fill
-                        sizes="10px"
+                        sizes="50px"
                         src={imageSrc(img)}
                         alt={slug}
                         className="w-full  h-full object-contain pointer-events-none rounded-md"

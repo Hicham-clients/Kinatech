@@ -60,7 +60,7 @@ const Filter = () => {
   }    router.push(`/products_categories?${params.toString()}`);
   }, [debouncedValue,router,searchParams]);
   return (
-    <div className="select-none w-full md:w-1/2 p-3 bg-white h-[400px] overflow-y-auto rounded-2xl overflow-hidden lg:w-1/2 font-A lg:sticky top-20  border-white border-b-[1rem]">
+    <div className="select-none w-full md:w-1/2 p-3 bg-white h-auto overflow-y-auto rounded-2xl overflow-hidden lg:w-1/2 font-A lg:sticky top-20  border-white border-b-[1rem]">
       <div className="flex flex-col gap-3 ">
         <div className="flex relative flex-col gap-y-1 rounded-lg overflow-hidden">
           <input

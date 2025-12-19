@@ -85,7 +85,7 @@ const CheckoutComponent = () => {
       <div className="relative h-52 w-52 ">
         <Image
           fill
-          sizes="300px"
+          sizes="400px"
           alt="icon confirmation"
           src={"/images/cart/iconconfirm.webp"}
           className="w-full h-full absolute pointer-events-none object-cover"
