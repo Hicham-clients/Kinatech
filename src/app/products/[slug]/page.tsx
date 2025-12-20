@@ -24,9 +24,13 @@ const getProduct=async(slug:string)=>{
 
   return data
 }
-const Detail = async({params}:Props) => {  
-const slug= params.slug
-  const data=await getProduct('apple-airpods-pro-2')
+const Detail = async({params}:any) => {  
+const paramsResponse= await params
+
+  const data=await getProduct(paramsResponse?.slug) 
+
+  
+  
   return (
 <PageDetail data={data}/>  )
 }
