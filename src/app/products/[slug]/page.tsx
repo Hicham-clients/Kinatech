@@ -7,7 +7,7 @@ type Props={
   }
 } 
 const getProduct=async(slug:string)=>{
-  const response=await fetch('https://kinatech.ma/admin/public/api/products'+slug,{
+  const response=await fetch('https://kinatech.ma/admin/public/api/products/'+slug,{
     next:{
       revalidate:60
     }
