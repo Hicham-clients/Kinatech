@@ -9,17 +9,21 @@ import "../../css/swiper.css";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
 import Image from "next/image";
 import { imageSrc } from "@/lib/getSrc";
-import { useHero } from "@/hooks/useHero";
+import { HeroSectionType, useHero } from "@/hooks/useHero";
 import HeroLoading from "@/skeletons/HeroLoading";
 import { Swiper, SwiperSlide } from "swiper/react";
 // const  Swiper=dynamic(()=>(import("swiper/react")).then(m => m.Swiper), { ssr: false })
 // const SwiperSlide = dynamic(() => import("swiper/react").then(m => m.SwiperSlide), { ssr: false });
-
-const Hero = () => {
-  const { data, isLoading, error } = useHero("hero section");
-  if (isLoading || error) {
-    return <HeroLoading />;
-  }
+const isLoading=false 
+const error=false
+type Props = {
+  data: HeroSectionType[];
+};
+const Hero = ({data}:Props) => {
+  // const { data, isLoading, error } = useHero("hero section");
+  // if (isLoading || error) {
+  //   return <HeroLoading />;
+  // }
 
   return (
     data && (
