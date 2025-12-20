@@ -6,6 +6,14 @@ type Props={
     slug:string
   }
 } 
+export async function generateStaticParams() {
+  const res = await fetch("https://kinatech.ma/admin/public/api/products")
+  const products = await res.json()
+
+  return products.map((p: any) => ({
+    slug: p.slug
+  }))
+}
 const getProduct=async(slug:string)=>{
   const response=await fetch(`https://kinatech.ma/admin/public/api/products/${slug}`,{
     next:{
