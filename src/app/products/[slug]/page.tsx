@@ -7,14 +7,14 @@ type Props={
     slug:string
   }
 } 
-export async function generateStaticParams() {
-  const res = await fetch("https://kinatech.ma/admin/public/api/products")
-  const products: Product[] = await res.json()
+// export async function generateStaticParams() {
+//   const res = await fetch("https://kinatech.ma/admin/public/api/products")
+//   const products: Product[] = await res.json()
 
-  return products.map((p) => ({
-    slug: p.slug
-  }))
-}
+//   return products.map((p) => ({
+//     slug: p.slug
+//   }))
+// }
 //SEO 
 export async function generateMetadata({ params }: Props) {
   const product = await getProduct(params.slug)
