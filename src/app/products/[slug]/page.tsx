@@ -18,7 +18,7 @@ const getProduct=async(slug:string)=>{
   return await response.json()
 }
 const Detail = async({params}:Props) => {  
-const slug=await params.slug
+const slug= params.slug
   const data=await getProduct(slug)
   return (
 <PageDetail data={data}/>  )
