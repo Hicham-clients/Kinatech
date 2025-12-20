@@ -10,12 +10,12 @@ type props={
   data:Category[] , 
   brands:brand[]
 }
-const Filter = () => {
+const Filter = ({data,brands}:props) => {
   // fetch data 
-  // const isLoading=false 
+  const isLoading=false 
 
-  const { data, isLoading } = useMenuCategories();
-  const { data: brands } = useBrands();
+  // const { data, isLoading } = useMenuCategories();
+  // const { data: brands } = useBrands();
   const router = useRouter();
   const [currentCategoriesForDrilling, setCurrentCategoriesForDrilling] =
     useState<Category[]>(data ?? []);

@@ -9,6 +9,7 @@ import {  useState } from "react";
 import CardProductLoading from "@/skeletons/CardProductLoading";
 import clsx from "clsx";
 import Refetch from "@/components/Refetch";
+import FilterServer from "./FilterServer";
 
 const ProductsCategories = () => {
   const searchParams = useSearchParams();
@@ -29,7 +30,7 @@ const ProductsCategories = () => {
           // title={searchParams?.toString().length==0?"Toutes les produits":searchParams.has('category')?searchParams.get('category')?.toUpperCase():''}
         />
         <div className="flex flex-col md:flex-row  gap-10">
-          <Filter />
+          <FilterServer />
           <div className="w-full">
             {isLoading ? (
               <div
