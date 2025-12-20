@@ -24,7 +24,7 @@ export async function getSuggestions(
 }
 
 const SuggestionServer = async() => { 
-  const data=await getSuggestions('la une')
+  const data=await getSuggestions('laUne')
   return (
 <Suggestion data={data}/>
   )
