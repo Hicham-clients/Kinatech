@@ -7,15 +7,21 @@ type Props={
   }
 } 
 const getProduct=async(slug:string)=>{
-  const response=await fetch('https://kinatech.ma/admin/public/api/products/'+slug,{
+  const response=await fetch(`https://kinatech.ma/admin/public/api/products/${slug}`,{
     next:{
       revalidate:60
-    }
+    },
+     headers: {
+      Accept: "application/json"
+    },
   }) 
   if(!response.ok){
     return notFound()
   } 
-  return await response.json()
+  const data = await response.json()
+  console.log("DATA:", data)
+
+  return data
 }
 const Detail = async({params}:Props) => {  
 const slug= params.slug
