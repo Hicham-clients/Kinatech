@@ -6,23 +6,17 @@ type Props={
     slug:string
   }
 } 
-export async function generateStaticParams() {
-  const res = await fetch("https://kinatech.ma/admin/public/api/products")
-  const products = await res.json()
 
-  return products.map((p: any) => ({
-    slug: p.slug
-  }))
-}
 const getProduct=async(slug:string)=>{
-  const response=await fetch(`https://kinatech.ma/admin/public/api/products/${slug}`,{
-    next:{
-      revalidate:60
-    },
-     headers: {
+  const response = await fetch(
+  `https://kinatech.ma/admin/public/api/products/${slug}`,
+  {
+    cache: "no-store",
+    headers: {
       Accept: "application/json"
-    },
-  }) 
+    }
+  }
+)
   if(!response.ok){
     return notFound()
   } 
