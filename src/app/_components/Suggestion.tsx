@@ -55,9 +55,14 @@ const SuggestionCard = ({
       </button>
     </Link>
   );
-};
-const Suggestion = () => {
-  const { data, isLoading, error, refetch } = useHero("laUne");
+}; 
+type Props={
+  data:HeroSectionType[]
+}
+const Suggestion = ({data}:Props) => { 
+const isLoading=false
+const error=false 
+  // const { data, isLoading, error, refetch } = useHero("laUne");
   return (
     <div className="py-20 pt-32 px-paddingPhone lg:px-paddingPC ">
       <div className="flex flex-col gap-y-20 kinatech-container">
@@ -99,7 +104,8 @@ const Suggestion = () => {
             })}
           </div>
         ) : error ? (
-          <Refetch onclick={refetch} />
+          <Refetch onclick={()=>console.log('refetch')
+          }/>
         ) : (
           <div className="text-center font-A tracking-wider text-xl">
             Pas des Produits

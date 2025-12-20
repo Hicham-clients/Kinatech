@@ -7,6 +7,7 @@ import { HeroSectionType } from "@/hooks/useHero"
 import { axiosInstance } from "@/lib/axios"
 import LatestServer from "./_components/LatestServer"
 import PromoServer from "./_components/PromoServer"
+import SuggestionServer from "./_components/SuggestionServer"
 const Hero=dynamic(()=>import('./_components/Hero'))
 const Suggestion=dynamic(()=>import('./_components/Suggestion'))
 const WeekPromos=dynamic(()=>import('./_components/WeekPromos'))
@@ -28,13 +29,13 @@ export const metadata:Metadata={
     );
 
     if (!res.ok) {
-      return []; // ✅ fallback
+      return []; 
     }
 
     return res.json();
   } catch (error) {
     console.error('getHeros error:', error);
-    return []; // ✅ ما تطيّحش build
+    return []; 
   }
 }
 
@@ -45,7 +46,7 @@ const Home = async() => {
     <>
 
 <Hero data={data}/> 
-<Suggestion/> 
+<SuggestionServer/> 
 <LatestServer/> 
 <PromoServer/> 
 <WhyKinatech/>
