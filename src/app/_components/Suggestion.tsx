@@ -37,7 +37,7 @@ const SuggestionCard = ({
         // height={700}
         // width={700}   
         fill
-        sizes="500px"
+        // sizes="500px"
         className={clsx(
           index == 2 && "object-contain",
           " pointer-events-none w-full object-cover  "
