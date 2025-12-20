@@ -1,7 +1,7 @@
 "use client";
 import PageTitle from "@/components/PageTitle";
 import ProductCard from "./ProductCard";
-import { PaginatedResponse, useCategories } from "@/hooks/useCategories";
+import { useCategories } from "@/hooks/useCategories";
 import { useSearchParams } from "next/navigation";
 import Paginate from "./Paginate";
 import {  useState } from "react";
@@ -14,9 +14,8 @@ import FilterServer from "./FilterServer";
 const ProductsCategories = () => {
   const searchParams = useSearchParams(); 
    
-  const [currentPage, setCurrentPage] = useState(Number(searchParams.get('page'))||1); 
-  // const isLoading=false 
-  // const error=false 
+  const [currentPage, setCurrentPage] = useState(1); 
+ 
 
   const { data, isLoading, error, refetch } = useCategories(
     `page=${currentPage}&${searchParams.toString()}` 
@@ -57,7 +56,7 @@ const ProductsCategories = () => {
                 ))}
               </div>
             ) : error ? (
-            <Refetch onclick={()=>console.log('fetch')}/>
+            <Refetch onclick={refetch}/>
             ) : (
               <div className=" text-center h-full flex justify-center items-center w-full font-A tracking-wider text-xl">
                 Pas des produits
