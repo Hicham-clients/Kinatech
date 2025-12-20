@@ -25,7 +25,7 @@ const getProduct=async(slug:string)=>{
       Accept: "application/json"
     },
   }) 
-  if(!response.ok){
+  if(response.status==404){
     return notFound()
   } 
   const data = await response.json()
