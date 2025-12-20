@@ -2,7 +2,7 @@ import Menu from "./Menu";
 
 async function getCategories() { 
     const res = await fetch(
-    `https://kinatech.ma/admin/public//api/categories`,
+    `https://kinatech.ma/admin/public/api/categories`,
     {
       next: { revalidate: 60 }, // ✅ ISR
     }
