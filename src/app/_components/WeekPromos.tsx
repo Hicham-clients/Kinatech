@@ -3,11 +3,13 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import SecondCardProduct from "../products_categories/_components/SecondCardProduct";
-import { usePromos } from "@/hooks/usePromos";
+import { Promos, usePromos } from "@/hooks/usePromos";
 import SecondCardLoading from "@/skeletons/SecondCardLoading";
-
-const WeekPromos = () => {
-  const { data, isLoading } = usePromos();
+type Props={
+  data:Promos[]
+} 
+const isLoading=false
+const WeekPromos = ({data}:Props) => {
   if (isLoading) {
     return (
       <div className="px-paddingPhone  lg:px-paddingPC py-20  ">

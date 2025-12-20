@@ -3,9 +3,12 @@ import { useSuggestions } from "@/hooks/useSuggestions";
 import ProductCard from "../products_categories/_components/ProductCard";
 import CardProductLoading from "@/skeletons/CardProductLoading";
 import Link from "next/link";
-
-const Latest = () => {
-  const { data, isLoading } = useSuggestions();
+import { Product } from "@/hooks/useCategories";
+const isLoading=false
+type Props={
+  data:Product[]
+}
+const Latest = ({data}:Props) => {
 
   return (
     <div

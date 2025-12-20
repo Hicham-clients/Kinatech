@@ -5,6 +5,8 @@ import dynamic from "next/dynamic"
 import Latest from "./_components/Latest"
 import { HeroSectionType } from "@/hooks/useHero"
 import { axiosInstance } from "@/lib/axios"
+import LatestServer from "./_components/LatestServer"
+import PromoServer from "./_components/PromoServer"
 const Hero=dynamic(()=>import('./_components/Hero'))
 const Suggestion=dynamic(()=>import('./_components/Suggestion'))
 const WeekPromos=dynamic(()=>import('./_components/WeekPromos'))
@@ -44,8 +46,8 @@ const Home = async() => {
 
 <Hero data={data}/> 
 <Suggestion/> 
-<Latest/> 
-<WeekPromos/> 
+<LatestServer/> 
+<PromoServer/> 
 <WhyKinatech/>
 </>)
 }

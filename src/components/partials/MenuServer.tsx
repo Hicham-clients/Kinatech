@@ -9,7 +9,8 @@ async function getCategories() {
   );
 
   if (!res.ok) {
-    throw new Error('Failed to fetch hero sections');
+  console.log('error');
+  
   }
 
   return res.json();
