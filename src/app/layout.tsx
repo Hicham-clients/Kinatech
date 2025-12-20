@@ -6,6 +6,7 @@ import { Metadata } from "next";
 import { Providers } from "@/store/Providers";
 import Whatsapp from "@/components/Whatsapp";
 import MenuServer from "@/components/partials/MenuServer";
+import FooterServer from "@/components/partials/FooterServer";
 
 //SEO OPTIMIZATION
 export const metadata: Metadata = {
@@ -99,7 +100,7 @@ export default  function RootLayout({
 
             <footer>
               <Brands />
-              <Footer />
+              <FooterServer />
             </footer>
           </ReactQueryProvider>
         </Providers>
