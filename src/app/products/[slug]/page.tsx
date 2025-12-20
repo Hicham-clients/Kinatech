@@ -16,6 +16,23 @@ type Props={
 //   }))
 // }
 //SEO 
+const getProduct=async(slug:string)=>{
+  const response=await fetch(`https://kinatech.ma/admin/public/api/products/${slug}`,{
+    next:{
+      revalidate:60
+    },
+     headers: {
+      Accept: "application/json"
+    },
+  }) 
+  if(!response.ok){
+    return notFound()
+  } 
+  const data = await response.json()
+  console.log("DATA:", data)
+
+  return data
+}
 export async function generateMetadata({ params }: Props) {
   const product = await getProduct(params.slug)
 
@@ -36,23 +53,7 @@ export async function generateMetadata({ params }: Props) {
   }
 }
 
-const getProduct=async(slug:string)=>{
-  const response=await fetch(`https://kinatech.ma/admin/public/api/products/${slug}`,{
-    next:{
-      revalidate:60
-    },
-     headers: {
-      Accept: "application/json"
-    },
-  }) 
-  if(!response.ok){
-    return notFound()
-  } 
-  const data = await response.json()
-  console.log("DATA:", data)
 
-  return data
-}
 const Detail = async({params}:any) => {  
 const paramsResponse= await params
 

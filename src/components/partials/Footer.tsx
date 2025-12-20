@@ -1,5 +1,5 @@
 "use client";
-import { useMenuCategories } from "@/hooks/useMenuCategories";
+import { Category, useMenuCategories } from "@/hooks/useMenuCategories";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -62,8 +62,8 @@ const Title = ({ value }: { value: string }) => {
   );
 };
 
-const Footer = () => {
-  const { data } = useMenuCategories();
+const Footer = ({data}:{data:Category[]}) => {
+  // const { data } = useMenuCategories();
 
   return (
     <footer className="cursor-context-menu   border-t    text-blk  md:p-5 md:py-16 font-A text-sm select-none ">

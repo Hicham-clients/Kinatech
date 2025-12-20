@@ -1,24 +1,29 @@
 "use client";
 import PageTitle from "@/components/PageTitle";
-import Filter from "./Filter";
 import ProductCard from "./ProductCard";
-import { useCategories } from "@/hooks/useCategories";
+import { PaginatedResponse, useCategories } from "@/hooks/useCategories";
 import { useSearchParams } from "next/navigation";
 import Paginate from "./Paginate";
 import {  useState } from "react";
 import CardProductLoading from "@/skeletons/CardProductLoading";
 import clsx from "clsx";
 import Refetch from "@/components/Refetch";
+import FilterServer from "./FilterServer";
 
+// const ProductsCategories = ({data}:{data:PaginatedResponse}) => {
 const ProductsCategories = () => {
-  const searchParams = useSearchParams();
-  const [currentPage, setCurrentPage] = useState(1);
+  const searchParams = useSearchParams(); 
+   
+  const [currentPage, setCurrentPage] = useState(Number(searchParams.get('page'))||1); 
+  // const isLoading=false 
+  // const error=false 
+
   const { data, isLoading, error, refetch } = useCategories(
-    `page=${currentPage}&` + searchParams.toString()
+    `page=${currentPage}&${searchParams.toString()}` 
   );
   const handlePaginateClick = (event: { selected: number }) => {
     setCurrentPage(event.selected + 1);
-    window.scrollTo({ left: 0, top: 0 });
+    window.scrollTo({ left: 0, top:30});
   };
   return (
       <div className="bg-[#f4f4f4] p-paddingPhone lg:px-paddingPC pb-32">
@@ -29,7 +34,7 @@ const ProductsCategories = () => {
           // title={searchParams?.toString().length==0?"Toutes les produits":searchParams.has('category')?searchParams.get('category')?.toUpperCase():''}
         />
         <div className="flex flex-col md:flex-row  gap-10">
-          <Filter />
+          <FilterServer />
           <div className="w-full">
             {isLoading ? (
               <div
@@ -52,7 +57,7 @@ const ProductsCategories = () => {
                 ))}
               </div>
             ) : error ? (
-            <Refetch onclick={refetch}/>
+            <Refetch onclick={()=>console.log('fetch')}/>
             ) : (
               <div className=" text-center h-full flex justify-center items-center w-full font-A tracking-wider text-xl">
                 Pas des produits

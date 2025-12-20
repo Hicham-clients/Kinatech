@@ -1,4 +1,4 @@
-import Menu from "./Menu";
+import Footer from "./Footer"
 
 async function getCategories() { 
     const res = await fetch(
@@ -16,14 +16,10 @@ async function getCategories() {
   return res.json();
   
 } 
-
-
-
-const MenuServer =async () => { 
-      const categories=await getCategories()
-
+const FooterServer = async() => { 
+    const data=await getCategories()
   return (
-<Menu data={categories}/>
+<Footer data={data}/>
 )
 }
-export default MenuServer
+export default FooterServer

@@ -1,7 +1,7 @@
 import { axiosInstance } from "@/lib/axios";
 import { useQuery } from "@tanstack/react-query";
 
-type brand= {
+export type brand= {
       id: number;
       name: string;
       logo: string;

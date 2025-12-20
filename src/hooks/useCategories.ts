@@ -26,7 +26,7 @@ type PaginationLinks = {
   active: boolean;
 };
 
-type PaginatedResponse = {
+export type PaginatedResponse = {
   current_page: number;
   data: Product[];
   first_page_url: string;
