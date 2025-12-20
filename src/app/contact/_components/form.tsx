@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
 import PageTitle from "@/components/PageTitle";
+import { axiosInstance } from "@/lib/axios";
 
 const ContactForm = () => {
   //ZOD
@@ -31,26 +32,41 @@ const ContactForm = () => {
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
   });
-  const onSubmit = async (data: ContactFormData) => {
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+  // const onSubmit = async (data: ContactFormData) => {
+  //   try {
+  //     const res = await fetch("/api/contact", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify(data),
+  //     });
 
-      const result = await res.json();
+  //     const result = await res.json();
 
-      if (result.success) {
-        alert("Message a été  envoyé avec succés");
-        reset();
-      } else {
-        alert("il y a un erreur");
+  //     if (result.success) {
+  //       alert("Message a été  envoyé avec succés");
+  //       reset();
+  //     } else {
+  //       alert("il y a un erreur");
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //     alert("Erreur");
+  //   }
+  // };
+ const onSubmit = async (data: ContactFormData) => {  
+    try{
+
+      const res=axiosInstance.post('https://kinatech.ma/admin/public/api/sendEmail',data) 
+      if((await res).status==200){
+        alert((await res).data.message) 
+
+        reset()
       }
-    } catch (err) {
-      console.error(err);
-      alert("Erreur");
+    } catch(err){
+        console.error(err);
+      alert("il y a un erreur");
     }
+   
   };
 
   return (
