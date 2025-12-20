@@ -1,0 +1,28 @@
+import Menu from "./Menu";
+
+async function getCategories() { 
+    const res = await fetch(
+    `https://kinatech.ma/admin/public//api/categories`,
+    {
+      next: { revalidate: 60 }, // ✅ ISR
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch hero sections');
+  }
+
+  return res.json();
+  
+} 
+
+
+
+const MenuServer =async () => { 
+      const categories=await getCategories()
+
+  return (
+<Menu ct={categories}/>
+)
+}
+export default MenuServer

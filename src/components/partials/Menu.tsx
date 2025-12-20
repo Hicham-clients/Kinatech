@@ -186,8 +186,10 @@ const NavbarPhone = () => {
     </div>
   );
 };
-
-const Menu = () => {
+type Props={
+  ct:Category
+}
+const Menu = ({ct}:Props) => {
   // hover category
   const [Itemhover, setItemhover] = useState<number | null>(null);
   const [isHover, setIshover] = useState(false);

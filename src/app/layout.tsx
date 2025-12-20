@@ -6,6 +6,7 @@ import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import { Metadata } from "next";
 import { Providers } from "@/store/Providers";
 import Whatsapp from "@/components/Whatsapp";
+import MenuServer from "@/components/partials/MenuServer";
 
 //SEO OPTIMIZATION
 export const metadata: Metadata = {
@@ -78,18 +79,19 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+
+export default  function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>) { 
   return (
     <html lang="fr">
       <body>
         <Providers>
           <ReactQueryProvider>
             <header>
-              <Menu />
+              <MenuServer />
             </header>
             <main className="min-h-[80vh]">{children}
 
