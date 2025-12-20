@@ -14,21 +14,26 @@ export const metadata:Metadata={
 
 
 
-   export async function getHeros(
+  export async function getHeros(
   sectiontype: string
 ): Promise<HeroSectionType[]> {
-  const res = await fetch(
-    `https://kinatech.ma/admin/public/api/herosections/${sectiontype}`,
-    {
-      next: { revalidate: 60 }, // ✅ ISR
+  try {
+    const res = await fetch(
+      `https://kinatech.ma/admin/public/api/herosections/${sectiontype}`,
+      {
+        next: { revalidate: 60 },
+      }
+    );
+
+    if (!res.ok) {
+      return []; // ✅ fallback
     }
-  );
 
-  if (!res.ok) {
-    throw new Error('Failed to fetch hero sections');
+    return res.json();
+  } catch (error) {
+    console.error('getHeros error:', error);
+    return []; // ✅ ما تطيّحش build
   }
-
-  return res.json();
 }
 
 
