@@ -56,7 +56,7 @@ const ContactForm = () => {
  const onSubmit = async (data: ContactFormData) => {  
     try{
 
-      const res=axiosInstance.post('https://kinatech.ma/admin/public/api/sendEmail',data) 
+      const res=axiosInstance.post('/api/sendEmail',data) 
       if((await res).status==200){
         alert((await res).data.message) 
 
