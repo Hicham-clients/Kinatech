@@ -1,7 +1,7 @@
 "use client";
 import { useDetails } from "@/hooks/useDetail";
 import DetailComponent from "./DetailComponent";
-import { useParams } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
 import DetailSkeleton from "@/skeletons/DetailLoading";
 import Refetch from "@/components/Refetch";
 
@@ -13,9 +13,10 @@ const PageDetail = () => {
   }
   if (error) {
     return (
-      <div className="flex h-[50vh] flexCenter">
-        <Refetch onclick={refetch} />
-      </div>
+      // <div className="flex h-[50vh] flexCenter">
+      //   <Refetch onclick={refetch} />
+      // </div> 
+      notFound()
     );
   }
 
