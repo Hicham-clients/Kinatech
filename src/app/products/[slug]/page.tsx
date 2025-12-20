@@ -8,23 +8,24 @@ import { notFound } from "next/navigation";
 //   title:params.slug.split('-').join(' ')
 // }
 // } 
-export async function getProduct(slug:string): Promise<Product> {
+export async function getProduct(slug: string): Promise<Product | null> {
   try {
     const res = await fetch(
       `https://kinatech.ma/admin/public/api/products/${slug}`,
       {
-        next: { revalidate: 60 },
+        next: { revalidate: 60 }, // ISR
       }
     );
 
     if (!res.ok) {
-    return  notFound(); 
+      console.warn('Product not found:', slug);
+      return null; // ما تطيّحش build
     }
 
-    return res.json();
+    return await res.json();
   } catch (error) {
-    console.error('getHeros error:', error);
-    return notFound(); 
+    console.error('getProduct error:', error);
+    return null; // fallback
   }
 }
 
