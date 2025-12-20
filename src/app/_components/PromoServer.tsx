@@ -5,7 +5,7 @@ import WeekPromos from "./WeekPromos"
 export async function getPromos(): Promise<Promos[]> {
   try {
     const res = await fetch(
-      `https://kinatech.ma/admin/public/api/promos/`,
+      `https://kinatech.ma/admin/public/api/getpromos`,
       {
         next: { revalidate: 60 },
       }
