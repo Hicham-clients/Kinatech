@@ -187,15 +187,15 @@ const NavbarPhone = () => {
   );
 };
 type Props={
-  ct:Category
+  data:Category[]
 }
-const Menu = ({ct}:Props) => {
+const Menu = ({data}:Props) => {
   // hover category
   const [Itemhover, setItemhover] = useState<number | null>(null);
   const [isHover, setIshover] = useState(false);
 
   // fetch data
-  const { data } = useMenuCategories();
+  // const { data } = useMenuCategories();
 
   const currentCategoryData = useMemo(() => {
     if (Itemhover !== null) {

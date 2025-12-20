@@ -1,5 +1,4 @@
 import "../css/globals.css";
-import Menu from "@/components/partials/Menu";
 import Footer from "@/components/partials/Footer";
 import Brands from "./_components/brands";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";

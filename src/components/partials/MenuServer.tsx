@@ -22,7 +22,7 @@ const MenuServer =async () => {
       const categories=await getCategories()
 
   return (
-<Menu ct={categories}/>
+<Menu data={categories}/>
 )
 }
 export default MenuServer
