@@ -1,13 +1,14 @@
 
 import { Product } from "@/hooks/useDetail";
 import PageDetail from "./_components/PageDetail"
+import { notFound } from "next/navigation";
 // export const generateMetadata=async({params}:{params:{slug:string}})=>{
   
 // return {
 //   title:params.slug.split('-').join(' ')
 // }
 // } 
-export async function getProduct(slug:string): Promise<Product|null> {
+export async function getProduct(slug:string): Promise<Product> {
   try {
     const res = await fetch(
       `https://kinatech.ma/admin/public/api/products/${slug}`,
@@ -17,13 +18,13 @@ export async function getProduct(slug:string): Promise<Product|null> {
     );
 
     if (!res.ok) {
-      return null; 
+    return  notFound(); 
     }
 
     return res.json();
   } catch (error) {
     console.error('getHeros error:', error);
-    return null; 
+    return notFound(); 
   }
 }
 
