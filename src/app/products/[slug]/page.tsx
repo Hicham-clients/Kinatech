@@ -8,15 +8,14 @@ type Props={
 } 
 
 const getProduct=async(slug:string)=>{
-  const response = await fetch(
-  `https://kinatech.ma/admin/public/api/products/${slug}`,
-  {
-    cache: "no-store",
-    headers: {
+  const response=await fetch(`https://kinatech.ma/admin/public/api/products/${slug}`,{
+    next:{
+      revalidate:60
+    },
+     headers: {
       Accept: "application/json"
-    }
-  }
-)
+    },
+  }) 
   if(!response.ok){
     return notFound()
   } 
@@ -27,7 +26,7 @@ const getProduct=async(slug:string)=>{
 }
 const Detail = async({params}:Props) => {  
 const slug= params.slug
-  const data=await getProduct(slug)
+  const data=await getProduct('apple-airpods-pro-2')
   return (
 <PageDetail data={data}/>  )
 }
