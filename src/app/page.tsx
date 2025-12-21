@@ -1,20 +1,16 @@
-import { Metadata } from "next"
+import { Metadata } from "next";
+import WhyKinatech from "./_components/WhyKinatech";
+import { HeroSectionType } from "@/hooks/useHero";
+import LatestServer from "./_components/latest/LatestServer";
+import Hero from "./_components/Hero";
+import SuggestionServer from "./_components/suggestions/SuggestionServer";
+import PromoServer from "./_components/promo/PromoServer";
 
-import WhyKinatech  from "./_components/WhyKinatech" 
-import { HeroSectionType } from "@/hooks/useHero"
-import LatestServer from "./_components/latest/LatestServer"
-import Hero from "./_components/Hero"
-import SuggestionServer from "./_components/suggestions/SuggestionServer"
-import PromoServer from "./_components/promo/PromoServer"
+export const metadata: Metadata = {
+  title: "Kinatech | Acceuil",
+};
 
-
-export const metadata:Metadata={
-  title:"Kinatech | Acceuil"
-} 
-
-
-
-  export async function getHeros(
+export async function getHeros(
   sectiontype: string
 ): Promise<HeroSectionType[]> {
   try {
@@ -26,27 +22,26 @@ export const metadata:Metadata={
     );
 
     if (!res.ok) {
-      return []; 
+      return [];
     }
 
     return res.json();
   } catch (error) {
-    console.error('getHeros error:', error);
-    return []; 
+    console.error("getHeros error:", error);
+    return [];
   }
 }
 
-
-const Home = async() => { 
-  const data=await getHeros('hero section')
+const Home = async () => {
+  const data = await getHeros("hero section");
   return (
     <>
-
-<Hero data={data}/> 
-<SuggestionServer/> 
-<LatestServer/> 
-<PromoServer/> 
-<WhyKinatech/>
-</>)
-}
-export default Home
+      <Hero data={data} />
+      <SuggestionServer />
+      <LatestServer />
+      <PromoServer />
+      <WhyKinatech />
+    </>
+  );
+};
+export default Home;

@@ -10,12 +10,8 @@ import { Pagination, Navigation, Autoplay } from "swiper/modules";
 import Image from "next/image";
 import { imageSrc } from "@/lib/getSrc";
 import { HeroSectionType, useHero } from "@/hooks/useHero";
-import HeroLoading from "@/skeletons/HeroLoading";
 import { Swiper, SwiperSlide } from "swiper/react";
-// const  Swiper=dynamic(()=>(import("swiper/react")).then(m => m.Swiper), { ssr: false })
-// const SwiperSlide = dynamic(() => import("swiper/react").then(m => m.SwiperSlide), { ssr: false });
-const isLoading=false 
-const error=false
+
 type Props = {
   data: HeroSectionType[];
 };

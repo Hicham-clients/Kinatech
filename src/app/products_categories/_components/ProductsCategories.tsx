@@ -8,7 +8,6 @@ import { ReactNode, useState } from "react";
 import CardProductLoading from "@/skeletons/CardProductLoading";
 import clsx from "clsx";
 import Refetch from "@/components/Refetch";
-import FilterServer from "./filter/FilterServer";
 type Props = {
   children?: ReactNode;
 };
