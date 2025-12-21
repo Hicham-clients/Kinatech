@@ -45,7 +45,8 @@
 // }
 // export default Products
 
-import { Suspense } from "react";
+export const dynamic = "force-dynamic";
+
 import ProductsCategories from "./_components/ProductsCategories";
 import { Metadata } from "next";
 import FilterServer from "./_components/filter/FilterServer";
