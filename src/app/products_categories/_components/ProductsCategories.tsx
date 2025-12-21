@@ -4,13 +4,15 @@ import ProductCard from "./ProductCard";
 import { useCategories } from "@/hooks/useCategories";
 import { useSearchParams } from "next/navigation";
 import Paginate from "./Paginate";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import CardProductLoading from "@/skeletons/CardProductLoading";
 import clsx from "clsx";
 import Refetch from "@/components/Refetch";
 import FilterServer from "./filter/FilterServer";
-
-const ProductsCategories = () => {
+type Props = {
+  children?: ReactNode;
+};
+const ProductsCategories = ({children}:Props) => {
   const searchParams = useSearchParams();
   const [currentPage, setCurrentPage] = useState(1);
   const { data, isLoading, error, refetch } = useCategories(
@@ -35,7 +37,7 @@ const ProductsCategories = () => {
           // title={searchParams?.toString().length==0?"Toutes les produits":searchParams.has('category')?searchParams.get('category')?.toUpperCase():''}
         />
         <div className="flex flex-col md:flex-row  gap-10">
-          <FilterServer />
+          {children}
           <div className="w-full">
             {isLoading ? (
               <div
