@@ -1,16 +1,13 @@
 import { Metadata } from "next"
 
 import WhyKinatech  from "./_components/WhyKinatech" 
-import dynamic from "next/dynamic" 
-import Latest from "./_components/Latest"
 import { HeroSectionType } from "@/hooks/useHero"
-import { axiosInstance } from "@/lib/axios"
-import LatestServer from "./_components/LatestServer"
-import PromoServer from "./_components/PromoServer"
-import SuggestionServer from "./_components/SuggestionServer"
-const Hero=dynamic(()=>import('./_components/Hero'))
-const Suggestion=dynamic(()=>import('./_components/Suggestion'))
-const WeekPromos=dynamic(()=>import('./_components/WeekPromos'))
+import LatestServer from "./_components/latest/LatestServer"
+import Hero from "./_components/Hero"
+import SuggestionServer from "./_components/suggestions/SuggestionServer"
+import PromoServer from "./_components/promo/PromoServer"
+
+
 export const metadata:Metadata={
   title:"Kinatech | Acceuil"
 } 

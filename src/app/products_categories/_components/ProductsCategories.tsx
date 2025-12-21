@@ -1,15 +1,14 @@
 "use client";
 import PageTitle from "@/components/PageTitle";
-import Filter from "./Filter";
 import ProductCard from "./ProductCard";
 import { useCategories } from "@/hooks/useCategories";
 import { useSearchParams } from "next/navigation";
 import Paginate from "./Paginate";
-import {  useState } from "react";
+import { useState } from "react";
 import CardProductLoading from "@/skeletons/CardProductLoading";
 import clsx from "clsx";
 import Refetch from "@/components/Refetch";
-import FilterServer from "./FilterServer";
+import FilterServer from "./filter/FilterServer";
 
 const ProductsCategories = () => {
   const searchParams = useSearchParams();
@@ -22,10 +21,16 @@ const ProductsCategories = () => {
     window.scrollTo({ left: 0, top: 0 });
   };
   return (
-      <div className="bg-[#f4f4f4] p-paddingPhone lg:px-paddingPC pb-32">
+    <div className="bg-[#f4f4f4] p-paddingPhone lg:px-paddingPC pb-32">
       <div className=" flex flex-col gap-y-20 kinatech-container">
         <PageTitle
-          title={searchParams.has('brand')?searchParams.get('brand'):searchParams.has('category')?searchParams.get('category'):"Nos Produits"}
+          title={
+            searchParams.has("brand")
+              ? searchParams.get("brand")
+              : searchParams.has("category")
+              ? searchParams.get("category")
+              : "Nos Produits"
+          }
           text="Nous serions heureux de vous accompagner dans vos besoins. Découvrez nos produits et profitez d’un service rapide et de qualité."
           // title={searchParams?.toString().length==0?"Toutes les produits":searchParams.has('category')?searchParams.get('category')?.toUpperCase():''}
         />
@@ -53,7 +58,7 @@ const ProductsCategories = () => {
                 ))}
               </div>
             ) : error ? (
-            <Refetch onclick={refetch}/>
+              <Refetch onclick={refetch} />
             ) : (
               <div className=" text-center h-full flex justify-center items-center w-full font-A tracking-wider text-xl">
                 Pas des produits

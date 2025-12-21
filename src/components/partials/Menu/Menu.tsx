@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import Icon from "../IconComponent";
+import Icon from "../../IconComponent";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -17,7 +17,7 @@ import clsx from "clsx";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import * as PhosphorIcons from "phosphor-react";
-import Refetch from "../Refetch";
+import Refetch from "../../Refetch";
 import { calculNewPrice, PriceFormat } from "@/functions/Discount";
 
 const SearchInput = () => {
@@ -95,26 +95,30 @@ const SearchInput = () => {
                     <div className=" w-[30%] h-full relative">
                       <Image
                         loading="lazy"
-                        src={
-                          
-                          imageSrc(item.photo)
-                        }
-                        fill 
+                        src={imageSrc(item.photo)}
+                        fill
                         sizes="80px"
                         className="w-full h-full object-contain p-1 "
                         alt={item.slug}
                       />
                     </div>
                     <div className="w-full flex flex-col text-sm">
-                      <h1 className="font-D ">{item.slug.slice(0,30) }{(item.slug.slice(30).length>0?'...':'')}</h1>
+                      <h1 className="font-D ">
+                        {item.slug.slice(0, 30)}
+                        {item.slug.slice(30).length > 0 ? "..." : ""}
+                      </h1>
                       <span className="text-grey text-sm capitalize">
                         {item.category.name}
                       </span>
                       <div className="flex justify-between items-center text-xs">
                         <span className="font-D text-blk ">
                           {item.promo !== null
-                            ? PriceFormat(calculNewPrice(Number(item.promo.discount),
-                              Number(item.base_price ))) 
+                            ? PriceFormat(
+                                calculNewPrice(
+                                  Number(item.promo.discount),
+                                  Number(item.base_price)
+                                )
+                              )
                             : PriceFormat(+item.base_price)}{" "}
                           DH
                         </span>
@@ -186,10 +190,10 @@ const NavbarPhone = () => {
     </div>
   );
 };
-type Props={
-  data:Category[]
-}
-const Menu = ({data}:Props) => {
+type Props = {
+  data: Category[];
+};
+const Menu = ({ data }: Props) => {
   // hover category
   const [Itemhover, setItemhover] = useState<number | null>(null);
   const [isHover, setIshover] = useState(false);
@@ -267,7 +271,7 @@ const Menu = ({data}:Props) => {
                 className="text-4xl tracking-wide font-C lg:text-5xl"
               >
                 <Image
-                sizes="90px"
+                  sizes="90px"
                   height={90}
                   className=" pointer-events-none object-contain"
                   width={90}

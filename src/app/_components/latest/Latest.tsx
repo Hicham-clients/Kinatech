@@ -1,6 +1,5 @@
 "use client";
-import { useSuggestions } from "@/hooks/useSuggestions";
-import ProductCard from "../products_categories/_components/ProductCard";
+import ProductCard from "@/app/products_categories/_components/ProductCard";
 import CardProductLoading from "@/skeletons/CardProductLoading";
 import Link from "next/link";
 import { Product } from "@/hooks/useCategories";
@@ -12,11 +11,7 @@ const Latest = ({data}:Props) => {
 
   return (
     <div
-      // style={{
-      //   background:
-      //     "linear-gradient(45deg, var(-- main) 0%, var(--main)50%, #ff00aa 50%,#ff00aa 50%, purple 100%)",
-      // }}
-      // style={{background:'linear-gradient(45deg, var(--main) 0%, var(--main)50%, var(--second) 50%, var(--secondHover))'}}
+     
       className="px-paddingPhone  lg:px-paddingPC py-20  bg-[url('/images/bg.webp')]  rounded-t-[40px] bg-cover"
     >
       <div className="kinatech-container flex flex-col gap-y-10  ">

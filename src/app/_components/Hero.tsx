@@ -29,7 +29,7 @@ const Hero = ({data}:Props) => {
     data && (
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
-        autoplay={{ delay: 3000 }}
+        autoplay={{ delay: 5000 }}
         // spaceBetween={30}
         slidesPerView={1}
         loop
@@ -61,7 +61,7 @@ const Hero = ({data}:Props) => {
                 <Image
                   priority
                   fill
-                  className="sm:hidden pointer-events-none w-full h-full top-0 left-0  object-cover"
+                  className="md:hidden pointer-events-none w-full h-full top-0 left-0  object-cover"
                   src={imageSrc(item?.cover_mobile ?? item?.cover_pc)}
                   alt={item?.product?.slug}
                 />
@@ -69,7 +69,7 @@ const Hero = ({data}:Props) => {
                 <Image
                   priority
                   fill
-                  className="hidden sm:inline-block pointer-events-none  top-0 left-0  object-cover"
+                  className="hidden md:inline-block pointer-events-none  top-0 left-0  object-cover"
                   src={imageSrc(item?.cover_pc)}
                   alt={item?.product?.slug}
                 />

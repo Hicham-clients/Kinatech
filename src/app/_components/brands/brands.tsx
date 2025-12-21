@@ -7,10 +7,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import Image from "next/image";
 import { imageSrc } from "@/lib/getSrc";
-import { useBrands } from "@/hooks/useBrands";
+import { brand } from "@/hooks/useBrands";
 
-const Brands = () => {
-  const { data: brands } = useBrands();
+const Brands = ({brands}:{brands:brand[]}) => {
+  // const { data: brands } = useBrands();
 
   return (
     <div className="p-6 select-none lg:px-12 border-t cursor-grab">

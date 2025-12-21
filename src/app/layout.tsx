@@ -1,12 +1,11 @@
 import "../css/globals.css";
-import Footer from "@/components/partials/Footer";
-import Brands from "./_components/brands";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import { Metadata } from "next";
 import { Providers } from "@/store/Providers";
 import Whatsapp from "@/components/Whatsapp";
-import MenuServer from "@/components/partials/MenuServer";
-import FooterServer from "@/components/partials/FooterServer";
+import MenuServer from "@/components/partials/Menu/MenuServer";
+import FooterServer from "@/components/partials/footer/FooterServer";
+import BrandServer from "./_components/brands/BrandServer";
 
 //SEO OPTIMIZATION
 export const metadata: Metadata = {
@@ -79,12 +78,11 @@ export const metadata: Metadata = {
   },
 };
 
-
-export default  function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) { 
+}>) {
   return (
     <html lang="fr">
       <body>
@@ -93,13 +91,14 @@ export default  function RootLayout({
             <header>
               <MenuServer />
             </header>
-            <main className="min-h-[80vh]">{children}
+            <main className="min-h-[80vh]">
+              {children}
 
-             <Whatsapp/>
+              <Whatsapp />
             </main>
 
             <footer>
-              <Brands />
+              <BrandServer />
               <FooterServer />
             </footer>
           </ReactQueryProvider>

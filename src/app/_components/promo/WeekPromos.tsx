@@ -2,8 +2,8 @@
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
-import SecondCardProduct from "../products_categories/_components/SecondCardProduct";
-import { Promos, usePromos } from "@/hooks/usePromos";
+import SecondCardProduct from "@/app/products_categories/_components/SecondCardProduct";
+import { Promos } from "@/hooks/usePromos";
 import SecondCardLoading from "@/skeletons/SecondCardLoading";
 type Props={
   data:Promos[]

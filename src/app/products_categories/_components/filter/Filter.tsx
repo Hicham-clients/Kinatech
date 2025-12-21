@@ -7,15 +7,15 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, CaretRight, MagnifyingGlass } from "phosphor-react";
 import { useEffect, useState } from "react"; 
 type props={
-  data:Category[] , 
+  categories:Category[] , 
   brands:brand[]
 }
-const Filter = () => {
+const Filter = ({categories:data,brands}:props) => {
   // fetch data 
-  // const isLoading=false 
+  const isLoading=false 
 
-  const { data, isLoading } = useMenuCategories();
-  const { data: brands } = useBrands();
+  // const { data, isLoading } = useMenuCategories();
+  // const { data: brands } = useBrands();
   const router = useRouter();
   const [currentCategoriesForDrilling, setCurrentCategoriesForDrilling] =
     useState<Category[]>(data ?? []);
