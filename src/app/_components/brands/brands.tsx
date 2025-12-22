@@ -35,15 +35,15 @@ const Brands = ({brands}:{brands:brand[]}) => {
           return (
             <SwiperSlide key={index} className="  ">
               <Link
-                className="w-8 lg:w-12 h-full flexCenter mx-auto    "
+                className=" h-full flexCenter mx-auto    "
                 href={`/products_categories?brand=${item.name}`}
               >
                 <Image
                   
                   loading="lazy"
                   title={item.name}
-                  width={50}
-                  height={50}
+                  width={70}
+                  height={70}
                   // style={{            filter: "grayscale(0%)"}}
                   className="pointer-events-none  object-contain filter hover:grayscale-0 grayscale"
                   src={imageSrc(item?.logo)}

@@ -11,6 +11,7 @@ import Image from "next/image";
 import { imageSrc } from "@/lib/getSrc";
 import { HeroSectionType, useHero } from "@/hooks/useHero";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { motion } from "framer-motion";
 
 type Props = {
   data: HeroSectionType[];
@@ -20,7 +21,7 @@ const Hero = ({data}:Props) => {
   // if (isLoading || error) {
   //   return <HeroLoading />;
   // }
-
+const MotionLink=motion(Link)
   return (
     data && (
       <Swiper
@@ -42,7 +43,10 @@ const Hero = ({data}:Props) => {
         {data?.map((item) => {
           return (
             <SwiperSlide key={item.id}>
-              <Link
+              <MotionLink 
+              initial={{opacity:0}}
+              animate={{opacity:1}}
+              transition={{duration:0.4,ease:'linear'}}
                 className="relative w-full flex h-[60vh] cursor-grab"
                 href={
                   item.target_type == "product"
@@ -69,7 +73,7 @@ const Hero = ({data}:Props) => {
                   src={imageSrc(item?.cover_pc)}
                   alt={item?.product?.slug}
                 />
-              </Link>
+              </MotionLink>
             </SwiperSlide>
           );
         })}

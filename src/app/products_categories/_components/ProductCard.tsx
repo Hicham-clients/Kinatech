@@ -1,7 +1,9 @@
+import { animationOfChild } from "@/animations/variants";
 import { calculNewPrice, PriceFormat } from "@/functions/Discount";
 import { Product } from "@/hooks/useCategories";
 import { imageSrc } from "@/lib/getSrc";
 import clsx from "clsx";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -13,13 +15,15 @@ const ProductCard = ({
   brand,
   base_price,
   all_quantity,
-}: Product) => {
+}: Product) => { 
+  const LinkMotion=motion(Link)
   return (
-    <Link
+    <LinkMotion 
+variants={animationOfChild}
       href={`/products/${url}`}
       className={clsx(
         all_quantity == 0 && "opacity-[0.8]",
-        "w-full block select-none overflow-auto bg-white rounded-2xl "
+        "w-full translate-up-hover block select-none overflow-auto bg-white rounded-2xl "
       )}
     >
       <div className="flex flex-col ">
@@ -82,7 +86,7 @@ const ProductCard = ({
           </button>
         </div>
       </div>
-    </Link>
+    </LinkMotion>
   );
 };
 export default ProductCard;

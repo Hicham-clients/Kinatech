@@ -16,7 +16,7 @@ const SecondCardProduct = ({
       href={`/products/${url}`}
       className={clsx(
         all_quantity == 0 && "opacity-[0.5]",
-        "w-[12rem] bg-white  mx-auto  block select-none p-5 border border-[#eeee] shadow-xl shadow-[#eeeeee] rounded-2xl m-4"
+        "w-[12rem] bg-white scale-plus-hover  mx-auto  block select-none p-5 border border-[#eeee] shadow-xl shadow-[#eeeeee] rounded-2xl m-4"
       )}
     >
       <div className=" flex flex-col gap-y-3 justify-between ">

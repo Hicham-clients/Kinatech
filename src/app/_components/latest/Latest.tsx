@@ -3,17 +3,15 @@ import ProductCard from "@/app/products_categories/_components/ProductCard";
 import CardProductLoading from "@/skeletons/CardProductLoading";
 import Link from "next/link";
 import { Product } from "@/hooks/useCategories";
-const isLoading=false
-type Props={
-  data:Product[]
-}
-const Latest = ({data}:Props) => {
-
+import { animationOfParent } from "@/animations/variants";
+import { motion } from "framer-motion";
+const isLoading = false;
+type Props = {
+  data: Product[];
+};
+const Latest = ({ data }: Props) => {
   return (
-    <div
-     
-      className="px-paddingPhone  lg:px-paddingPC py-20  bg-[url('/images/bg.webp')]  rounded-t-[40px] bg-cover"
-    >
+    <div className="px-paddingPhone  lg:px-paddingPC py-20  bg-[url('/images/bg.webp')]  rounded-t-[40px] bg-cover">
       <div className="kinatech-container flex flex-col gap-y-10  ">
         <div className="w-fit  ">
           <div className="relative text-white font-D text-2xl lg:text-3xl tracking-wide  text-blk">
@@ -24,13 +22,18 @@ const Latest = ({data}:Props) => {
             </div>
           </div>
         </div>
-        <div className="containerGridCase2 grid  gap-10 grid-cols-1 sm:grid-cols-2  lg:grid-cols-4">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          variants={animationOfParent}
+          className="containerGridCase2 grid  gap-10 grid-cols-1 sm:grid-cols-2  lg:grid-cols-4"
+        >
           {isLoading
             ? [...Array(4)].map((_, index) => (
                 <CardProductLoading key={index} />
               ))
             : data?.map((item, index) => <ProductCard {...item} key={index} />)}
-        </div>
+        </motion.div>
         <div className="flexCenter">
           <Link
             href={"/products_categories"}

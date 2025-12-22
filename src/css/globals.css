@@ -147,6 +147,10 @@
   @apply sm:hover:bg-main active:bg-main
 }
 
+.scale-plus-hover{
+  @apply sm:hover:scale-[1.02] active:scale-[1.02]; 
+}
+
 /*swiper*/
 
 .swiper-button-prev {
@@ -162,6 +166,8 @@
     right: 10 !important;
 
 } 
+
+/*-----------------------------------*/ 
 
 
 

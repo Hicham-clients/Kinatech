@@ -5,7 +5,9 @@ import { imageSrc } from "@/lib/getSrc";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react"; 
+import Typed from "typed.js";
+
 const SuggestionCard = ({
   cover_pc,
   product,
@@ -15,8 +17,9 @@ const SuggestionCard = ({
 }: HeroSectionType & { index: number }) => {
   const [isHover, setIshover] = useState(false);
   return (
-    <Link
-      onMouseEnter={() => setIshover(true)}
+    <Link 
+
+    onMouseEnter={() => setIshover(true)}
       onMouseLeave={() => setIshover(false)}
       href={
         target_type == "product"
@@ -27,9 +30,11 @@ const SuggestionCard = ({
       }
       className={clsx(
         index == 2
-          ? "lg:row-span-2 lg:col-span-2 bg-[#f4f4f4]  order-4 lg:order-none col-span-2 h-[450px] lg:h-full"
-          : "h-[200px] lg:h-[250px]",
-        " rounded-2xl border overflow-hidden  h-[170px] md:h-[280px]  flex  w-full cursor-pointer relative"
+          ? "lg:row-span-2 lg:col-span-2 bg-[#f4f4f4] rounded flex  w-full  order-4 lg:order-none  col-span-2 h-[500px] lg:h-full"
+          : 
+        "   h-[170px] md:h-[280px]    ",
+
+        "rounded-2xl  border overflow-hidden flex  w-full cursor-pointer relative "
       )}
     >
       <Image
@@ -63,12 +68,30 @@ const Suggestion = ({data}:Props) => {
 const isLoading=false
 const error=false 
   // const { data, isLoading, error, refetch } = useHero("laUne");
+  const el = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    if (!el.current) return;
+
+    const typed = new Typed(el.current, {
+      strings: ["Technologie Fiable", "Performance Durable"],
+      typeSpeed: 50,
+      backSpeed: 25,
+      loop: true,
+      
+    });
+
+    return () => {
+      typed.destroy(); // Cleanup on unmount
+    };
+  }, []);
   return (
     <div className="py-20 pt-32 px-paddingPhone lg:px-paddingPC ">
       <div className="flex flex-col gap-y-20 kinatech-container">
         <div className="text-center font-D tracking-wider  text-2xl sm:text-3xl md:text-4xl  ">
-          <h1> Technologie Fiable,</h1>
-          <h1 className="text-black/60">Performance Durable </h1>
+          <span ref={el}></span>
+          <br/>
+          <h1 className="text-black/60">Chez KINATECH </h1>
         </div>
         {isLoading ? (
           <div className="grid gap-4 grid-cols-2  lg:grid-cols-4 lg:grid-rows-2 ">
@@ -97,7 +120,8 @@ const error=false
               </div>
             ))}
           </div>
-        ) : (data ?? []).length > 0 ? (
+        ) : (data ?? []).length > 0 ? ( 
+          
           <div className="grid gap-4 grid-cols-2  lg:grid-cols-4 lg:grid-rows-2 ">
             {data?.map((item, index) => {
               return <SuggestionCard key={item.id} {...item} index={index} />;

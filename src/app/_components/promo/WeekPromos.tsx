@@ -80,7 +80,7 @@ const WeekPromos = ({data}:Props) => {
               }}
             >
               {data?.map((item) => (
-                <SwiperSlide key={item.id} className="pb-16">
+                <SwiperSlide key={item.id} className="">
                   <SecondCardProduct {...item} />
                 </SwiperSlide>
               ))}
