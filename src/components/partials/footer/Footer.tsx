@@ -79,7 +79,7 @@ const Footer = ({data}:{data:Category[]}) => {
   className="pointer-events-none object-contain"
 />
             <div className="flex font-D  items-center gap-x-2 leading-relaxed  max-w-xs   md:items-start">
-          <Icon name="MapPin" /> 131, Allee des mimoza ain sbaa 20 000 Casablanca
+          <span className="text-lg"><Icon name="MapPin" weight="bold" /></span> 131, Allee des mimoza ain sbaa 20 000 Casablanca
             </div>
           </div>
 
