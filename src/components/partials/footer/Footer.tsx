@@ -1,4 +1,5 @@
 "use client";
+import Icon from "@/components/IconComponent";
 import { Category, useMenuCategories } from "@/hooks/useMenuCategories";
 import Image from "next/image";
 import Link from "next/link";
@@ -77,11 +78,8 @@ const Footer = ({data}:{data:Category[]}) => {
   height={80}
   className="pointer-events-none object-contain"
 />
-            <div className="flex  items-center gap-x-2 leading-relaxed  max-w-xs   md:items-start">
-              L’équipe KINATECH est composée d’ingénieurs et de techniciens
-              hautement qualifiés dans les nouvelles technologies. On vous offre
-              un large choix de matériel de haute qualité à des prix
-              abordables....
+            <div className="flex font-D  items-center gap-x-2 leading-relaxed  max-w-xs   md:items-start">
+          <Icon name="MapPin" /> 131, Allee des mimoza ain sbaa 20 000 Casablanca
             </div>
           </div>
 
