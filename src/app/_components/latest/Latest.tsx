@@ -25,7 +25,8 @@ const Latest = ({ data }: Props) => {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          variants={animationOfParent}
+          variants={animationOfParent} 
+      viewport={{ once: true, amount: 0.3 }}
           className="containerGridCase2 grid  gap-10 grid-cols-1 sm:grid-cols-2  lg:grid-cols-4"
         >
           {isLoading
