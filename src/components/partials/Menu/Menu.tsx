@@ -6,7 +6,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import {
   Category,
   Product,
-  useMenuCategories,
 } from "@/hooks/useMenuCategories";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
@@ -177,7 +176,7 @@ const NavbarPhone = () => {
             <Link
               key={index}
               className={clsx(
-                pathName == item.url && "bg-main text-white",
+                pathName == item.url.replace('/','') && "bg-main text-white",
                 "text-3xl text-blk p-3  scale-minus- text-white-hover bg-maincolor-hover rounded-full"
               )}
               href={item.url}
