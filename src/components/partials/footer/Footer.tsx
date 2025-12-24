@@ -153,7 +153,7 @@ const Footer = ({data}:{data:Category[]}) => {
           </div>
 
           <a
-            target="_blank"
+            target="_blank" 
             href="https://www.elloutfi.com"
             className=" group transitionclass hover:underline hover:opacity-100  opacity-80 text-sm flex justify-center items-start "
           >

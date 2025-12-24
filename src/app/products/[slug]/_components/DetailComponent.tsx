@@ -465,7 +465,6 @@ const router=useRouter()
                         photo: currentColor?.images[0],
                         max: currentVariant?.quantity,
                         name: currentVariant?.name,
-                        capacity: currentVariant?.capacity,
                         price:
                           discount != null
                             ? calculNewPrice(
@@ -473,7 +472,6 @@ const router=useRouter()
                                 Number(currentVariant?.price)
                               )
                             : currentVariant?.price,
-                        ram: currentVariant?.ram,
                         quantity: 1,
                         url: url,
                       })
