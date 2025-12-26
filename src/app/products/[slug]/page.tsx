@@ -14,10 +14,10 @@ export async function generateMetadata({ params }: Props) {
   const product = await getProduct(p.slug);
 
   return {
-    title: product?.Title || "Produit Kinatech",
+    title: product?.slug || "Produit Kinatech",
     description: product?.description || "Découvrez notre produit sur Kinatech",
     openGraph: {
-      title: product?.Title || "Produit Kinatech",
+      title: product?.slug || "Produit Kinatech",
       description:
         product?.description || "Découvrez notre produit sur Kinatech",
       images: [
