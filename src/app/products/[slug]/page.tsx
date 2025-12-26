@@ -10,7 +10,8 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props) {
-  const product = await getProduct(params.slug);
+  const p=await params
+  const product = await getProduct(p.slug);
 
   return {
     title: product?.Title || "Produit Kinatech",

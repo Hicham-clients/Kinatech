@@ -40,7 +40,7 @@ const Latest = ({ data }: Props) => {
             href={"/products_categories"}
             className="bg-white text-blk p-2 rounded-lg font-D px-5 scale-minus-hover   w-fit"
           >
-            En savoir plus{" "}
+            Voir les produits{" "}
           </Link>
         </div>
       </div>
