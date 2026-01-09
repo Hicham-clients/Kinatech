@@ -76,6 +76,19 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.ico",
   },
+    robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+      "max-snippet": -1,
+    },
+  },
+
+
 };
 
 export default function RootLayout({
