@@ -52,7 +52,7 @@ const links = [
   { name: "Panier", url: "/cart" },
   { name: "Nos produits", url: "/products_categories" },
   { name: "Marques", url: "/products_categories?brand=apple" },
-  { name: "Contactez nous", url: "/contact" },
+  { name: "Contactez nous", url: "https://kinatech.ma/contact.html" },
 ];
 
 const Title = ({ value }: { value: string }) => {
