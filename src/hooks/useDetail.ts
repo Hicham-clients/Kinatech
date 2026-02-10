@@ -10,6 +10,7 @@ export interface Variant {
   ram: string;
   capacity: string;
   custom_variant: string;
+  description: string;
 }
 
 // Color
