@@ -273,7 +273,7 @@ const router=useRouter()
             {/* {description} */}
             <div>
               <p className="whitespace-pre-line break-words font-A leading-relaxed tracking-wide ">
-                {currentVariant?.description??description}
+                {(currentVariant?.description)??description}
               </p>
             </div>
             <hr />
