@@ -356,7 +356,7 @@ const Menu = ({ data }: Props) => {
               )}
 
               {/* Children Categories */}
-              {currentCategoryData.childrens?.slice(0,3).map((child: Category) => (
+              {currentCategoryData.childrens?.slice(0,2).map((child: Category) => (
                 <div className="flex flex-col gap-y-5" key={child.id}>
                   <h1 className="text-grey tracking-wide capitalize">
                     {child.name}
