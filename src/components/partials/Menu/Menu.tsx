@@ -20,7 +20,7 @@ import Refetch from "../../Refetch";
 import { calculNewPrice, PriceFormat } from "@/functions/Discount";
 
 const SearchInput = () => {
-  const router = useRouter();
+  // const router = useRouter();
   const pathName = usePathname();
   const [value, setValue] = useState("");
   const [debouncedValue, setDebouncedValue] = useState(value);
@@ -42,11 +42,11 @@ const SearchInput = () => {
       document.body.style.overflow = "hidden";
     }
   }, [value]);
-  useEffect(() => {
-    if (value) {
-      router.push("?q=" + debouncedValue);
-    }
-  }, [debouncedValue, router, value]);
+  // useEffect(() => {
+  //   if (value) {
+  //     router.push("?q=" + debouncedValue);
+  //   }
+  // }, [debouncedValue, router, value]);
   useEffect(() => {
     setValue("");
   }, [pathName]);
@@ -356,7 +356,7 @@ const Menu = ({ data }: Props) => {
               )}
 
               {/* Children Categories */}
-              {currentCategoryData.childrens?.map((child: Category) => (
+              {currentCategoryData.childrens?.slice(0,3).map((child: Category) => (
                 <div className="flex flex-col gap-y-5" key={child.id}>
                   <h1 className="text-grey tracking-wide capitalize">
                     {child.name}

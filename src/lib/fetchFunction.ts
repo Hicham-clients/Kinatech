@@ -1,8 +1,9 @@
 import { notFound } from "next/navigation";
-
+const url="https://kinatech.ma/admin/public"
+// const url=process.env.NEXT_PUBLIC_API_URL
 //CATEGORIES
 export async function getCategories() {
-  const res = await fetch(`https://kinatech.ma/admin/public/api/categories`, {
+  const res = await fetch(`${url}/api/categories`, {
     next: { revalidate: 60 },
   });
 
@@ -15,7 +16,7 @@ export async function getCategories() {
 //BRANDS 
 export async function getBrands() {
     const res = await fetch(
-    `https://kinatech.ma/admin/public/api/brands`,
+    `${url}/api/brands`,
     {
       next: { revalidate: 60 },
     }
@@ -31,7 +32,7 @@ export async function getBrands() {
 }
 //Detail
 export const getProduct=async(slug:string)=>{
-  const response=await fetch(`https://kinatech.ma/admin/public/api/products/${slug}`,{
+  const response=await fetch(`${url}/api/products/${slug}`,{
     next:{
       revalidate:60
     },
