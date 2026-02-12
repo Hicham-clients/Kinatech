@@ -15,7 +15,7 @@ const ProductsCategories = ({children}:Props) => {
   const searchParams = useSearchParams();
   const [currentPage, setCurrentPage] = useState(1);
   const { data, isLoading, error, refetch } = useCategories(
-    `page=${currentPage}&` + searchParams.toString()
+    `page=${currentPage}&${searchParams.toString()}`
   );
   const handlePaginateClick = (event: { selected: number }) => {
     setCurrentPage(event.selected + 1);

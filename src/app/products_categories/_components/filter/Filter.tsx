@@ -85,7 +85,10 @@ const Filter = ({categories:data,brands}:props) => {
         </div>
         {searchParams.toString().length > 0 && (
           <button
-            onClick={() => router.push("/products_categories")}
+            onClick={() => {router.push("/products_categories")
+
+              setValue('')
+            }}
             className="text-sm underline-hover text-main-hover"
           >
             Supprimer Les Filtres

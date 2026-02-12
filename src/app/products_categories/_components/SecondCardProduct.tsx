@@ -20,10 +20,10 @@ const SecondCardProduct = ({
       )}
     >
       <div className=" flex flex-col gap-y-3 justify-between ">
-        <h1 className="kina-wrap  h-[2.7rem] font-D text-blk tracking-wide">
+        {/* <h1 className="kina-wrap  h-[2.7rem] font-D text-blk tracking-wide">
           {slug.slice(0, 34)}
           {slug.slice(34).length > 0 && "..."}
-        </h1>
+        </h1> */}
 
         <div className="w-full  h-[7rem] relative">
           <Image

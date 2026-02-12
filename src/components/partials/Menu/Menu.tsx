@@ -356,12 +356,12 @@ const Menu = ({ data }: Props) => {
               )}
 
               {/* Children Categories */}
-              {(currentCategoryData.childrens||[])?.length>1?currentCategoryData?.childrens?.slice(0,2).map((child: Category) => (
+              {currentCategoryData.childrens?.slice(0,2).map((child: Category) => (
                 <div className="flex flex-col gap-y-5" key={child.id}>
                   <h1 className="text-grey tracking-wide capitalize">
                     {child.name}
                   </h1>
-                  {(child.products ?? []).length > 0 && (
+                  {(child.childrens ?? []).length > 1 ? (
                     <div className="flex flex-col gap-y-2">
                       {child.childrens?.map((pro: Category) => (
                         <Link
@@ -373,15 +373,7 @@ const Menu = ({ data }: Props) => {
                         </Link>
                       ))}
                     </div>
-                  )}
-                </div>
-              )):currentCategoryData?.childrens?.slice(0,2).map((child: Category) => (
-                <div className="flex flex-col gap-y-5" key={child.id}>
-                  <h1 className="text-grey tracking-wide capitalize">
-                    {child.name}
-                  </h1>
-                  {(child.products ?? []).length > 0 && (
-                    <div className="flex flex-col gap-y-2">
+                  ): <div className="flex flex-col gap-y-2">
                       {child.products?.map((pro: Product) => (
                         <Link
                           key={pro.id}
@@ -391,9 +383,9 @@ const Menu = ({ data }: Props) => {
                           {pro.slug}
                         </Link>
                       ))}
-                    </div>
-                  )}
-                </div>))}
+                    </div>}
+                </div>
+              ))}
             </div>
           )}
         </div>

@@ -15,9 +15,11 @@ export const metadata: Metadata = {
 
 const Products = () => {
   return (
-    <><ProductsCategories>
+    <>
+    <ProductsCategories>
       <FilterServer />
-    </ProductsCategories></>
+    </ProductsCategories>
+    </>
     
   );
 };
