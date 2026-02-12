@@ -53,7 +53,7 @@ variants={animationOfChild}
             </span>
           )}
           {all_quantity == 0 && (
-            <span className=" font-D  rounded-bl-2xl  rounded-tr-2xl  text-[red]  p-1 absolute top-1 right-1 text-xs">
+            <span className=" font-D  bg-[#ff8c8cb0] w-fit  rounded-full   text-[red]  p-1 absolute top-1 right-1 text-xs">
               En rupture de stock
             </span>
           )}

@@ -252,7 +252,7 @@ const router=useRouter()
 
           <div className="w-full font-A flex-col gap-y-5 flex">
             {+allQ == 0 && (
-              <h1 className="text-xl font-bold text-[red] font-B uppercase tracking-wider">
+              <h1 className="text-xl font-bold bg-[#ff8c8cb0] w-fit p-2 rounded-2xl text-[red] font-B uppercase tracking-wider">
                 En rupture de stock
               </h1>
             )}{" "}
