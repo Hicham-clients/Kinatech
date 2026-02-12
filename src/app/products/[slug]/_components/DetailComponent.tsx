@@ -232,7 +232,7 @@ const router=useRouter()
                       key={index}
                       className={clsx(
                         index == currentIndex && "border-main opacity-[1]",
-                        "w-8 cursor-pointer opacity-[0.5] bg-white h-8 border border-r   p-1 flexCenter md:w-14 md:h-14 lg:w-16 lg:h-16 relative"
+                        "w-8 cursor-pointer opacity-[0.5] bg-white h-8 border border-r   p-1 flexCenter md:w-10 md:h-10 lg:w-12 lg:h-12 relative"
                       )}
                     >
                       <Image
