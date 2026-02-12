@@ -116,10 +116,10 @@ const Filter = ({categories:data,brands}:props) => {
                         key={item.id}
                         className={clsx(
                           // searchParams.get('category')?.split('-')[0].toLowerCase().startsWith(item.name.split(' ')[0].toLowerCase())&&'text-main'
-                          "flex   items-center justify-between text-[1rem] sm:text-sm tracking-wider  text-black hover:translate-x-4 text-main-hover hover:scale-[1.05] ")}
+                          "flex   items-center justify-between text-[1rem] sm:text-sm tracking-wider  text-black hover:translate-x-4 text-main-hover  ")}
                       >
                         <Link 
-                        className="min-w-fit"
+                        className="min-w-fit hover:scale-[1.05]"
                           href={`/products_categories?category=${item.url}`}
                         >
                           {item.name}

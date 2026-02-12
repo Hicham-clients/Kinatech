@@ -367,7 +367,7 @@ const Menu = ({ data }: Props) => {
                         <Link
                           key={pro.id}
                           className="text-main-hover block text-sm "
-                          href={`/products/${pro.url}`}
+                          href={`/products_categories?category=${pro.url}`}
                         >
                           {pro.name}
                         </Link>
