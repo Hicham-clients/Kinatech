@@ -366,7 +366,7 @@ const Menu = ({ data }: Props) => {
                       {child.products?.map((pro: Product) => (
                         <Link
                           key={pro.id}
-                          className="text-main-hover block truncate "
+                          className="text-main-hover block text-sm "
                           href={`/products/${pro.url}`}
                         >
                           {pro.slug}
