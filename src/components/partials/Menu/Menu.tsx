@@ -363,13 +363,13 @@ const Menu = ({ data }: Props) => {
                   </h1>
                   {(child.products ?? []).length > 0 && (
                     <div className="flex flex-col gap-y-2">
-                      {child.products?.map((pro: Product) => (
+                      {child.childrens?.map((pro: Category) => (
                         <Link
                           key={pro.id}
                           className="text-main-hover block text-sm "
                           href={`/products/${pro.url}`}
                         >
-                          {pro.slug}
+                          {pro.name}
                         </Link>
                       ))}
                     </div>
