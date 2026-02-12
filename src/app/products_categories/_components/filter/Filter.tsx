@@ -57,8 +57,8 @@ const Filter = ({categories:data,brands}:props) => {
     }, 300);
     return () => clearTimeout(timer);
   }, [value]);
+  const params = new URLSearchParams(searchParams);
   useEffect(() => {
-    const params = new URLSearchParams(searchParams);
   if (debouncedValue) {
     params.set("search", debouncedValue);
   } else {
@@ -87,7 +87,7 @@ const Filter = ({categories:data,brands}:props) => {
           <button
             onClick={() => {router.push("/products_categories")
 
-              setValue('')
+              params.set('search','')
             }}
             className="text-sm underline-hover text-main-hover"
           >
