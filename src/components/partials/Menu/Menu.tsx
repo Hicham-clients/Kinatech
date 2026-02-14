@@ -176,7 +176,7 @@ const NavbarPhone = () => {
             <Link
               key={index}
               className={clsx(
-                pathName == item.url.replace('/','') && "bg-main text-white",
+                pathName == item.url && "bg-main text-white",
                 "text-3xl text-blk p-3  scale-minus- text-white-hover bg-maincolor-hover rounded-full"
               )}
               href={item.url}
