@@ -22,7 +22,7 @@ const ProductsCategories = ({children,data}:Props) => {
   const handlePaginateClick = (event: { selected: number }) => {
     setCurrentPage(event.selected + 1);
        const params = new URLSearchParams(searchParams);
-         params.set("page",(currentPage+1).toString());
+         params.set("page",(event.selected + 1).toString());
        router.push(`/products_categories?${params.toString()}`
       
       )
