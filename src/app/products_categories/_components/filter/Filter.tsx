@@ -121,12 +121,16 @@ const Filter = ({categories:data,brands}:props) => {
                           // searchParams.get('category')?.split('-')[0].toLowerCase().startsWith(item.name.split(' ')[0].toLowerCase())&&'text-main'
                           "flex   items-center justify-between text-[1rem] sm:text-sm tracking-wider  text-black hover:translate-x-4 text-main-hover  ")}
                       >
-                        <Link 
+                        <span 
                         className="min-w-fit hover:scale-[1.05]"
-                          href={`/products_categories?category=${item.url}`}
+                        onClick={()=>{
+                             const params = new URLSearchParams(searchParams);
+                params.set("category",item.url );
+                router.push(`/products_categories?${params.toString()}`)
+                        }}
                         >
                           {item.name}
-                        </Link>
+                        </span>
                         {(item?.childrens ?? []).length > 0 && (
                           <span
                             className="w-full flex justify-end"
