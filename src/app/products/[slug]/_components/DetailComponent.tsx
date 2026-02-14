@@ -78,7 +78,7 @@ const CardColor = ({
           sizes="60px"
           src={imageSrc(image)}
           alt={name}
-          className=" object-contain pointer-events-none rounded-md"
+          className=" object-contain  rounded-md"
         />
       </div>
       <h3 className="font-semibold">{name}</h3>

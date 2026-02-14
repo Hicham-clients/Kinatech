@@ -40,7 +40,7 @@ export default function CartProduct({
             imageSrc(photo)
           }
           alt={name}
-          className=" object-contain pointer-events-none rounded-md"
+          className=" object-contain  rounded-md"
         />
       </Link>
       <div className="ml-6 flex-1">
