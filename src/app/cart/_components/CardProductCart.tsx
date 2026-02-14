@@ -44,16 +44,16 @@ export default function CartProduct({
         />
       </Link>
       <div className="ml-6 flex-1">
-        <div className="flex justify-between gap-x-5 items-start">
+        <div className="flex justify-between flex-wrap gap-x-5 items-start">
           <Link href={`/products/${url}`}>
             <h2 className=" text-lg font-D text-blk">{name}</h2>
             <p className="text-sm  text-grey mt-1">Couleur : {color}</p>
-            {capacity ||
+            {/* {capacity ||
               (ram && (
                 <p className="text-sm  text-grey">
                   Capacité : {capacity}| {ram}
                 </p>
-              ))}{" "}
+              ))}{" "} */}
           </Link>
           <p className="  text-lg font-D text-blk ">{PriceFormat(price)} DH</p>
         </div>
