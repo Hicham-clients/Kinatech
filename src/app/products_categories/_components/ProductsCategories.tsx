@@ -2,7 +2,7 @@
 import PageTitle from "@/components/PageTitle";
 import ProductCard from "./ProductCard";
 import { useCategories } from "@/hooks/useCategories";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Paginate from "./Paginate";
 import { ReactNode, useState } from "react";
 import CardProductLoading from "@/skeletons/CardProductLoading";
@@ -17,8 +17,14 @@ const ProductsCategories = ({children}:Props) => {
   const { data, isLoading, error, refetch } = useCategories(
     `${searchParams.toString()}&page=${currentPage}`
   );
+  const router=useRouter()
   const handlePaginateClick = (event: { selected: number }) => {
     setCurrentPage(event.selected + 1);
+       const params = new URLSearchParams(searchParams);
+         params.set("page",currentPage.toString());
+       router.push(`/products_categories?${params.toString()}`
+      
+      )
     window.scrollTo({ left: 0, top: 0 });
   };
   return (
