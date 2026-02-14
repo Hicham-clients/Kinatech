@@ -1,27 +1,28 @@
 "use client";
 import PageTitle from "@/components/PageTitle";
 import ProductCard from "./ProductCard";
-import { useCategories } from "@/hooks/useCategories";
+import { PaginatedResponse, Product, useCategories } from "@/hooks/useCategories";
 import { useRouter, useSearchParams } from "next/navigation";
 import Paginate from "./Paginate";
 import { ReactNode, useState } from "react";
-import CardProductLoading from "@/skeletons/CardProductLoading";
+// import CardProductLoading from "@/skeletons/CardProductLoading";
 import clsx from "clsx";
-import Refetch from "@/components/Refetch";
+// import Refetch from "@/components/Refetch";
 type Props = {
   children?: ReactNode;
+  data:PaginatedResponse
 };
-const ProductsCategories = ({children}:Props) => {
+const ProductsCategories = ({children,data}:Props) => {
   const searchParams = useSearchParams();
-  const [currentPage, setCurrentPage] = useState(1);
-  const { data, isLoading, error, refetch } = useCategories(
-    `${searchParams.toString()}&page=${currentPage}`
-  );
+  const [currentPage, setCurrentPage] = useState(Number(searchParams.get('page'))||1);
+  // const { data, isLoading, error, refetch } = useCategories(
+  //   `${searchParams.toString()}&page=${currentPage}`
+  // );
   const router=useRouter()
   const handlePaginateClick = (event: { selected: number }) => {
     setCurrentPage(event.selected + 1);
        const params = new URLSearchParams(searchParams);
-         params.set("page",currentPage.toString());
+         params.set("page",(currentPage+1).toString());
        router.push(`/products_categories?${params.toString()}`
       
       )
@@ -44,7 +45,7 @@ const ProductsCategories = ({children}:Props) => {
         <div className="flex flex-col md:flex-row  gap-10">
           {children}
           <div className="w-full">
-            {isLoading ? (
+            {/* {isLoading ? (
               <div
                 className={clsx(
                   "w-full grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-y-14 gap-5"
@@ -54,19 +55,23 @@ const ProductsCategories = ({children}:Props) => {
                   <CardProductLoading key={i} />
                 ))}{" "}
               </div>
-            ) : (data?.data ?? [])?.length > 0 ? (
+            ) : */}
+            {
+             (data?.data ?? [])?.length > 0 ? (
               <div
                 className={clsx(
                   "w-full grid sm:grid-cols-2 xl:grid-cols-3 gap-y-14 gap-5"
                 )}
               >
-                {data?.data.map((item) => (
+                {data?.data.map((item:Product) => (
                   <ProductCard {...item} key={item.id} />
                 ))}
               </div>
-            ) : error ? (
-              <Refetch onclick={refetch} />
-            ) : (
+            )
+            //  : error ? (
+            //   <Refetch onclick={refetch} />
+            // )
+             : (
               <div className=" text-center h-full flex justify-center items-center w-full font-A tracking-wider text-xl">
                 Pas des produits
               </div>

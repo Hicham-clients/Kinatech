@@ -48,3 +48,20 @@ export const getProduct=async(slug:string)=>{
 
   return data
 }
+
+export async function getProducts(params: Record<string, string>) {
+  const queryString = new URLSearchParams(params).toString();
+
+  const res = await fetch(
+    `${url}/api/products_categories?${queryString}`,
+    {
+      next: { revalidate: 60 },
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch products");
+  }
+
+  return res.json();
+}
