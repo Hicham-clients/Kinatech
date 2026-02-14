@@ -156,6 +156,7 @@ const DetailComponent = ({
     sessionStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 const router=useRouter()
+const [loadImage,setLoadImage]=useState(true)
   return (
     <div> 
 
@@ -186,7 +187,11 @@ const router=useRouter()
               <div className=" w-full h-full ">
                 <div className="w-full  bg-white  border-x-0 border-b-0  h-[300px] rounded-br-none rounded-bl-none rounded-xl lg:h-full overflow-hidden relative ">
                   <div className="relative h-full w-full">
-                    <Image
+                   {loadImage&& <div className="absolute bg-white inset-0 flexCenter ">
+<div className="border-2 border-t-main w-5 h-5 rounded-full animate-spin"/>
+                    </div>}
+                    <Image 
+                    onLoad={()=>setLoadImage(true)}
                       loading="lazy"
                       fill 
                       sizes="500px"
