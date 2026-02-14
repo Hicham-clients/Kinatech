@@ -30,7 +30,7 @@ const SuggestionCard = ({
       }
       className={clsx(
         index == 2
-          ? "lg:row-span-2 lg:col-span-2 bg-[#f4f4f4] rounded flex  w-full  order-4 lg:order-none  col-span-2 h-[170px] md:h-[500px] lg:h-full"
+          ? "lg:row-span-2 lg:col-span-2 bg-[#f4f4f4] rounded flex  w-full  order-4 lg:order-none  col-span-2 h-[500px] lg:h-full"
           : 
         "   h-[170px] md:h-[280px]    ",
 
