@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props) {
         product?.description || "Découvrez notre produit sur Kinatech",
       images: [
         {
-          url: product?.photo || "/images/kinatech/logo.png",
+          url: `https://kinatech.ma/admin/public/${product?.photo || "/images/kinatech/logo.png"}`,
           width: 800,
           height: 600,
         },
