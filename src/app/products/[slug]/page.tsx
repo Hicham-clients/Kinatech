@@ -25,8 +25,8 @@ export async function generateMetadata({ params }: Props) {
       images: [
         {
           url: imageSrc(product?.photo || "/images/kinatech/logo.png"),
-          width: 800,
-          height: 600,
+          width: 200,
+          height: 200,
         },
       ],
     },
