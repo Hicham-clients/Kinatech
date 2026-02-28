@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import DetailSkeleton from "@/skeletons/DetailLoading";
 import { getProduct } from "@/lib/fetchFunction";
 import { Product } from "@/hooks/useDetail";
+import { imageSrc } from "@/lib/getSrc";
 type Props = {
   params: {
     slug: string;
@@ -23,7 +24,7 @@ export async function generateMetadata({ params }: Props) {
         product?.description || "Découvrez notre produit sur Kinatech",
       images: [
         {
-          url: `https://kinatech.ma/admin/public/${product?.photo || "/images/kinatech/logo.png"}`,
+          url: imageSrc(product?.photo || "/images/kinatech/logo.png"),
           width: 800,
           height: 600,
         },
