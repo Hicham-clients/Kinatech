@@ -3,6 +3,7 @@ import PageDetail from "./_components/PageDetail";
 import { Suspense } from "react";
 import DetailSkeleton from "@/skeletons/DetailLoading";
 import { getProduct } from "@/lib/fetchFunction";
+import { Product } from "@/hooks/useDetail";
 type Props = {
   params: {
     slug: string;
@@ -33,13 +34,31 @@ export async function generateMetadata({ params }: Props) {
 
 const Detail = async ({ params }: any) => {
   const paramsResponse = await params;
-
-  const data = await getProduct(paramsResponse?.slug);
-
+  
+  const data:Product = await getProduct(paramsResponse?.slug);
+  if (!data) return notFound();
+const jsonLd={
+  "@context":'https://schema.org', 
+  "@type":'Product',
+  name:data?.slug, 
+  image:data.photo, 
+  description:data?.description,
+offers:{
+  '@type':'Offer', 
+  price:data.base_price, 
+  priceCurrency:'MAD', 
+  availability:data?.allQ?'https://schema.org/InStock':'https://schema.org/InStock'
+}
+}
   return (
+    <>
+    <script type="application/ld+json"
+    
+    dangerouslySetInnerHTML={{__html:JSON.stringify(jsonLd)}}
+    />
     <Suspense fallback={<DetailSkeleton />}>
       <PageDetail data={data} />{" "}
-    </Suspense>
+    </Suspense></>
   );
 };
 export default Detail;
