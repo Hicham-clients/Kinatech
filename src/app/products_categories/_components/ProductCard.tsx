@@ -28,7 +28,8 @@ variants={animationOfChild}
     >
       <div className="flex flex-col ">
         <div className="w-full  h-[200px] relative">
-          <Image
+          <Image 
+          unoptimized
             loading="lazy"
             fill
             sizes="150px"

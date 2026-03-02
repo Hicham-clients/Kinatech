@@ -42,7 +42,7 @@ const jsonLd={
   "@context":'https://schema.org', 
   "@type":'Product',
   name:data?.slug, 
-  image:data.photo, 
+  image:[data.photo], 
   description:data?.description,
 offers:{
   '@type':'Offer', 
