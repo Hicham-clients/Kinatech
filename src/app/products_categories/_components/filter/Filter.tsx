@@ -23,7 +23,7 @@ const Filter = ({categories:data,brands}:props) => {
     if (data && data.length > 0) {
       setCurrentCategoriesForDrilling(data);
     }
-  }, [data]);
+  }, []);
   const [history, setHistory] = useState<Category[][]>([]);
   // Function to go inside the selected category
   const handleClick = (category: Category) => {
@@ -119,13 +119,14 @@ const Filter = ({categories:data,brands}:props) => {
                         key={item.id}
                         className={clsx(
                           // searchParams.get('category')?.split('-')[0].toLowerCase().startsWith(item.name.split(' ')[0].toLowerCase())&&'text-main'
-                          "flex   items-center justify-between text-[1rem] sm:text-sm tracking-wider  text-black hover:translate-x-4 text-main-hover  ")}
+                          "flex   items-center justify-between text-[1rem] sm:text-sm tracking-wider  text-black  text-main-hover  ")}
                       >
                         <span 
-                        className="min-w-fit hover:scale-[1.05]"
+                        className="min-w-fit "
                         onClick={()=>{
                              const params = new URLSearchParams(searchParams);
                 params.set("category",item.url );
+
                 router.push(`/products_categories?${params.toString()}`)
                         }}
                         >
