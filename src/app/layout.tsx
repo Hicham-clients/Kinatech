@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     title: "KINATECH | Boutique high-tech au Maroc",
     description:
       "Achetez vos produits électroniques, ordinateurs portables, smartphones et gadgets au meilleur prix sur KINATECH. Qualité garantie et livraison rapide partout au Maroc.",
-    url: "https://www.kinatech.ma",
+    url: "https://www.store.kinatech.ma",
     siteName: "KINATECH",
     images: [
       {
@@ -69,9 +69,9 @@ export const metadata: Metadata = {
   authors: [{ name: "Elloutfi Hicham" }],
   creator: "Elloutfi Hicham",
   publisher: "KINATECH",
-  metadataBase: new URL("https://www.kinatech.ma"),
+  metadataBase: new URL("https://www.store.kinatech.ma"),
   alternates: {
-    canonical: "https://www.kinatech.ma",
+    canonical: "https://www.store.kinatech.ma",
   },
   icons: {
     icon: "/favicon.ico",
@@ -98,6 +98,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
+    <head>
+      <meta name="google-site-verification" content="Yd5vbMKnOgqxfm4Ff4HIupEAHWOM5f2DB-Tad3hRWjQ" />
+    </head>
       <body>
         <Providers>
           <ReactQueryProvider>

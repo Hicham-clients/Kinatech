@@ -6,10 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: [
-          "/public",
-          
-        ],
+      
       },
     ],
     sitemap: "https://store.kinatech.ma/sitemap.xml",
