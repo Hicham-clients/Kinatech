@@ -4,7 +4,7 @@ import type { MetadataRoute } from "next";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://store.kinatech.ma";
   const res = await fetch(
-    "https://kinatech.ma/admin/public/api/products_categories?page=1",
+    "https://kinatech.ma/admin/public/api/products_categories?page=6",
 {next:{revalidate:3600}}  );
   const data: PaginatedResponse = await res.json();
   const categories = data.data || [];
