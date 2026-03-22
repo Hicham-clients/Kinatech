@@ -7,8 +7,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "https://kinatech.ma/admin/public/api/products_categories?page=6",
 {next:{revalidate:3600}}  );
   const data: PaginatedResponse = await res.json();
-  const categories = data.data || [];
-  const categoriesUrls:MetadataRoute.Sitemap = categories.map((cat) => ({
+  const products = data.data || [];
+  const productsUrls:MetadataRoute.Sitemap = products.map((cat) => ({
     url: `${baseUrl}/products/${cat.url}`,
     lastModified: new Date(),
     changeFrequency: "weekly",
@@ -28,6 +28,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     },
   
-    ...categoriesUrls
+    ...productsUrls
   ];
 }
