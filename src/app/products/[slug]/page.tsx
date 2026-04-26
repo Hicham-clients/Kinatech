@@ -45,11 +45,12 @@ export async function generateMetadata({ params }: Props) {
   };
 }
 
+
 const Detail = async ({ params }: any) => {
   const paramsResponse = await params;
 
   const data: Product = await getProduct(paramsResponse?.slug);
-  const productUrl = `https://store.kinatech.ma/${data?.url}`;
+  const productUrl = `https://store.kinatech.ma/products/${data?.url}`;
 
   if (!data) return notFound();
   const jsonLd = {
