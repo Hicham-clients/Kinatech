@@ -4,13 +4,13 @@ import type { MetadataRoute } from "next";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://store.kinatech.ma";
   const res = await fetch(
-    "https://kinatech.ma/admin/public/api/products_categories?page=6",
-{next:{revalidate:3600}}  );
+    "https://kinatech.ma/admin/public/api/all_products",
+{next:{revalidate:86400}}  );
   const data: PaginatedResponse = await res.json();
   const products = data.data || [];
   const productsUrls:MetadataRoute.Sitemap = products.map((cat) => ({
     url: `${baseUrl}/products/${cat.url}`,
-    lastModified: new Date(),
+    lastModified: cat.updated_at,
     changeFrequency: "weekly",
     priority: 0.9,
   }));

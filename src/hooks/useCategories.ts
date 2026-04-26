@@ -18,6 +18,7 @@ export type Product = {
   all_quantity: number;
   promo: { product_id: number; discount: string } | null;
   brand: Brand;
+  updated_at?:string
 };
 
 type PaginationLinks = {
