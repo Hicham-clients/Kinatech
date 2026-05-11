@@ -1,11 +1,12 @@
 import { Promos } from "@/hooks/usePromos";
 import WeekPromos from "./WeekPromos"
+import { urlApi } from "@/lib/axios";
 
 
 export async function getPromos(): Promise<Promos[]> {
   try {
     const res = await fetch(
-      `https://kinatech.ma/admin/public/api/getpromos`,
+      `${urlApi}/admin/public/api/getpromos`,
       {
         next: { revalidate: 60 },
       }

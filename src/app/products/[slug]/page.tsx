@@ -5,6 +5,7 @@ import DetailSkeleton from "@/skeletons/DetailLoading";
 import { getProduct } from "@/lib/fetchFunction";
 import { Product } from "@/hooks/useDetail";
 import { imageSrc } from "@/lib/getSrc";
+import { urlApi } from "@/lib/axios";
 type Props = {
   params: {
     slug: string;
@@ -50,14 +51,14 @@ const Detail = async ({ params }: any) => {
   const paramsResponse = await params;
 
   const data: Product = await getProduct(paramsResponse?.slug);
-  const productUrl = `https://store.kinatech.ma/products/${data?.url}`;
+  const productUrl = `${urlApi}/products/${data?.url}`;
 
   if (!data) return notFound();
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: data?.slug,
-    image: [data.photo],
+    image: imageSrc(data.photo),
     description: cleanDescription(data?.description),
     offers: {
       "@type": "Offer",

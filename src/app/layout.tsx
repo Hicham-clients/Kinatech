@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     title: "KINATECH | Boutique high-tech au Maroc",
     description:
       "Achetez vos produits électroniques, ordinateurs portables, smartphones et gadgets au meilleur prix sur KINATECH. Qualité garantie et livraison rapide partout au Maroc.",
-    url: "https://www.store.kinatech.ma",
+    url: `https://www.store.kinatech.ma`,
     siteName: "KINATECH",
     images: [
       {

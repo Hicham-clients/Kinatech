@@ -130,7 +130,7 @@ const DetailComponent = ({
 }: Product) => {
   const [currentVariant, setCurrentVariant] = useState<null | Variant>(null);
   const [currentColor, setCurrentColor] = useState<null | Color>(
-    colors[0] ?? null
+    colors?.length>0?colors[0] : null
   );
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
@@ -498,9 +498,9 @@ const [loadImage,setLoadImage]=useState(true)
                 className={clsx(
                   cart?.find((item) => item.id == currentVariant?.id)
                     ?.quantity === currentVariant?.quantity
-                    ? "opacity-[0.6] cursor-not-allowed bg-main hover:bg-main active:bg-main w-full"
+                    ? "opacity-[0.6] cursor-not-allowed bg-main hover:bg-main active:bg-main "
                     : "bg-main bg-main-hover",
-                  " text-white w-full kinatech-btn  font-D  "
+                  " text-white mx-auto kinatech-btn  font-D w-fit px-2 "
                 )}
               >
                 <span className="text-2xl">

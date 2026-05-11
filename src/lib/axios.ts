@@ -1,9 +1,8 @@
 import axios, { InternalAxiosRequestConfig } from "axios";
 import Cookies from "js-cookie"; 
-const url="https://kinatech.ma/admin/public"
-// const url=process.env.NEXT_PUBLIC_API_URL
+export const urlApi=process.env.NEXT_PUBLIC_API_URL
 export const axiosInstance = axios.create({
-  baseURL: url,
+  baseURL: urlApi,
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
@@ -12,7 +11,7 @@ export const axiosInstance = axios.create({
 });
 
 export const fetchCsrfToken = async () => {
-  await axios.get(`${url}/sanctum/csrf-cookie`, {
+  await axios.get(`${urlApi}/sanctum/csrf-cookie`, {
     withCredentials: true,
   });
 };

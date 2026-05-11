@@ -5,24 +5,24 @@ const nextConfig: NextConfig = {
   // output:'export'
     images: {
       
+    //  remotePatterns: [
+    //   {
+    //     protocol: "https",
+    //     hostname:"kinatech.ma",
+    //     pathname: "/**",
+    //   },
+      
+    // ]
+  // },
+  //  images: {
      remotePatterns: [
       {
-        protocol: "https",
-        hostname:"kinatech.ma",
+        protocol: "http",
+        hostname:"localhost",
         pathname: "/**",
       },
-      
     ]
   },
-  //  images: {
-  //    remotePatterns: [
-  //     {
-  //       protocol: "http",
-  //       hostname:"localhost",
-  //       pathname: "/**",
-  //     },
-  //   ]
-  // },
  
 };
 

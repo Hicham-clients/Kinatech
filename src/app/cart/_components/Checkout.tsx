@@ -58,7 +58,7 @@ const CheckoutComponent = () => {
         }
       );
 
-      if (res.status == 200) {
+      if (res.status == 201) {
         dispatch(ToggleSummary(false));
 
         const timer = setTimeout(() => {

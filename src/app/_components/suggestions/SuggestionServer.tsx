@@ -1,12 +1,14 @@
 import { HeroSectionType } from "@/hooks/useHero";
 import Suggestion from "./Suggestion";
+import { urlApi } from "@/lib/axios";
 
 export async function getSuggestions(
   sectiontype: string
 ): Promise<HeroSectionType[]> {
   try {
     const res = await fetch(
-      `https://kinatech.ma/admin/public/api/herosections/${sectiontype}`,
+     `${urlApi}/api/herosections/${sectiontype}`,
+     
       {
         next: { revalidate: 60 },
       }

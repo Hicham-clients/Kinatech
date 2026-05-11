@@ -5,6 +5,7 @@ import LatestServer from "./_components/latest/LatestServer";
 import Hero from "./_components/Hero";
 import SuggestionServer from "./_components/suggestions/SuggestionServer";
 import PromoServer from "./_components/promo/PromoServer";
+import { urlApi } from "@/lib/axios";
 
 export const metadata: Metadata = {
   title: "Kinatech | Acceuil",
@@ -15,7 +16,7 @@ export async function getHeros(
 ): Promise<HeroSectionType[]> {
   try {
     const res = await fetch(
-      `https://kinatech.ma/admin/public/api/herosections/${sectiontype}`,
+      `${urlApi}/api/herosections/${sectiontype}`,
       {
         next: { revalidate: 60 },
       }
@@ -34,6 +35,8 @@ export async function getHeros(
 
 const Home = async () => {
   const data = await getHeros("hero section");
+
+
   return (
     <>
       <Hero data={data} />

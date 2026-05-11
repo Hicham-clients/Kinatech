@@ -57,6 +57,8 @@ const ContactForm = () => {
     try{
 
       const res=axiosInstance.post('/api/sendEmail',data) 
+ 
+
       if((await res).status==200){
         alert((await res).data.message) 
 

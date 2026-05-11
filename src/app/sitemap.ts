@@ -1,15 +1,22 @@
-import { PaginatedResponse } from "@/hooks/useCategories";
+import { urlApi } from "@/lib/axios";
 import type { MetadataRoute } from "next";
-
+type ProductSiteMap={
+  id: number;
+  slug: string;
+  url: string;
+  base_price: string;
+  photo: string;
+  all_quantity: number;  
+  updated_at?:string
+}
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://store.kinatech.ma";
 
   const res = await fetch(
-    "https://kinatech.ma/admin/public/api/all_products",
+    `${urlApi}/api/all_products`,
     { next: { revalidate: 86400 } }
   );
 
-  // 🔴 Handle bad responses
   if (!res.ok) {
     console.error("Sitemap fetch failed:", res.status);
     return [
@@ -20,23 +27,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ];
   }
 
-  // 🔴 Read as text first (debug safe)
-  const text = await res.text();
-
-  let data: PaginatedResponse;
+  let products: ProductSiteMap[] = [];
   try {
-    data = JSON.parse(text);
+    products = await res.json();
   } catch (err) {
-    console.error("Invalid JSON response:", text.slice(0, 200));
-    return [
-      {
-        url: `${baseUrl}/`,
-        lastModified: new Date(),
-      },
-    ];
+    console.error("Sitemap: invalid JSON from /api/all_products");
+    return [{ url: `${baseUrl}/`, lastModified: new Date() }];
   }
-
-  const products = data.data || [];
 
   const productsUrls: MetadataRoute.Sitemap = products.map((cat) => ({
     url: `${baseUrl}/products/${cat.url}`,

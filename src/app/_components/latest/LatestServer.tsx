@@ -1,10 +1,11 @@
 import { Product } from "@/hooks/useCategories";
 import Latest from "./Latest";
+import { urlApi } from "@/lib/axios";
 
 export async function getSuggestions(): Promise<Product[]> {
   try {
     const res = await fetch(
-      `https://kinatech.ma/admin/public/api/suggestions`,
+      `${urlApi}/admin/public/api/suggestions`,
       {
         next: { revalidate: 60 },
       }

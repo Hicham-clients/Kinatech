@@ -1,5 +1,4 @@
 import Icon from "@/components/IconComponent";
-import { useEffect } from "react";
 
 const Confirmer = ({
   name,
