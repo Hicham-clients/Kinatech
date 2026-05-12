@@ -500,7 +500,7 @@ const [loadImage,setLoadImage]=useState(true)
                     ?.quantity === currentVariant?.quantity
                     ? "opacity-[0.6] cursor-not-allowed bg-main hover:bg-main active:bg-main "
                     : "bg-main bg-main-hover",
-                  " text-white mx-auto kinatech-btn  font-D w-fit px-2 "
+                  " text-white mx-auto kinatech-btn  font-D w-fit md:w-full px-2 "
                 )}
               >
                 <span className="text-2xl">
