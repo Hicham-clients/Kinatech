@@ -1,7 +1,7 @@
 import axios, { InternalAxiosRequestConfig } from "axios";
 import Cookies from "js-cookie"; 
 // export const urlApi=process.env.NEXT_PUBLIC_API_URL
-export const urlApi="https://www.kinatech.ma/admin/public"
+export const urlApi="https://kinatech.ma/admin/public"
 export const axiosInstance = axios.create({
   baseURL: urlApi,
   headers: {
