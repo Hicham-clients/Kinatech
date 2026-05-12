@@ -130,7 +130,7 @@ const DetailComponent = ({
 }: Product) => {
   const [currentVariant, setCurrentVariant] = useState<null | Variant>(null);
   const [currentColor, setCurrentColor] = useState<null | Color>(
-    colors?.length>0?colors[0] : null
+    colors[0]
   );
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
