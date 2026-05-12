@@ -52,8 +52,8 @@ const SuggestionCard = ({
       <button
         className={clsx(
           index == 2 ? "w-1/2" : "w-[90%]",
-          isHover && "-translate-y-14",
-          " absolute z-30 bg-black/60 -bottom-10  left-1/2 -translate-x-1/2  font-D text-white  flex justify-center items-center rounded-3xl p-2 text-sm "
+          isHover && "-translate-y-14 inline-block",
+          " absolute z-30 bg-black/60 -bottom-10 hidden left-1/2 -translate-x-1/2  font-D text-white  flex justify-center items-center rounded-3xl p-2 text-sm "
         )}
       >
         Acheter maintenant
