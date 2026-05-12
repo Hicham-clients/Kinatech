@@ -5,7 +5,7 @@ import { urlApi } from "@/lib/axios";
 export async function getSuggestions(): Promise<Product[]> {
   try {
     const res = await fetch(
-      `${urlApi}/admin/public/api/suggestions`,
+      `${urlApi}/api/suggestions`,
       {
         next: { revalidate: 60 },
       }

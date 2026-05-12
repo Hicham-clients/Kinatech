@@ -6,7 +6,7 @@ import { urlApi } from "@/lib/axios";
 export async function getPromos(): Promise<Promos[]> {
   try {
     const res = await fetch(
-      `${urlApi}/admin/public/api/getpromos`,
+      `${urlApi}/api/getpromos`,
       {
         next: { revalidate: 60 },
       }
