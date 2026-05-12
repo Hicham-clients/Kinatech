@@ -15,7 +15,7 @@ const CartComponent = () => {
   return (
     <div className="flex flex-col gap-y-5 w-full">
       <h1 className=" font-D text-3xl tracking-wider">Panier</h1>
-      {cart.toReversed().map((item) => (
+      {[...cart].reverse().map((item) => (
         <CartProduct {...item} key={item.id} />
       ))}
     </div>
