@@ -62,7 +62,7 @@ const CheckoutComponent = () => {
         dispatch(ToggleSummary(false));
 
         const timer = setTimeout(() => {
-          // dispatch(ViderCart());
+          dispatch(ViderCart());
           //
           reset();
           dispatch(ToggleSummary(true));
