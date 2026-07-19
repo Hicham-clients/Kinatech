@@ -1,26 +1,28 @@
 "use client";
-import { Product, useDetails } from "@/hooks/useDetail";
+import { Product } from "@/hooks/useDetail";
+import { useStock } from "@/hooks/useStock";
 import DetailComponent from "./DetailComponent";
-import { useParams } from "next/navigation";
-import DetailSkeleton from "@/skeletons/DetailLoading";
-import Refetch from "@/components/Refetch";
-type Props={
-  data:Product
-}
-const PageDetail = ({data}:Props) => {
-  // const { slug }: { slug: string } = useParams();
-  // const { data, isLoading, error, refetch } = useDetails(slug);
-  // if (isLoading) {
-  //   return <DetailSkeleton />;
-  // }
-  // if (error) {
-  //   return (
-  //     <div className="flex h-[50vh] flexCenter">
-  //       <Refetch onclick={refetch} />
-  //     </div>
-  //   );
-  // }
 
-  return data && <DetailComponent {...data} />;
+type Props = {
+  data: Product;
+  slug: string;
+};
+
+/**
+ * `data` arrive du serveur en ISR (API statique, cache 24h).
+ * Le stock est récupéré ici, côté client, sur l'API dynamique — jamais caché.
+ */
+const PageDetail = ({ data, slug }: Props) => {
+  const { data: stock, isLoading: stockLoading } = useStock(slug);
+
+  if (!data) return null;
+
+  return (
+    <DetailComponent
+      product={data}
+      stock={stock ?? null}
+      stockLoading={stockLoading}
+    />
+  );
 };
 export default PageDetail;

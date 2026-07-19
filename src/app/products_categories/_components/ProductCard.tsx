@@ -1,3 +1,4 @@
+"use client";
 import { animationOfChild } from "@/animations/variants";
 import { calculNewPrice, PriceFormat } from "@/functions/Discount";
 import { Product } from "@/hooks/useCategories";
@@ -7,6 +8,10 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
+// Hors du composant : recréer le composant motion à chaque rendu
+// démonterait/remonterait le lien. `motion()` est déprécié → `motion.create()`.
+const LinkMotion = motion.create(Link);
+
 const ProductCard = ({
   slug,
   url,
@@ -15,8 +20,7 @@ const ProductCard = ({
   brand,
   base_price,
   all_quantity,
-}: Product) => { 
-  const LinkMotion=motion(Link)
+}: Product) => {
   return (
     <LinkMotion 
 variants={animationOfChild}

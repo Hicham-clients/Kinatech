@@ -155,6 +155,14 @@ const NavbarPhone = () => {
       url: "/products_categories",
       icon: "SquaresFour",
     },
+    // {
+    //   url: "/marque",
+    //   icon: "AppleLogo",
+    // },
+    {
+      url: "/promos",
+      icon: "Tag",
+    },
     {
       url: "/cart",
       icon: "Bag",
@@ -169,15 +177,16 @@ const NavbarPhone = () => {
   const pathName = usePathname();
 
   return (
-    <div className="sm:hidden fixed bottom-0  w-full left-0 z-[999] rounded-t-3xl border border-gray-300">
-      <div className="flex p-2 justify-around gap-x-5 bg-white rounded-t-3xl mx-auto">
+    <div className="lg:hidden fixed bottom-0  w-full left-0 z-[999] rounded-t-3xl border border-gray-300">
+      {/* 6 entrées : espacement resserré pour tenir sur les petits écrans */}
+      <div className="flex p-2 justify-around gap-x-1 bg-white rounded-t-3xl mx-auto">
         {navLinks.map((item, index) => {
           return (
             <Link
               key={index}
               className={clsx(
                 pathName == item.url && "bg-main text-white",
-                "text-3xl text-blk p-3  scale-minus- text-white-hover bg-maincolor-hover rounded-full"
+                "text-2xl xs:text-3xl text-blk p-2.5 scale-minus- text-white-hover bg-maincolor-hover rounded-full"
               )}
               href={item.url}
             >
@@ -321,6 +330,14 @@ const Menu = ({ data }: Props) => {
               <li className="text-sm underline-hover">
                 <Link href={"/products_categories"}>Tous nos produits</Link>
               </li>
+              <li className="text-sm underline-hover">
+                <Link href={"/marque"}>Nos marques</Link>
+              </li>
+              <li className="text-sm">
+                <Link href={"/promos"} className="btn-shine">
+                  Promotions
+                </Link>
+              </li>
             </ul>
           ) : (
             <div className="py-5" />
@@ -417,7 +434,8 @@ const Menu = ({ data }: Props) => {
               <div>
                 <div className="bg-main px-padding">
                   <Link
-                    href={"products_categories?brand=samsung"}
+                    onClick={() => ToggleSide(false)}
+                    href={"/marque"}
                     className="py-padding text-white-hover uppercase tracking-wide flex items-center gap-x-5"
                   >
                     <span className="text-4xl">
@@ -427,6 +445,7 @@ const Menu = ({ data }: Props) => {
                   </Link>
                   <hr />
                   <Link
+                    onClick={() => ToggleSide(false)}
                     href={"/products_categories"}
                     className="py-padding text-white-hover uppercase tracking-wide flex items-center gap-x-5"
                   >
@@ -434,6 +453,17 @@ const Menu = ({ data }: Props) => {
                       <Icon name="Storefront" />
                     </span>
                     <span className="underline-hover">Tous Nos Produits</span>
+                  </Link>
+                  <hr />
+                  <Link
+                    onClick={() => ToggleSide(false)}
+                    href={"/promos"}
+                    className="py-padding text-white-hover uppercase tracking-wide flex items-center gap-x-5"
+                  >
+                   
+                    <span className="btn-shine w-fu" style={{borderRadius:'12px'}}>Promotions  <span className="text-4xl">
+                      <Icon name="Gift" />
+                    </span></span>
                   </Link>
                 </div>
                 <div className="p-5">

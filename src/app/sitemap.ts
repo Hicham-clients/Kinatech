@@ -1,4 +1,7 @@
 import { urlApi } from "@/lib/axios";
+import { getBrandsWithProducts } from "@/lib/fetchFunction";
+import { brandSlug } from "@/lib/slug";
+import { SITE_URL } from "@/lib/seo";
 import type { MetadataRoute } from "next";
 type ProductSiteMap={
   id: number;
@@ -10,7 +13,7 @@ type ProductSiteMap={
   updated_at?:string
 }
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://store.kinatech.ma";
+  const baseUrl = SITE_URL;
 
   const res = await fetch(
     `${urlApi}/api/all_products`,
@@ -35,12 +38,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     return [{ url: `${baseUrl}/`, lastModified: new Date() }];
   }
 
-  const productsUrls: MetadataRoute.Sitemap = products.map((cat) => ({
-    url: `${baseUrl}/products/${cat.url}`,
-    lastModified: cat.updated_at,
+  const brands = await getBrandsWithProducts();
+  const brandsUrls: MetadataRoute.Sitemap = brands.map((brand) => ({
+    url: `${baseUrl}/marque/${brandSlug(brand.name)}`,
+    lastModified: new Date(),
     changeFrequency: "weekly",
-    priority: 0.9,
+    priority: 0.8,
   }));
+
+  const productsUrls: MetadataRoute.Sitemap = products
+    .filter((p) => p?.url)
+    .map((cat) => ({
+      url: `${baseUrl}/products/${cat.url}`,
+      // `updated_at` peut manquer selon le produit : un <lastmod> vide
+      // rend l'entrée invalide pour Google.
+      lastModified: cat.updated_at ? new Date(cat.updated_at) : new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    }));
 
   return [
     {
@@ -55,6 +70,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly",
       priority: 0.7,
     },
+    {
+      url: `${baseUrl}/promos`,
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/marque`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/contact`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.4,
+    },
+    ...brandsUrls,
     ...productsUrls,
   ];
 }

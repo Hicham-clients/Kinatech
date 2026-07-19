@@ -28,25 +28,29 @@ export default function CartProduct({
 
   return (
     <div className="flex font-A items-start py-6 border-b border-grey w-full  ">
-      <Link href={`/products/${url}`} className="flex-shrink-0 flexCenter">
+      {/* Taille fixe + overflow-hidden : une image manquante affichait son
+          texte alternatif en entier et faisait exploser la mise en page. */}
+      <Link
+        href={`/products/${url}`}
+        className="flexCenter h-20 w-20 flex-shrink-0 overflow-hidden rounded-md bg-[#fafafa]"
+      >
         <Image
           loading="lazy"
           width={80}
           height={80}
           sizes="80px"
-          
-          src={
-            // "/noir.webp"
-            imageSrc(photo)
-          }
-          alt={name}
-          className=" object-contain  rounded-md"
+          src={imageSrc(photo)}
+          alt=""
+          className="h-full w-full object-contain"
         />
       </Link>
-      <div className="ml-6 flex-1">
+      <div className="ml-6 flex-1 min-w-0">
         <div className="flex justify-between flex-wrap gap-x-5 items-start">
-          <Link href={`/products/${url}`}>
-            <h2 className=" text-lg font-D text-blk">{name}</h2>
+          <Link href={`/products/${url}`} className="min-w-0">
+            <h2 className="text-base md:text-lg font-D text-blk" title={name}>
+              {name.slice(0, 60)}
+              {name.length > 60 && "..."}
+            </h2>
             <p className="text-sm  text-grey mt-1">Couleur : {color}</p>
             {/* {capacity ||
               (ram && (

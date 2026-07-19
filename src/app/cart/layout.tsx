@@ -11,7 +11,12 @@ import { usePathname } from "next/navigation";
 import clsx from "clsx";
 
 const LayoutCart = ({ children }: { children: React.ReactNode }) => {
-  const { cart, showSummary } = useSelector((state: RootState) => state.cart);
+  const { cart, showSummary, orderConfirmed } = useSelector(
+    (state: RootState) => state.cart
+  );
+  // Après une commande le panier est vide, mais la confirmation doit rester
+  // affichée jusqu'à ce que l'utilisateur quitte la page lui-même.
+  const showContent = cart.length > 0 || orderConfirmed;
   const pathname = usePathname();
   const [loading, setLoading] = useState(true);
 
@@ -27,7 +32,7 @@ const LayoutCart = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <>
-      {cart.length > 0 && (
+      {showContent && (
         <div className="flex items-center   font-A   kinatech-container p-paddingPhone  lg:px-paddingPC">
           {[
             { name: "Panier", url: "/cart" },
@@ -56,7 +61,7 @@ const LayoutCart = ({ children }: { children: React.ReactNode }) => {
         </div>
       )}
 
-      {cart.length > 0  ? (
+      {showContent ? (
         <div className="p-paddingPhone py-paddingPC lg:px-paddingPC">
           <div className="flex flex-col gap-10 md:flex-row kinatech-container ">
             {children}

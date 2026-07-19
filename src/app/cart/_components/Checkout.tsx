@@ -6,12 +6,20 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { axiosInstance } from "@/lib/axios";
-import { ToggleSummary, ViderCart } from "@/store/productSlice";
+import { isAxiosError } from "axios";
+import {
+  setOrderConfirmed,
+  ToggleSummary,
+  ViderCart,
+} from "@/store/productSlice";
 import Link from "next/link";
 import Image from "next/image";
+import Icon from "@/components/IconComponent";
+import OrderSuccess, { type Partiel } from "./OrderSuccess";
+import OrderErrorModal from "./OrderErrorModal";
 const CheckoutComponent = () => {
   const { cart } = useSelector((state: RootState) => state.cart);
   const router = useRouter();
@@ -36,10 +44,26 @@ const CheckoutComponent = () => {
 
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting, isSubmitSuccessful },
+    formState: { errors, isSubmitting },
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
   });
+  // Succès explicite : `isSubmitSuccessful` de react-hook-form passe à true
+  // dès que onSubmit se termine sans lever d'exception — donc aussi quand
+  // l'API a échoué et qu'on a intercepté l'erreur. Il ne peut pas servir ici.
+  const [orderSuccess, setOrderSuccess] = useState(false);
+  // Message d'échec affiché dans le formulaire (remplace l'alert() natif)
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  // Articles retirés faute de stock, renvoyés par l'API
+  const [indisponibles, setIndisponibles] = useState<string[]>([]);
+  // Numéro de commande renvoyé par l'API, affiché sur la confirmation
+  const [numeroCommande, setNumeroCommande] = useState<number | null>(null);
+  // Rupture de stock détectée au moment de commander (réponse 409).
+  // Distinct de submitError : ce n'est pas une panne, c'est un stock épuisé.
+  const [rupture, setRupture] = useState<string[] | null>(null);
+  // Articles servis en quantité réduite faute de stock suffisant
+  const [partiels, setPartiels] = useState<Partiel[]>([]);
+
   const onSubmit = async (commande: ContactFormData) => {
     const products = cart.map((item) => {
       return { id: item.id, quantity: item.quantity };
@@ -48,6 +72,9 @@ const CheckoutComponent = () => {
       commande,
       products,
     };
+
+    setSubmitError(null);
+    setRupture(null);
 
     try {
       const res = await axiosInstance.post(
@@ -58,56 +85,106 @@ const CheckoutComponent = () => {
         }
       );
 
-      if (res.status == 201) {
-        dispatch(ToggleSummary(false));
-
-        const timer = setTimeout(() => {
-          dispatch(ViderCart());
-          //
-          reset();
-          dispatch(ToggleSummary(true));
-        }, 7000);
-        return () => clearTimeout(timer);
+      if (res.status !== 201) {
+        // L'API ne confirme pas la création : on ne vide surtout pas le panier.
+        setSubmitError(
+          "La commande n'a pas pu être confirmée. Veuillez réessayer."
+        );
+        return;
       }
-    } catch (error: unknown) {
-      alert("Réessayez la validation de la commande, il y a un problème");
+
+      setIndisponibles(res.data?.indisponibles ?? []);
+      setPartiels(res.data?.partiels ?? []);
+      setNumeroCommande(res.data?.commande?.id ?? null);
+      setOrderSuccess(true);
+      reset();
+
+      // Le panier est vidé tout de suite : la commande est enregistrée.
+      // Aucun setTimeout ici — la confirmation reste affichée jusqu'à ce
+      // que l'utilisateur choisisse lui-même de quitter la page.
+      dispatch(setOrderConfirmed(true));
       dispatch(ViderCart());
+      dispatch(ToggleSummary(false));
+    } catch (error: unknown) {
+      // Le panier est conservé pour que le client puisse réessayer.
+      let message =
+        "Impossible d'enregistrer votre commande. Vérifiez votre connexion et réessayez.";
+
+      if (isAxiosError(error)) {
+        const status = error.response?.status;
+        const apiMessage = error.response?.data?.message;
+
+        // 409 = rupture de stock : traité à part, avec la liste des articles
+        // concernés et une invitation à modifier le panier.
+        if (status === 409) {
+          setRupture(error.response?.data?.indisponibles ?? []);
+          return;
+        }
+
+        if (status === 422) {
+          message =
+            apiMessage ??
+            "Certaines informations sont invalides. Vérifiez le formulaire.";
+        } else if (apiMessage) {
+          message = apiMessage;
+        }
+      }
+
+      setSubmitError(message);
     }
   };
+  // En quittant la page, on retire le drapeau : sinon un panier vide
+  // continuerait d'afficher le contenu au lieu de la page "panier vide".
+  useEffect(() => {
+    return () => {
+      dispatch(setOrderConfirmed(false));
+    };
+  }, [dispatch]);
+
   //Protected Route
   useEffect(() => {
-    if (cart.length == 0) {
+    // `orderSuccess` neutralise la redirection : vider le panier après une
+    // commande réussie rendrait ce garde-fou actif et chasserait
+    // l'utilisateur de sa propre page de confirmation.
+    if (cart.length == 0 && !orderSuccess) {
       router.push("/products_categories");
     }
-  }, [cart, router]);
-  return isSubmitSuccessful ? (
-    <div className=" md:w-1/2 mx-auto flex select-none  justify-center items-center font-A  flex-col gap-y-5">
-      <div className="relative h-52 w-52 ">
-        <Image
-          fill
-          sizes="400px"
-          alt="icon confirmation"
-          src={"/images/cart/iconconfirm.webp"}
-          className="w-full h-full absolute pointer-events-none object-cover"
-        />
-      </div>
-      <div className="flex flex-col justify-center items-center">
-        <h1 className="   text-center font-D text-2xl">
-          Votre commande a été enregistrée avec succès.
-        </h1>
-        <p className="text-center max-w-md text-grey">
-          Nous vous contacterons par téléphone pour confirmer votre commande
-        </p>
-      </div>
-      <Link
-        href={"/products_categories"}
-        className="w-fit text-sm flex bg-second-hover font-D  border p-2 rounded-lg text-center bg-second text-white"
-      >
-        Continuer vos achats
-      </Link>
-    </div>
+  }, [cart, router, orderSuccess]);
+  return orderSuccess ? (
+    <OrderSuccess
+      numeroCommande={numeroCommande}
+      indisponibles={indisponibles}
+      partiels={partiels}
+    />
   ) : (
     <div className="flex flex-col gap-y-5 w-full">
+      {/* Les échecs passent en modale : dans le formulaire, l'encart était
+          souvent hors écran après un envoi depuis le bas de la page. */}
+      {rupture && (
+        <OrderErrorModal
+          variant="rupture"
+          message={
+            rupture.length > 0
+              ? "Le stock de ces articles vient de tomber à zéro pendant votre commande."
+              : "Les articles de votre panier ne sont plus disponibles."
+          }
+          articles={rupture}
+          onClose={() => setRupture(null)}
+        />
+      )}
+
+      {submitError && (
+        <OrderErrorModal
+          variant="erreur"
+          message={submitError}
+          onClose={() => setSubmitError(null)}
+          onRetry={() => {
+            setSubmitError(null);
+            handleSubmit(onSubmit)();
+          }}
+        />
+      )}
+
       <h1 className=" font-D text-3xl tracking-wider">
         Validation de la commande
       </h1>
@@ -214,11 +291,31 @@ const CheckoutComponent = () => {
           <button
             disabled={isSubmitting}
             className={clsx(
-              isSubmitting && "opacity-[0.8]",
-              " bg-main bg-main-hover kinatech-btn w-fit "
+              isSubmitting && "cursor-wait opacity-70",
+              submitError ? "bg-second bg-second-hover" : "bg-main bg-main-hover",
+              "kinatech-btn w-full font-D text-white shadow-md sm:w-fit sm:px-10"
             )}
           >
-            {isSubmitting ? "en cours..." : "Commander"}
+            {isSubmitting ? (
+              <>
+                <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" />
+                Envoi en cours...
+              </>
+            ) : submitError ? (
+              <>
+                <span className="text-xl">
+                  <Icon name="ArrowClockwise" />
+                </span>
+                Réessayer
+              </>
+            ) : (
+              <>
+                <span className="text-xl">
+                  <Icon name="ShoppingBag" />
+                </span>
+                Commander
+              </>
+            )}
           </button>
         </form>
       </motion.div>

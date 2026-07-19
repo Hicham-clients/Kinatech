@@ -1,11 +1,12 @@
 "use client";
 import Icon from "@/components/IconComponent";
 import { Color, Product, Variant } from "@/hooks/useDetail";
+import type { ProductStock } from "@/hooks/useStock";
 import { imageSrc } from "@/lib/getSrc";
 import clsx from "clsx";
 import Image from "next/image";
 import { CaretLeft, CaretRight } from "phosphor-react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import * as PhosphorIcons from "phosphor-react";
 import { calculNewPrice, PriceFormat } from "@/functions/Discount";
 import { useDispatch, useSelector } from "react-redux";
@@ -108,31 +109,59 @@ const IconTitle = ({
         <Icon name={icon} />
       </span>
       <div className="flex flex-col gap-y-1">
-        <h1>{title}</h1>
+        <h3>{title}</h3>
         {children}
       </div>
     </div>
   );
 };
-const DetailComponent = ({
-  slug,
+type DetailProps = {
+  product: Product;
+  stock: ProductStock | null;
+  stockLoading: boolean;
+};
 
-  allQ,
-  photo,
-  description,
-  base_price,
-  // category,
-  brand_name,
-  brand_logo,
-  discount,
-  colors,
-  url,
-}: Product) => {
-  const [currentVariant, setCurrentVariant] = useState<null | Variant>(null);
+const DetailComponent = ({ product, stock, stockLoading }: DetailProps) => {
+  const {
+    slug,
+    photo,
+    description,
+    base_price,
+    // category,
+    brand_name,
+    brand_logo,
+    discount,
+    colors,
+    url,
+  } = product;
+
+  // La variante est résolue dès l'état initial, pas dans un effet : sinon le
+  // serveur rend `slug` + description produit, puis l'hydratation les
+  // remplace par le nom et la description de la variante — d'où le titre et
+  // le texte qui "apparaissent" avec un temps de retard.
   const [currentColor, setCurrentColor] = useState<null | Color>(
-    colors[0]
+    colors[0] ?? null
+  );
+  const [currentVariant, setCurrentVariant] = useState<null | Variant>(
+    colors[0]?.variants?.[0] ?? null
   );
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+
+  /* ------------------------------------------------ stock temps réel */
+  const stockMap = useMemo(() => {
+    const map = new Map<number, number>();
+    stock?.variants.forEach((v) => map.set(v.id, v.quantity));
+    return map;
+  }, [stock]);
+
+  const qtyOf = (id?: number) => (id == null ? 0 : stockMap.get(id) ?? 0);
+
+  // Tant que le stock n'est pas chargé on n'affiche pas "rupture"
+  // (la page est servie en ISR, le stock arrive juste après l'hydratation).
+  const stockKnown = !stockLoading && stock !== null;
+  const currentQty = qtyOf(currentVariant?.id);
+  const outOfStock = stockKnown && stock!.total_quantity === 0;
+  const variantOut = stockKnown && currentQty === 0;
 
   //set default variant
   useEffect(() => {
@@ -143,6 +172,10 @@ const DetailComponent = ({
   //REDUX TOOLKIT
   const dispatch = useDispatch();
   const { cart, dialog } = useSelector((state: RootState) => state.cart);
+  // quantité déjà dans le panier pour la variante affichée
+  const cartQty =
+    cart?.find((item) => item.id == currentVariant?.id)?.quantity ?? 0;
+  const maxReached = stockKnown && currentQty > 0 && cartQty >= currentQty;
   //prevent scrolling
 
   useEffect(() => {
@@ -162,8 +195,8 @@ const [loadImage,setLoadImage]=useState(true)
 
       <div
       className={clsx(
-        +allQ == 0 && "opacity-[0.8]",
-        currentVariant?.quantity == 0 || (!currentVariant && "opacity-[0.5]"),
+        outOfStock && "opacity-[0.8]",
+        variantOut && "opacity-[0.5]",
         "p-padding lg:px-paddingPC pb-32 "
       )}
     >
@@ -190,11 +223,14 @@ const [loadImage,setLoadImage]=useState(true)
                    {loadImage&& <div className="absolute bg-white inset-0 flexCenter ">
 <div className="border-2 border-t-main w-5 h-5 rounded-full animate-spin"/>
                     </div>}
-                    <Image 
-                    onLoad={()=>setLoadImage(true)}
-                      loading="lazy"
-                      fill 
-                      sizes="500px"
+                    <Image
+                    onLoad={()=>setLoadImage(false)}
+                    onError={()=>setLoadImage(false)}
+                      // Image principale = élément LCP de la fiche produit :
+                      // en lazy elle n'était demandée qu'après hydratation.
+                      priority
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 500px"
                       src={imageSrc(
                         currentColor?.images[currentIndex] || photo
                       )}
@@ -223,7 +259,7 @@ const [loadImage,setLoadImage]=useState(true)
                   </>
                 </div>
 
-                {discount !== null && +allQ > 0 && (
+                {discount !== null && !outOfStock && (
                   <span className="bg-[red] select-none font-A  text-white p-2  absolute top-2 right-2 rounded-xl">
                     Promo -{discount}%
                   </span>
@@ -256,10 +292,10 @@ const [loadImage,setLoadImage]=useState(true)
           </div>
 
           <div className="w-full font-A flex-col gap-y-5 flex">
-            {+allQ == 0 && (
-              <h1 className="text-xl font-bold bg-[#ff8c8cb0] w-fit p-2 rounded-2xl text-[red] font-B uppercase tracking-wider">
+            {outOfStock && (
+              <p className="text-xl font-bold bg-[#ff8c8cb0] w-fit p-2 rounded-2xl text-[red] font-B uppercase tracking-wider">
                 En rupture de stock
-              </h1>
+              </p>
             )}{" "}
             <div title={brand_name} className="flex flex-col gap-y-1">
               <Image
@@ -285,9 +321,9 @@ const [loadImage,setLoadImage]=useState(true)
             {/* couleurs */}
             {colors?.length > 0 && (
               <div className="flex flex-col gap-y-5">
-                <h1 className="font-B font-medium text-grey">
+                <h2 className="font-B font-medium text-grey">
                   Choisissez votre Couleur
-                </h1>
+                </h2>
                 <div className="grid grid-cols-2 md:grid-cols-3  gap-5">
                   {colors?.map((color) => (
                     <CardColor
@@ -331,16 +367,16 @@ const [loadImage,setLoadImage]=useState(true)
               <>
                 <hr />
                 <div className="flex flex-col gap-y-5">
-                  <h1 className="font-B font-medium text-grey">
+                  <h2 className="font-B font-medium text-grey">
                     Choisissez votre Variante
-                  </h1>
+                  </h2>
                   <div className="grid grid-cols-2  gap-5">
                     {currentColor?.variants.map((item) => (
                       <div
                         onClick={() => setCurrentVariant(item)}
                         key={item.id}
                         className={clsx(
-                          item.quantity == 0 && "opacity-[0.5]",
+                          stockKnown && qtyOf(item.id) == 0 && "opacity-[0.5]",
                           currentVariant?.id == item.id && "border-main",
                           "flex items-center justify-between  bg-gray-hover cursor-pointer select-none rounded-xl p-5 font-A flex-col text-xs text-blk gap-y-1 border-2"
                         )}
@@ -368,11 +404,9 @@ const [loadImage,setLoadImage]=useState(true)
             )}
             {/* )} */}
             {/* ICON TITLE */}
-            <div
-              className={clsx(currentVariant?.quantity == 0 && "opacity-[0.5]")}
-            >
+            <div className={clsx(variantOut && "opacity-[0.5]")}>
               <IconTitle title="Retirer en magasin" icon="Storefront">
-                {currentVariant?.quantity ? (
+                {!variantOut ? (
                   <p className="text-second font-B">
                     Nous ne sommes pas que virtuel.{" "}
                     <a
@@ -389,7 +423,7 @@ const [loadImage,setLoadImage]=useState(true)
               </IconTitle>
               <hr />
               <IconTitle title="Livraison à domicile" icon="Truck">
-                {currentVariant?.quantity ? (
+                {!variantOut ? (
                   <p className="text-main font-B"></p>
                 ) : (
                   <span className="font-B text-[red]">Non disponible</span>
@@ -399,15 +433,15 @@ const [loadImage,setLoadImage]=useState(true)
             {/* SUMMARy */}
             <div
               className={clsx(
-                currentVariant?.quantity == 0 && "opacity-[0.5]",
+                variantOut && "opacity-[0.5]",
                 "flex flex-col gap-y-3 bg-[#f4f4f4] p-3 rounded-2xl"
               )}
             >
               <div className="flex  flex-col">
                 <div className="flex flex-col gap-y-2">
-                  <h1 className="font-D text-lg">
+                  <h2 className="font-D text-lg">
                     {currentVariant?.name || slug}
-                  </h1>
+                  </h2>
                 </div>
                 <div className="flex justify-between gap-5 items-center">
                   <div className="flex flex-col">
@@ -426,7 +460,7 @@ const [loadImage,setLoadImage]=useState(true)
                   </div>
 
                   <span>
-                    {discount != null && +allQ > 0
+                    {discount != null && !outOfStock
                       ? PriceFormat(
                           calculNewPrice(
                             Number(discount),
@@ -444,7 +478,7 @@ const [loadImage,setLoadImage]=useState(true)
                 <span className="uppercase font-bold text-xl">Total</span>
                 <div>
                   <p className="font-B text-2xl">
-                    {discount != null && +allQ > 0
+                    {discount != null && !outOfStock
                       ? PriceFormat(
                           calculNewPrice(
                             Number(discount),
@@ -468,7 +502,7 @@ const [loadImage,setLoadImage]=useState(true)
                         id: currentVariant?.id,
                         color: currentColor?.name,
                         photo: currentColor?.images[0],
-                        max: currentVariant?.quantity,
+                        max: currentQty,
                         name: currentVariant?.name,
                         price:
                           discount != null
@@ -484,20 +518,15 @@ const [loadImage,setLoadImage]=useState(true)
                   }
                 }}
                 title={
-                  cart?.find((item) => item.id == currentVariant?.id)
-                    ?.quantity === currentVariant?.quantity
+                  maxReached
                     ? "tu as atteint la quantité maximale disponible pour ce produit"
                     : ""
                 }
                 disabled={
-                  currentVariant?.quantity == 0 ||
-                  +allQ == 0 ||
-                  cart?.find((item) => item.id == currentVariant?.id)
-                    ?.quantity == currentVariant?.quantity
+                  !currentVariant || stockLoading || variantOut || maxReached
                 }
                 className={clsx(
-                  cart?.find((item) => item.id == currentVariant?.id)
-                    ?.quantity === currentVariant?.quantity
+                  maxReached
                     ? "opacity-[0.6] cursor-not-allowed bg-main hover:bg-main active:bg-main "
                     : "bg-main bg-main-hover",
                   " text-white mx-auto kinatech-btn  font-D w-fit md:w-full px-2 "
@@ -507,7 +536,11 @@ const [loadImage,setLoadImage]=useState(true)
                   {" "}
                   <Icon name="ShoppingBag" />
                 </span>
-                Ajouter au panier
+                {stockLoading
+                  ? "Vérification du stock..."
+                  : variantOut
+                  ? "Indisponible"
+                  : "Ajouter au panier"}
               </button>
               {/* //   :<Link href={'/cart'}
               

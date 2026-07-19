@@ -8,6 +8,7 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import Image from "next/image";
 import { imageSrc } from "@/lib/getSrc";
 import { brand } from "@/hooks/useBrands";
+import { brandSlug } from "@/lib/slug";
 
 const Brands = ({brands}:{brands:brand[]}) => {
   // const { data: brands } = useBrands();
@@ -36,7 +37,7 @@ const Brands = ({brands}:{brands:brand[]}) => {
             <SwiperSlide key={index} className="  ">
               <Link
                 className=" h-full flexCenter mx-auto    "
-                href={`/products_categories?brand=${item.name}`}
+                href={`/marque/${brandSlug(item.name)}`}
               >
                 <Image
                   

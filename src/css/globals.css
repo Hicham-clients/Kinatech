@@ -71,8 +71,24 @@
 .error-input {
   @apply text-red-500 text-xs tracking-wide font-A pl-2;
 }
+/* Hover global de tous les boutons du site : léger soulèvement + ombre,
+   retour à plat au clic. Chaque bouton garde sa propre couleur, seul le
+   comportement au survol est mutualisé. Neutralisé quand le bouton est
+   désactivé, et sous prefers-reduced-motion. */
 .kinatech-btn{
-  @apply  font-A select-none  px-6 py-2  text-white text-base font-bold rounded-lg  flex justify-center items-center gap-x-2  tracking-wider  
+  @apply font-A select-none px-6 py-2 text-white text-base font-bold rounded-lg
+         flex justify-center items-center gap-x-2 tracking-wider
+         transition-all duration-200
+         sm:hover:-translate-y-0.5 sm:hover:shadow-lg sm:hover:brightness-105
+         active:translate-y-0 active:shadow-md active:scale-[0.99]
+         disabled:hover:translate-y-0 disabled:hover:shadow-none
+         disabled:hover:brightness-100 disabled:active:scale-100;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kinatech-btn {
+    @apply sm:hover:translate-y-0 active:scale-100;
+  }
 }
 
 /* brands */ 
@@ -171,3 +187,93 @@
 
 
 
+
+/* ---------------------------------- Bouton "shine" (lien Promotions) */
+.btn-shine {
+  @apply relative inline-flex items-center gap-1 overflow-hidden rounded-full
+         bg-gradient-to-r from-[#ff3b3b] to-[#ff7a18] px-4 py-1.5
+         font-D text-white shadow-md;
+}
+
+/* Le reflet qui balaye le bouton */
+.btn-shine::after,
+.whatsapp-logo::after
+ {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.65),
+    transparent
+  );
+  transform: skewX(-20deg);
+  animation: btn-shine-sweep 2.8s ease-in-out infinite;
+}
+
+.btn-shine:hover {
+  @apply shadow-lg brightness-110;
+}
+
+@keyframes btn-shine-sweep {
+  0%   { left: -150%; }
+  60%  { left: 150%; }
+  100% { left: 150%; }
+}
+
+/* Respect des préférences d'accessibilité */
+@media (prefers-reduced-motion: reduce) {
+  .btn-shine::after {
+    animation: none;
+  }
+}
+
+/* ------------------------------- Sections premium (Apple / Gaming) */
+
+/* Grille fine, estompée vers le bas — donne de la profondeur au banner */
+.premium-grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 0%, #000 35%, transparent 100%);
+  mask-image: radial-gradient(ellipse 75% 65% at 50% 0%, #000 35%, transparent 100%);
+}
+
+/* Fines lignes horizontales, effet écran pour la section gaming */
+.gamer-scanlines {
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(34, 211, 238, 0.05) 0px,
+    rgba(34, 211, 238, 0.05) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+}
+
+/* Texte en dégradé (titres des banners) */
+.text-gradient {
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Liseré lumineux en haut du banner */
+.premium-hairline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.5),
+    transparent
+  );
+}

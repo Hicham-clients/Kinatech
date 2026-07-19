@@ -4,6 +4,7 @@ import CardProductLoading from "@/skeletons/CardProductLoading";
 import Link from "next/link";
 import { Product } from "@/hooks/useCategories";
 import { animationOfParent } from "@/animations/variants";
+import Icon from "@/components/IconComponent";
 import { motion } from "framer-motion";
 const isLoading = false;
 type Props = {
@@ -11,22 +12,19 @@ type Props = {
 };
 const Latest = ({ data }: Props) => {
   return (
-    <div className="px-paddingPhone  lg:px-paddingPC py-20  bg-[url('/images/bg.webp')]  rounded-t-[40px] bg-cover">
+    <div className="px-paddingPhone  lg:px-paddingPC py-28  bg-[#f4f4f4]  rounded-t-[40px] bg-cover">
       <div className="kinatech-container flex flex-col gap-y-10  ">
         <div className="w-fit  ">
-          <div className="relative text-white font-D text-2xl lg:text-3xl tracking-wide  text-blk">
+          <div className="relative text-black font-D text-2xl lg:text-3xl tracking-wide  text-blk">
             Nouve<span className="">autées</span>
-            <div className="h-1 w-full  border via-main to-blk  absolute flex -bottom-2 left-0">
-              {/* <span className="w-full h-full bg-main"></span>
-<span className="w-full h-full bg-blk"></span> */}
-            </div>
+            <div className="h-1 w-full  border bg-black  absolute flex -bottom-2 left-0"/>
           </div>
         </div>
         <motion.div
           initial="hidden"
           whileInView="visible"
-          variants={animationOfParent} 
-      viewport={{ once: true, amount: 0.3 }}
+          variants={animationOfParent}
+          viewport={{ once: true, amount: 0.3 }}
           className="containerGridCase2 grid  gap-10 grid-cols-1 sm:grid-cols-2  lg:grid-cols-4"
         >
           {isLoading
@@ -38,9 +36,12 @@ const Latest = ({ data }: Props) => {
         <div className="flexCenter">
           <Link
             href={"/products_categories"}
-            className="bg-white text-blk p-2 rounded-lg font-D px-5 scale-minus-hover   w-fit"
+            className="kinatech-btn w-fit bg-main bg-main-hover font-D text-white shadow-lg shadow-black/10"
           >
-            Voir les produits{" "}
+            Voir les produits
+            <span className="text-xl">
+              <Icon name="ArrowRight" />
+            </span>
           </Link>
         </div>
       </div>

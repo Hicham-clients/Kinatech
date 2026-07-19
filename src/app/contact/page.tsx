@@ -1,12 +1,12 @@
 import { Metadata } from "next"
+import { SITE_URL } from "@/lib/seo"
 import ContactForm from "./_components/form"
 export const metadata:Metadata={
-  title:{
-    template:"%s | Contactez-Nous", 
-    default:"Contactez-Nous"
-  }, 
-
-  description:"Nous serions ravis d’avoir de vos nouvelles. Remplissez le formulaire ci‑dessous et nous vous répondrons dès que possible"
+  title:"Contactez-nous",
+  description:"Une question sur un produit ou une commande ? Contactez l'équipe Kinatech, nous vous répondons rapidement.",
+  alternates:{
+    canonical:`${SITE_URL}/contact`
+  }
 }
 const Contact = () => {
   return (

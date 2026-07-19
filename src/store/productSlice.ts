@@ -39,6 +39,13 @@ interface CartState {
     product: Cart | null;
   };
   showSummary: boolean;
+  /**
+   * Passe à true juste après une commande enregistrée. Le layout du panier
+   * masque ses enfants dès que le panier est vide : sans ce drapeau, vider
+   * le panier après la commande remplacerait l'écran de confirmation par
+   * la page "panier vide".
+   */
+  orderConfirmed: boolean;
 }
 
 const initialState: CartState = {
@@ -48,6 +55,7 @@ const initialState: CartState = {
     product: null,
   },
   showSummary: true,
+  orderConfirmed: false,
 };
 
 const CartSlice = createSlice({
@@ -114,6 +122,11 @@ const CartSlice = createSlice({
     ToggleSummary: (state, action: PayloadAction<boolean>) => {
       state.showSummary = action.payload;
     },
+    // Commande enregistrée : on garde la page de confirmation visible
+    // même si le panier vient d'être vidé.
+    setOrderConfirmed: (state, action: PayloadAction<boolean>) => {
+      state.orderConfirmed = action.payload;
+    },
   },
 });
 
@@ -126,5 +139,6 @@ export const {
   Decrease,
   hiddenDialog,
   ViderCart,
+  setOrderConfirmed,
 } = CartSlice.actions;
 export default CartSlice.reducer;

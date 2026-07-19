@@ -7,13 +7,13 @@ const nextConfig: NextConfig = {
      remotePatterns: [
       {
         protocol: "https",
-        hostname:"admin.kinatech.ma",
+        hostname:"localhost",
         pathname: "/**",
       },
       
     ]
   },
-  // //  images: {
+  //  images: {
   //    remotePatterns: [
   //     {
   //       protocol: "http",

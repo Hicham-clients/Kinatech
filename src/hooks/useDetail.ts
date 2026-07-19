@@ -1,14 +1,11 @@
 import { axiosInstance } from "@/lib/axios";
 import { useQuery } from "@tanstack/react-query";
 
-//Variant
+//Variant — données STATIQUES uniquement (le stock vient de /stock)
 export interface Variant {
   id: number;
   name: string;
   price: string;
-  quantity: number;
-  ram: string;
-  capacity: string;
   custom_variant: string;
   description: string;
 }
@@ -26,7 +23,6 @@ export interface Product {
   id: number;
   slug: string;
   url: string;
-  allQ: string; 
   photo: string;
   description: string;
   base_price: string;

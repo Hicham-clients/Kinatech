@@ -5,14 +5,14 @@ import { Navigation, Pagination } from "swiper/modules";
 import SecondCardProduct from "@/app/products_categories/_components/SecondCardProduct";
 import { Promos } from "@/hooks/usePromos";
 import SecondCardLoading from "@/skeletons/SecondCardLoading";
-type Props={
-  data:Promos[]
-} 
-const isLoading=false
-const WeekPromos = ({data}:Props) => {
+type Props = {
+  data: Promos[];
+};
+const isLoading = false;
+const WeekPromos = ({ data }: Props) => {
   if (isLoading) {
     return (
-      <div className="px-paddingPhone  lg:px-paddingPC py-20  ">
+      <div className="px-paddingPhone  lg:px-paddingPC py-28  ">
         <div className="kinatech-container flex flex-col gap-y-5  ">
           <div className="w-fit">
             <div className="h-8 w-64 bg-gray-200 rounded-md relative overflow-hidden">
@@ -22,7 +22,7 @@ const WeekPromos = ({data}:Props) => {
           <div className="pt-padding ">
             <Swiper
               className="overflow-visible  flex  "
-               modules={[Navigation, Pagination]}
+              modules={[Navigation, Pagination]}
               navigation
               loop
               spaceBetween={20}
@@ -39,9 +39,9 @@ const WeekPromos = ({data}:Props) => {
                 },
               }}
             >
-              {[...Array(4)].map((_,index) => (
+              {[...Array(4)].map((_, index) => (
                 <SwiperSlide key={index} className="pb-16">
-                  <SecondCardLoading  />
+                  <SecondCardLoading />
                 </SwiperSlide>
               ))}
             </Swiper>
@@ -52,7 +52,7 @@ const WeekPromos = ({data}:Props) => {
   }
   return (
     (data ?? [])?.length > 0 && (
-      <div className="px-paddingPhone  lg:px-paddingPC py-20  ">
+      <div className="px-paddingPhone  lg:px-paddingPC py-28  ">
         <div className="kinatech-container flex flex-col gap-y-5  ">
           <div className="w-fit  ">
             <h1 className=" font-D text-2xl lg:text-3xl tracking-wide  text-blk">

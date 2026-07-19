@@ -1,16 +1,19 @@
 "use client";
 import { brand, useBrands } from "@/hooks/useBrands";
 import { Category, useMenuCategories } from "@/hooks/useMenuCategories";
+import type { PriceRange as PriceRangeType } from "@/lib/fetchFunction";
+import PriceRange from "./PriceRange";
 import clsx from "clsx";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, CaretRight, MagnifyingGlass } from "phosphor-react";
 import { useEffect, useState } from "react"; 
 type props={
-  categories:Category[] , 
-  brands:brand[]
+  categories:Category[] ,
+  brands:brand[],
+  priceBounds:PriceRangeType
 }
-const Filter = ({categories:data,brands}:props) => {
+const Filter = ({categories:data,brands,priceBounds}:props) => {
   // fetch data 
   const isLoading=false 
 
@@ -48,8 +51,11 @@ const Filter = ({categories:data,brands}:props) => {
   // search params
 
   const searchParams = useSearchParams();
-  const [value, setValue] = useState("");
-  const [debouncedValue, setDebouncedValue] = useState(value);
+  // La valeur initiale vient de l'URL : sinon un rechargement avec ?search=
+  // vide le champ tout en gardant le filtre actif.
+  const urlSearch = searchParams.get("search") ?? "";
+  const [value, setValue] = useState(urlSearch);
+  const [debouncedValue, setDebouncedValue] = useState(urlSearch);
   //debounced Value
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -57,21 +63,35 @@ const Filter = ({categories:data,brands}:props) => {
     }, 300);
     return () => clearTimeout(timer);
   }, [value]);
+
   useEffect(() => {
+    // Cet effet dépend de `searchParams` ET le modifie via router.push().
+    // Sans ce garde-fou, chaque push relance l'effet qui repousse à
+    // l'identique : navigation en boucle et re-render permanent de la liste.
+    if (debouncedValue === urlSearch) return;
+
     const params = new URLSearchParams(searchParams);
-  if (debouncedValue) {
-    params.set("search", debouncedValue);
-  } else {
-    params.delete("search");
-  }    router.push(`/products_categories?${params.toString()}`);
-  }, [debouncedValue,router,searchParams]);
+
+    if (debouncedValue) {
+      params.set("search", debouncedValue);
+    } else {
+      params.delete("search");
+    }
+    // Un changement de recherche renvoie à la première page
+    params.delete("page");
+
+    router.push(`/products_categories?${params.toString()}`);
+  }, [debouncedValue, urlSearch, router, searchParams]);
   return (
     <div className="select-none w-full md:w-1/2 p-3 bg-white h-fit overflow-y-auto rounded-2xl overflow-hidden lg:w-1/2 font-A lg:sticky top-20  border-white border-b-[1rem]">
       <div className="flex flex-col gap-3 ">
         <div className="flex relative flex-col gap-y-1 rounded-lg overflow-hidden">
           <input
+            value={value}
             onChange={(e) => {
-              setValue(e.target.value.trim());
+              // Pas de trim() ici : il empêcherait de taper une espace
+              // entre deux mots. Le trim se fait au moment du debounce.
+              setValue(e.target.value);
             }}
             placeholder="Rechercher"
             name="name"
@@ -173,6 +193,7 @@ const Filter = ({categories:data,brands}:props) => {
             </select>
           </div>
         )}
+        <PriceRange bounds={priceBounds} />
       </div>
     </div>
   );

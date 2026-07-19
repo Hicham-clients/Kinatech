@@ -3,6 +3,10 @@ module.exports = {
   content: ["./src/**/*.{html,js,tsx,ts}"],
   theme: {
     extend: {
+      screens: {
+        // Très petits mobiles : la barre du bas passe en icônes réduites
+        xs: "400px",
+      },
       padding: {
         paddingPC: "var(--paddingPC)",
         paddingPhone: "var(--paddingPhone)",
